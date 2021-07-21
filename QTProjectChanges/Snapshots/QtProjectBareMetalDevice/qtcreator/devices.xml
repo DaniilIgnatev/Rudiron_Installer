@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE QtCreatorDevices>
+<!-- Written by QtCreator 4.13.1, 2021-06-27T08:39:36. -->
+<qtcreator>
+ <data>
+  <variable>DeviceManager</variable>
+  <valuemap type="QVariantMap">
+   <valuemap type="QVariantMap" key="DefaultDevices">
+    <value type="QString" key="BareMetalOsType">{02cd2600-7616-4c78-b8ee-7c0861e99e4a}</value>
+    <value type="QString" key="Desktop">Desktop Device</value>
+   </valuemap>
+   <valuelist type="QVariantList" key="DeviceList">
+    <valuemap type="QVariantMap">
+     <value type="int" key="Authentication">0</value>
+     <value type="QString" key="DebugServerKey"></value>
+     <valuemap type="QVariantMap" key="ExtraData"/>
+     <value type="QString" key="FreePortsSpec">30000-31000</value>
+     <value type="QString" key="Host"></value>
+     <value type="int" key="HostKeyChecking">2</value>
+     <value type="QString" key="InternalId">Desktop Device</value>
+     <value type="QString" key="KeyFile"></value>
+     <value type="int" key="Origin">1</value>
+     <value type="QString" key="OsType">Desktop</value>
+     <value type="QString" key="QmlsceneKey"></value>
+     <value type="int" key="SshPort">0</value>
+     <value type="int" key="Timeout">0</value>
+     <value type="int" key="Type">0</value>
+     <value type="QString" key="Uname"></value>
+     <value type="int" key="Version">0</value>
+    </valuemap>
+    <valuemap type="QVariantMap">
+     <value type="int" key="Authentication">0</value>
+     <value type="QString" key="DebugServerKey"></value>
+     <valuemap type="QVariantMap" key="ExtraData"/>
+     <value type="QString" key="FreePortsSpec">10000-10100</value>
+     <value type="QString" key="Host"></value>
+     <value type="int" key="HostKeyChecking">2</value>
+     <value type="QString" key="IDebugServerProviderId">BareMetal.GdbServerProvider.OpenOcd:{cd6d56fd-2070-49b7-ab01-f8df06d07844}</value>
+     <value type="QString" key="InternalId">{02cd2600-7616-4c78-b8ee-7c0861e99e4a}</value>
+     <value type="QString" key="KeyFile"></value>
+     <value type="QString" key="Name">1986be92qi</value>
+     <value type="int" key="Origin">0</value>
+     <value type="QString" key="OsType">BareMetalOsType</value>
+     <value type="QString" key="QmlsceneKey"></value>
+     <value type="int" key="SshPort">0</value>
+     <value type="int" key="Timeout">0</value>
+     <value type="int" key="Type">0</value>
+     <value type="QString" key="Uname"></value>
+     <value type="int" key="Version">0</value>
+    </valuemap>
+   </valuelist>
+  </valuemap>
+ </data>
+</qtcreator>

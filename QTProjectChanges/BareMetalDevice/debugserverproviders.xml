@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE QtCreatorDebugServerProviders>
+<!-- Written by QtCreator 4.13.1, 2021-06-27T08:39:36. -->
+<qtcreator>
+ <data>
+  <variable>DebugServerProvider.0</variable>
+  <valuemap type="QVariantMap">
+   <value type="QString" key="BareMetal.GdbServerProvider.InitCommands">set remote hardware-breakpoint-limit 6
+set remote hardware-watchpoint-limit 4
+monitor reset halt
+load
+monitor reset halt
+</value>
+   <value type="int" key="BareMetal.GdbServerProvider.Mode">0</value>
+   <value type="QString" key="BareMetal.GdbServerProvider.PeripheralDescriptionFile">C:/DIBot/MDR32F9Q1.svd</value>
+   <value type="QString" key="BareMetal.GdbServerProvider.ResetCommands">monitor reset halt
+</value>
+   <value type="bool" key="BareMetal.GdbServerProvider.UseExtendedRemote">false</value>
+   <value type="QString" key="BareMetal.IDebugServerProvider.DisplayName">OpenOCD_1986be92qi</value>
+   <value type="int" key="BareMetal.IDebugServerProvider.EngineType">1</value>
+   <value type="QString" key="BareMetal.IDebugServerProvider.Id">BareMetal.GdbServerProvider.OpenOcd:{cd6d56fd-2070-49b7-ab01-f8df06d07844}</value>
+   <value type="QString" key="BareMetal.OpenOcdGdbServerProvider.AdditionalArguments"></value>
+   <value type="QString" key="BareMetal.OpenOcdGdbServerProvider.ConfigurationPath">C:/DIBot/openocd/share/openocd/scripts/interface/1986be92_jlink.cfg</value>
+   <value type="QString" key="BareMetal.OpenOcdGdbServerProvider.ExecutableFile">C:/DIBot/openocd/bin/openocd.exe</value>
+   <value type="QString" key="BareMetal.OpenOcdGdbServerProvider.Host">localhost</value>
+   <value type="int" key="BareMetal.OpenOcdGdbServerProvider.Port">3333</value>
+   <value type="QString" key="BareMetal.OpenOcdGdbServerProvider.RootScriptsDir">C:/DIBot/openocd/share/openocd/scripts</value>
+  </valuemap>
+ </data>
+ <data>
+  <variable>DebugServerProvider.Count</variable>
+  <value type="int">1</value>
+ </data>
+ <data>
+  <variable>Version</variable>
+  <value type="int">1</value>
+ </data>
+</qtcreator>

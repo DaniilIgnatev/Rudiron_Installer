@@ -5,7 +5,7 @@ import "contentUI"
 RowLayout  {
     id: installerui_root
     anchors.fill: parent
-    spacing: 5
+    spacing: 20
 
     property bool licenceAccepted: false
 
@@ -20,8 +20,12 @@ RowLayout  {
 
     Item{
         id: installerui_content
+        Layout.bottomMargin: 10
+        Layout.topMargin: 10
         Layout.fillWidth: true
         Layout.fillHeight: true
+
+
 
         function updateContent(qmlStr, stagesModel){
             var component = Qt.createComponent(qmlStr)
@@ -50,11 +54,18 @@ RowLayout  {
                 }
             }
         }
+
+        OverviewUI {
+            id: overviewUI
+            anchors.fill: parent
+            anchors.rightMargin: 0
+            anchors.leftMargin: 0
+        }
     }
 }
 
 /*##^##
 Designer {
-    D{i:0;autoSize:true;height:600;width:800}D{i:1}D{i:2}
+    D{i:0;autoSize:true;height:600;width:800}D{i:1}D{i:3}D{i:2}
 }
 ##^##*/

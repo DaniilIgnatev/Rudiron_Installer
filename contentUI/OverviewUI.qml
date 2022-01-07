@@ -45,17 +45,16 @@ ColumnLayout{
 
     Text{
         id: textOverview
-        text: "<b>Описание</b> <i>продукта.</i>"
-        horizontalAlignment: Text.AlignLeft
-        verticalAlignment: Text.AlignTop
+        text: "<b>Описание</b> <i>продукта.</i><b>Описание</b> <i>продукта.</i><b>Описание</b> <i>продукта.</i><b>Описание</b> <i>продукта.</i><b>Описание</b> <i>продукта.</i><b>Описание</b> <i>продукта.</i><b>Описание</b> <i>продукта.</i><b>Описание</b> <i>продукта.</i><b>Описание</b> <i>продукта.</i><b>Описание</b> <i>продукта.</i>"
+
         wrapMode: Text.Wrap
+        padding: 10
         font.pointSize: 12
         fontSizeMode: Text.Fit
         textFormat: Text.RichText
         font.family: "Arial"
         Layout.fillHeight: true
         Layout.fillWidth: true
-        Layout.topMargin: 10
     }
 }
 
@@ -63,6 +62,6 @@ ColumnLayout{
 
 /*##^##
 Designer {
-    D{i:0;autoSize:true;formeditorZoom:0.6600000262260437;height:480;width:600}
+    D{i:0;autoSize:true;height:480;width:600}D{i:1}D{i:2}
 }
 ##^##*/

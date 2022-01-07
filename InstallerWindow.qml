@@ -23,7 +23,7 @@ import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
 
 
-ApplicationWindow {
+Window {
 
     id: app
     title: "Установщик ДИБот"
@@ -49,17 +49,12 @@ ApplicationWindow {
 
 
     InstallerUI{
-        anchors.fill: parent
-        anchors.rightMargin: 5
-        anchors.leftMargin: 5
-        anchors.bottomMargin: 5
-        anchors.topMargin: 5
-        spacing: 10
+
     }
 }
 
 /*##^##
 Designer {
-    D{i:0;autoSize:true;formeditorZoom:0.75;height:600;width:600}
+    D{i:0;autoSize:true;height:480;width:640}D{i:1}
 }
 ##^##*/

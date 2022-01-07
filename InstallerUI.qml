@@ -1,70 +1,60 @@
-/*
-Copyright (C) THEDATE Ignatev Daniil
-This file is part of DIBotInstaller <https://github.com/>.
+import QtQuick 2.0
+import QtQuick.Layouts 1.15
+import "contentUI"
 
-DIBotInstaller is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-DIBotInstaller is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with DIBotInstaller. If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-
-import QtQuick 2.12
-import QtQuick.Controls 2.12
-import QtQuick.Layouts 1.12
-
-
-
-RowLayout{
-    id: installerUI
-
+RowLayout  {
+    id: installerui_root
+    anchors.fill: parent
+    spacing: 5
 
     property bool licenceAccepted: false
 
-
-    TabBar{
-        id: tabBar
-
+    TabBar {
+        id: installerui_tabbar
         Layout.fillHeight: true
         Layout.fillWidth: false
-        Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
-        Layout.preferredWidth: 130
-    }
+        width: 120
 
-
-    Rectangle{
-        color: "#262730"
-        radius: 2
-        Layout.topMargin: 0
-        Layout.bottomMargin: Layout.topMargin
-        Layout.leftMargin: 2
-        Layout.rightMargin: Layout.leftMargin
-        Layout.preferredWidth: 2
-        Layout.fillHeight: true
     }
 
 
     Item{
-        id: tabContent
-
-        Layout.margins: 2
-
+        id: installerui_content
         Layout.fillWidth: true
         Layout.fillHeight: true
+
+        function updateContent(qmlStr, stagesModel){
+            var component = Qt.createComponent(qmlStr)
+
+            if (component !== null){
+                if (component.status === Component.Ready){
+                    for (var i = 0; i < this.children.length;i++){
+                        this.children[i].destroy()
+                    }
+
+                    if (stagesModel !== null){
+                        component.createObject(this, {
+                                                   width: this.width,
+                                                   height: this.height,
+                                                   imagesURLList: model.imagesURLList,
+                                                   hintList: model.hintList,
+                                                   installFunction: model.installFunction
+                                               })
+                    }
+                    else{
+                        component.createObject(this, {width: this.width, height: this.height})
+                    }
+                }
+                else if (component.status === Component.Error) {
+                    console.log("Error loading component:", component.errorString());
+                }
+            }
+        }
     }
 }
 
 /*##^##
 Designer {
-    D{i:0;autoSize:true;formeditorZoom:0.75;height:480;width:640}
+    D{i:0;autoSize:true;height:600;width:800}D{i:1}D{i:2}
 }
 ##^##*/

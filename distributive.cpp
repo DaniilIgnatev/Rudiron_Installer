@@ -28,7 +28,7 @@ Distributive::Distributive(QObject *parent) : QObject(parent)
 }
 
 
-const QString Distributive::dibotDirPath = QString("C:/DIBot");
+const QString Distributive::dibotDirPath = QString("C:/DIBotDistributive");
 
 
 const QString Distributive::debugPath = dibotDirPath + "/debug";
@@ -61,7 +61,7 @@ const QString Distributive::jlinkBinPath = softDirPath + "/JLink.exe";
 const QString Distributive::zadigBinPath = softDirPath + "/zadig.exe";
 
 
-const QString Distributive::gccDirPath = softDirPath + "/gcc";
+const QString Distributive::gccDirPath = softDirPath + "/gcc-arm-none-eabi";
 
 
 QDir Distributive::gccDir()

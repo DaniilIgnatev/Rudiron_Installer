@@ -21,9 +21,16 @@ along with DIBotInstaller. If not, see <http://www.gnu.org/licenses/>.
 import QtQuick 2.12
 import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
+import com.dibot 1.0
+import com.FileSystemAPI 1.0
+
 
 
 ColumnLayout{
+
+    FileSystemAPI{
+        id: file_system_api
+    }
 
     Component.onCompleted: {
         readOverviewFile()
@@ -31,16 +38,8 @@ ColumnLayout{
 
 
     function readOverviewFile(){
-        var xhr = new XMLHttpRequest;
-        xhr.open("GET", "overview.html"); // set Method and File
-        xhr.onreadystatechange = function () {
-            if(xhr.readyState === XMLHttpRequest.DONE){ // if request_status == DONE
-                var response = xhr.responseText;
-
-                textOverview.text = response
-            }
-        }
-        xhr.send(); // begin the request
+        var html = file_system_api.getFileContent(":/contentUI/overview.html")
+        textOverview.text = html
     }
 
 

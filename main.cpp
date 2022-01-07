@@ -27,7 +27,7 @@ along with DIBotInstaller. If not, see <http://www.gnu.org/licenses/>.
 #include <QQuickStyle>
 
 #include "installermenuvm.h"
-
+#include "filesystemapi.hpp"
 
 
 // Main wrapper program.
@@ -40,7 +40,7 @@ int main(int argc, char ** argv)
 
     // Register our component type with QML.
     qmlRegisterType<InstallerMenuVM>("com.dibot",1, 0,"InstallerMenuVM");
-
+    qmlRegisterType<FileSystemAPI>("com.FileSystemAPI",1, 0,"FileSystemAPI");
 
     QQmlApplicationEngine engine;
     QQmlComponent *component = new QQmlComponent(&engine);

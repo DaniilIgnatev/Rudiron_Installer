@@ -17,6 +17,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         distributive.cpp \
+        filesystemapi.cpp \
         installermenuvm.cpp \
         main.cpp \
         pugixml-master/src/pugixml.cpp \
@@ -37,6 +38,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 HEADERS += \
     distributive.h \
+    filesystemapi.hpp \
     installermenuvm.h \
     installstatus.h \
     pugixml-master/src/pugiconfig.hpp \

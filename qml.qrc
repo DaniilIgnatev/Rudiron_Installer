@@ -1,10 +1,9 @@
 <RCC>
     <qresource prefix="/">
         <file>InstallerWindow.qml</file>
-        <file>InstallerMenu.qml</file>
+        <file>Installer_Debug.qml</file>
         <file>TabBar.qml</file>
         <file>Tab.qml</file>
-        <file>InstallerUI.qml</file>
         <file>contentUI/OverviewUI.qml</file>
         <file>contentUI/LicenceUI.qml</file>
         <file>contentUI/StagesObserverUI.qml</file>
@@ -71,5 +70,6 @@
         <file>slides/guide/28.png</file>
         <file>slides/guide/29.png</file>
         <file>contentUI/overview.html</file>
+        <file>InstallerUI.qml</file>
     </qresource>
 </RCC>

@@ -32,7 +32,7 @@ import QtQuick.Layouts 1.12
 //indigoblue "#16425B"
 
 RowLayout{
-    id: layout
+    id: tab_root
 
     property int position: 0
 
@@ -138,7 +138,7 @@ RowLayout{
 
         onCheckedChanged: {
             if (checked){
-                layout.parent.selectedPos = layout.position
+                tab_root.parent.selectedPos = tab_root.position
 
                 state = "CHECKED"
                 console.log("tab button #" + position + " CHECKED state")
@@ -148,7 +148,7 @@ RowLayout{
                 console.log("tab button #" + position + " NORMAL state")
             }
 
-            layout.checked = checked
+            tab_root.checked = checked
         }
 
 
@@ -158,7 +158,7 @@ RowLayout{
     }
 
 //    Rectangle {
-//        visible: layout.statusEnabled
+//        visible: tab_root.statusEnabled
 //        Layout.fillWidth: false
 //        Layout.fillHeight: false
 //        Layout.preferredWidth: 1
@@ -168,8 +168,8 @@ RowLayout{
 //    }
 
 //    Rectangle{
-//        color: layout.installStatus ? "green" : "red"
-//        visible: layout.statusEnabled
+//        color: tab_root.installStatus ? "green" : "red"
+//        visible: tab_root.statusEnabled
 //        Layout.fillWidth: false
 //        Layout.fillHeight: false
 //        Layout.preferredWidth: 10

@@ -19,7 +19,8 @@ along with DIBotInstaller. If not, see <http://www.gnu.org/licenses/>.
 
 
 #include "installermenuvm.h"
-
+#include <windows.h>
+#include <QSettings>
 
 
 void InstallerMenuVM::runZadig()
@@ -116,77 +117,37 @@ void InstallerMenuVM::installDriver()
 
 void InstallerMenuVM::addPATH()
 {
-    /*
-     * QString defaultPath = "C:\\Qt\\Qt5.12.10\\5.12.10\\mingw73_64\\bin;"
-                          "C:\\Qt\\Qt5.12.10\\Tools\\mingw730_64\\bin;"
-                          "C:\\Qt\\Qt5.12.10\\5.12.10\\mingw73_64\\bin;"
-                          "C:\\Qt\\Qt5.12.10\\Tools\\mingw730_64\\bin;"
-                          "C:\\Windows\\System32;"
-                          "C:\\Users\\Professional\\AppData\\Local\\Microsoft\\WindowsApps;"
-                          "C:\\Users\\Professional\\AppData\\Local\\GitHubDesktop\\bin;"
-                          "C:\\Users\\Professional\\AppData\\Local\\Programs\\Microsoft VS Code\\bin;"
-                          "C:\\Users\\Professional\\.dotnet\\tools;"
-                          "C:\\Users\\Professional\\yandex-cloud\\bin;";
-    */
-
-    QProcessEnvironment e = QProcessEnvironment::systemEnvironment();
-    //    e.remove("Path");
-
-
-    //    qDebug() << "Path overriden with: " << defaultPath;
-    //    QProcess *proc1 = new QProcess;
-    //    QString prog1 = "setx";
-    //    QStringList args1{"Path", defaultPath};
-    //    proc1->start(prog1, args1);
-    //    proc1->waitForFinished();
-
-//    e = QProcessEnvironment::systemEnvironment();
-//    QString path = e.value("Path");
-//    qDebug() << path;
-    //    QFile* pathValueFile = Distributive::pathValueFile();
-    //    pathValueFile->open(QIODevice::WriteOnly | QIODevice::Text);
-    //    pathValueFile->write(path.toUtf8());
-    //    pathValueFile->close();
-    //    pathValueFile->deleteLater();
-
-    char *pValue;
-    size_t len;
-    errno_t err = _dupenv_s( &pValue, &len, "PATH" );
-    if (err) return;
-
-    QString path = QString(pValue);
-    qDebug() << "Path value: " << path;
+    QSettings registry("HKEY_CURRENT_USER\\Environment", QSettings::NativeFormat);
+    QString pathVal = registry.value("Path", "").toString();
+    qDebug() << "\nCurrent Path: " << pathVal;
 
     QString appendPath = "";
-
     QString gccFullPath = Distributive::absoluteDibotPath(Distributive::gccBinDirPath);
-    if (!path.contains(gccFullPath)){
+    if (!pathVal.contains(gccFullPath)){
+        appendPath.append(";");
         appendPath.append(gccFullPath);
-
     }
 
     QString openocdFullPath = Distributive::absoluteDibotPath(Distributive::openocd_binDirPath);
 
-    if (!path.contains(openocdFullPath)){
+    if (!pathVal.contains(openocdFullPath)){
         appendPath.append(";");
         appendPath.append(openocdFullPath);
 
     }
-    appendPath.append(";");
-    qDebug() << "Append Path: " << appendPath;
 
-    pathAdd(es_user, L"HELLO");
+    qDebug() << "\nAppend Path: " << appendPath;
 
-//    if (appendPath != ";"){
-//        QString newPath = appendPath + path;
-//        qDebug() << "New Path: " << newPath;
+    if (!appendPath.isEmpty()){
+        QString newPath = pathVal + appendPath;
+        qDebug() << "\nNew Path: " << newPath;
 
-//        QProcess *proc = new QProcess;
-//        QString prog = "setx";
-//        QStringList args{"PATH", "%PATH%" + newPath};
-//        proc->start(prog, args);
-//        proc->waitForFinished();
-//    }
+        QProcess *proc = new QProcess;
+        QString prog = "setx";
+        QStringList args{"PATH", newPath};
+        proc->start(prog, args);
+        proc->waitForFinished();
+    }
 }
 
 

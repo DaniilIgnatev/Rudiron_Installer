@@ -14,7 +14,6 @@
 #include "qqml.h"
 #include "distributive.h"
 #include "qtcreatorconfig.h"
-#include "editenv/editenv.hpp"
 
 
 class InstallerMenuVM : public QObject

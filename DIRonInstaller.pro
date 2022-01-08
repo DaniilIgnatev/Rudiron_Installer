@@ -17,8 +17,6 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         distributive.cpp \
-        editenv/EnvVar.cpp \
-        editenv/editenv.cpp \
         filesystemapi.cpp \
         installermenuvm.cpp \
         main.cpp \
@@ -40,8 +38,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 HEADERS += \
     distributive.h \
-    editenv/EnvVar.hpp \
-    editenv/editenv.hpp \
     editenv/editenvTypes.hpp \
     filesystemapi.hpp \
     installermenuvm.h \
@@ -60,6 +56,3 @@ DISTFILES += \
     pugixml-master/appveyor.yml \
     pugixml-master/readme.txt
 
-
-LIBS += -ladvapi32
-LIBS += -luser32

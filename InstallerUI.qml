@@ -9,12 +9,13 @@ RowLayout  {
 
     property bool licenceAccepted: false
 
+
     TabBar {
         id: installerui_tabbar
         Layout.fillHeight: true
         Layout.fillWidth: false
         width: 120
-
+        Layout.leftMargin: 10
     }
 
 
@@ -25,6 +26,9 @@ RowLayout  {
         Layout.fillWidth: true
         Layout.fillHeight: true
 
+        function getContent(){
+            return children[0]
+        }
 
 
         function updateContent(qmlStr, stagesModel){
@@ -36,17 +40,26 @@ RowLayout  {
                         this.children[i].destroy()
                     }
 
-                    if (stagesModel !== null){
+                    switch (qmlStr){
+                    case "contentUI/StagesObserverUI.qml":
                         component.createObject(this, {
                                                    width: this.width,
                                                    height: this.height,
-                                                   imagesURLList: model.imagesURLList,
-                                                   hintList: model.hintList,
-                                                   installFunction: model.installFunction
+                                                   imagesURLList: stagesModel.imagesURLList,
+                                                   hintList: stagesModel.hintList,
+                                                   installFunction: stagesModel.installFunction
                                                })
-                    }
-                    else{
+                        break
+                    case "contentUI/LicenceUI.qml":
+                        var view = component.createObject(this, {width: this.width, height: this.height})
+                        view.licenceAccepted = installerui_root.licenceAccepted
+                        view.licenceAcceptedSignal.connect((newValue) => {
+                            installerui_root.licenceAccepted = newValue
+                        })
+                        break
+                    default:
                         component.createObject(this, {width: this.width, height: this.height})
+                        break
                     }
                 }
                 else if (component.status === Component.Error) {

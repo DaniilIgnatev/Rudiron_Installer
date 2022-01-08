@@ -67,7 +67,9 @@ ColumnLayout{
         model: [{
                 imagesURLList: ["../slides/qtcreator/1.png", "../slides/qtcreator/2.png", "../slides/qtcreator/3.png", "../slides/qtcreator/4.png", "../slides/qtcreator/5.png", "../slides/qtcreator/6.png", "../slides/qtcreator/7.png", "../slides/qtcreator/8.png", "../slides/qtcreator/9.png"],
                 hintList: ["Нажмите \"Next\"", "Нажмите \"Next\"", "Нажмите \"Далее\"", "Нажмите \"Далее\"", "Нажмите \"Далее\"", "Нажмите \"Далее\"", "Нажмите \"Далее\"", "Нажмите \"Далее\"", "Нажмите \"Установить\""],
-                installFunction: function(){console.log("Install QT Creator"); installerVM.installQTCreator()}
+                installFunction: function(){
+                    console.log("Install QT Creator");
+                    installerVM.installQTCreator()}
             }]
     }
 
@@ -81,7 +83,10 @@ ColumnLayout{
         model: [{
                 imagesURLList: ["../slides/jlink/1.png", "../slides/jlink/2.png", "../slides/jlink/3.png", "../slides/jlink/4.png", "../slides/jlink/5.png", "../slides/zadig/1.png", "../slides/zadig/2.png", "../slides/zadig/3.png", "../slides/zadig/4.png"],
                 hintList: ["Нажмите \"Next\"", "Нажмите \"I Agree\"", "Нажмите \"Install\"", "Нажмите \"Ok\"", "Нажмите \"Finish\"", "Нажмите \"Options\"", "Нажмите \"List All Devices\"", "Выберите устройство \"BULK interface\" и драйвер \"WinUSB\", нажмите \"Replace Driver\"", "Процесс замены драйвера займет продолжительное время"],
-                installFunction: function(){console.log("Install Driver"); installerVM.installDriver()}
+                installFunction: function(){
+                    console.log("Install Driver");
+                    installerVM.installDriver()
+                }
             }]
     }
 
@@ -95,7 +100,10 @@ ColumnLayout{
         model: [{
                 imagesURLList: ["../slides/python27/1.png", "../slides/python27/2.png", "../slides/python27/3.png", "../slides/python27/4.png"],
                 hintList: ["Нажмите \"Next\"", "Нажмите \"Next\"", "Нажмите \"Next\"", "Нажмите \"Finish\""],
-                installFunction: function(){console.log("Install Python27"); installerVM.installPython()}
+                installFunction: function(){
+                    console.log("Install Python27");
+                    installerVM.installPython()
+                }
             }]
     }
 
@@ -160,7 +168,7 @@ ColumnLayout{
 
 
     function tabChecked(pos){
-        console.log("tab" + pos + " checked")
+//        console.log("tab" + pos + " checked")
 
         for (var i = 0; i < tabs.length; i++){
             var tab = tabs[i];
@@ -193,6 +201,7 @@ ColumnLayout{
 
 /*##^##
 Designer {
-    D{i:0;autoSize:true;formeditorZoom:0.75;height:620;width:130}D{i:1}
+    D{i:0;autoSize:true;formeditorZoom:0.75;height:620;width:130}D{i:1}D{i:2}D{i:3}D{i:4}
+D{i:5}D{i:6}D{i:7}D{i:8}D{i:9}
 }
 ##^##*/

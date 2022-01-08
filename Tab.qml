@@ -126,11 +126,11 @@ RowLayout{
             if (!checked){
                 if (button.hovered){
                     state = "HOVER"
-                    console.log("tab button #" + position + " HOVER state")
+//                    console.log("tab button #" + position + " HOVER state")
                 }
                 else{
                     state = "NORMAL"
-                    console.log("tab button #" + position + " NORMAL state")
+//                    console.log("tab button #" + position + " NORMAL state")
                 }
             }
         }
@@ -141,11 +141,11 @@ RowLayout{
                 tab_root.parent.selectedPos = tab_root.position
 
                 state = "CHECKED"
-                console.log("tab button #" + position + " CHECKED state")
+//                console.log("tab button #" + position + " CHECKED state")
             }
             else{
                 state = "NORMAL"
-                console.log("tab button #" + position + " NORMAL state")
+//                console.log("tab button #" + position + " NORMAL state")
             }
 
             tab_root.checked = checked
@@ -187,6 +187,6 @@ RowLayout{
 
 /*##^##
 Designer {
-    D{i:0;height:50;width:100}
+    D{i:0;height:50;width:100}D{i:1}
 }
 ##^##*/

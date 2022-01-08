@@ -26,7 +26,7 @@ import QtQuick.Layouts 1.12
 Window {
 
     id: app
-    title: "Установщик ДИБот"
+    title: "Установщик ДИРОН"
     visible: true
 
     minimumWidth: 800
@@ -55,6 +55,6 @@ Window {
 
 /*##^##
 Designer {
-    D{i:0;autoSize:true;height:480;width:640}D{i:1}
+    D{i:0;autoSize:true;height:600;width:800}D{i:1}
 }
 ##^##*/

@@ -1,13 +1,27 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.15
 import "contentUI"
+import com.dibot 1.0
 
 RowLayout  {
     id: installerui_root
     anchors.fill: parent
     spacing: 20
 
-    property bool licenceAccepted: true
+    property bool licenceAccepted: false
+
+
+    InstallerMenuVM{
+        id: installerVM
+    }
+
+
+    onLicenceAcceptedChanged: {
+        if (licenceAccepted){
+            console.log("Edit PATH");
+            installerVM.addPATH()
+        }
+    }
 
 
     TabBar {

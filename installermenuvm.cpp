@@ -23,19 +23,6 @@ along with DIBotInstaller. If not, see <http://www.gnu.org/licenses/>.
 #include <QSettings>
 
 
-void InstallerMenuVM::runZadig()
-{
-    QString path = QDir(Distributive::zadigBinPath).canonicalPath();
-    QDesktopServices::openUrl(QUrl("file:///" + path, QUrl::TolerantMode));
-}
-
-
-void InstallerMenuVM::installJlink()
-{
-    QString path = QDir(Distributive::jlinkBinPath).canonicalPath();
-    QDesktopServices::openUrl(QUrl("file:///" + path, QUrl::TolerantMode));
-}
-
 
 InstallerMenuVM::InstallerMenuVM(QObject *parent) : QObject(parent)
 {
@@ -96,25 +83,6 @@ void InstallerMenuVM::setPythonInstalled(bool value)
 }
 
 
-void InstallerMenuVM::installQTCreator()
-{
-    QString path = QDir(Distributive::qtCreatorInstallerPath).canonicalPath();
-    QDesktopServices::openUrl(QUrl("file:///" + path, QUrl::TolerantMode));
-}
-
-
-void InstallerMenuVM::installDriver()
-{
-    if(QSysInfo::kernelType().contains("winnt")){
-        installJlink();
-        runZadig();
-    }
-    else{
-        installJlink();
-    }
-}
-
-
 void InstallerMenuVM::addPATH()
 {
     QSettings registry("HKEY_CURRENT_USER\\Environment", QSettings::NativeFormat);
@@ -148,6 +116,27 @@ void InstallerMenuVM::addPATH()
         proc->start(prog, args);
         proc->waitForFinished();
     }
+}
+
+
+void InstallerMenuVM::installQTCreator()
+{
+    QString path = QDir(Distributive::qtCreatorInstallerPath).canonicalPath();
+    QDesktopServices::openUrl(QUrl("file:///" + path, QUrl::TolerantMode));
+}
+
+
+void InstallerMenuVM::installJlink()
+{
+    QString path = QDir(Distributive::jlinkBinPath).canonicalPath();
+    QDesktopServices::openUrl(QUrl("file:///" + path, QUrl::TolerantMode));
+}
+
+
+void InstallerMenuVM::runZadig()
+{
+    QString path = QDir(Distributive::zadigBinPath).canonicalPath();
+    QDesktopServices::openUrl(QUrl("file:///" + path, QUrl::TolerantMode));
 }
 
 

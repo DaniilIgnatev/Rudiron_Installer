@@ -77,15 +77,15 @@ ColumnLayout{
         id: tab3
         onCheckedChanged: tabbar_root.tabChecked(position)
         position: 3
-        text: "Драйвер"
+        text: "JLink"
         contentQML: "contentUI/StagesObserverUI.qml"
         enabled: installerui_root.licenceAccepted
         model: [{
-                imagesURLList: ["../slides/jlink/1.png", "../slides/jlink/2.png", "../slides/jlink/3.png", "../slides/jlink/4.png", "../slides/jlink/5.png", "../slides/zadig/1.png", "../slides/zadig/2.png", "../slides/zadig/3.png", "../slides/zadig/4.png"],
-                hintList: ["Нажмите \"Next\"", "Нажмите \"I Agree\"", "Нажмите \"Install\"", "Нажмите \"Ok\"", "Нажмите \"Finish\"", "Нажмите \"Options\"", "Нажмите \"List All Devices\"", "Выберите устройство \"BULK interface\" и драйвер \"WinUSB\", нажмите \"Replace Driver\"", "Процесс замены драйвера займет продолжительное время"],
+                imagesURLList: ["../slides/jlink/1.png", "../slides/jlink/2.png", "../slides/jlink/3.png", "../slides/jlink/4.png", "../slides/jlink/5.png"],
+                hintList: ["Нажмите \"Next\"", "Нажмите \"I Agree\"", "Нажмите \"Install\"", "Нажмите \"Ok\"", "Нажмите \"Finish\""],
                 installFunction: function(){
-                    console.log("Install Driver");
-                    installerVM.installDriver()
+                    console.log("installJlink");
+                    installerVM.installJlink()
                 }
             }]
     }
@@ -94,6 +94,23 @@ ColumnLayout{
         id: tab4
         onCheckedChanged: tabbar_root.tabChecked(position)
         position: 4
+        text: "Zadig"
+        contentQML: "contentUI/StagesObserverUI.qml"
+        enabled: installerui_root.licenceAccepted
+        model: [{
+                imagesURLList: ["../slides/zadig/1.png", "../slides/zadig/2.png", "../slides/zadig/3.png", "../slides/zadig/4.png"],
+                hintList: ["Нажмите \"Options\"", "Нажмите \"List All Devices\"", "Выберите устройство \"BULK interface\" и драйвер \"WinUSB\", нажмите \"Replace Driver\"", "Процесс замены драйвера может занять занять нескольтко минут"],
+                installFunction: function(){
+                    console.log("runZadig");
+                    installerVM.runZadig()
+                }
+            }]
+    }
+
+    Tab{
+        id: tab5
+        onCheckedChanged: tabbar_root.tabChecked(position)
+        position: 5
         text: "Python 2.7"
         contentQML: "contentUI/StagesObserverUI.qml"
         enabled: installerui_root.licenceAccepted
@@ -107,22 +124,6 @@ ColumnLayout{
             }]
     }
 
-    Tab{
-        id: tab5
-        onCheckedChanged: tabbar_root.tabChecked(position)
-        position: 5
-        text: "Переменная PATH"
-        contentQML: "contentUI/StagesObserverUI.qml"
-        enabled: installerui_root.licenceAccepted
-        model: [{
-                imagesURLList: ["../slides/path/1.png", "../slides/path/2.png"],
-                hintList: ["Будут добавлены стандартные пути к компилятору и интерфейсу отладки.", "Для редактирования PATH нажмите кнопку \"Установить\"."],
-                installFunction: function(){
-                    console.log("Edit PATH");
-                    installerVM.addPATH()
-                }
-            }]
-    }
 
     Tab{
         id: tab6

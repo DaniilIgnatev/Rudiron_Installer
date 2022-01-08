@@ -32,12 +32,6 @@ private:
 
     bool _pythonInstalled = false;
 
-
-    void runZadig();
-
-
-    void installJlink();
-
 public:
 
     Q_PROPERTY(bool pathAdded READ pathAdded WRITE setPathAdded NOTIFY pathAddedChanged)
@@ -90,7 +84,10 @@ public slots:
     void installQTCreator();
 
 
-    void installDriver();
+    void installJlink();
+
+
+    void runZadig();
 
 
     void enableBareMetalPlugin();

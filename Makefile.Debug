@@ -270,9 +270,7 @@ debug\qrc_qml.cpp: qml.qrc \
 		slides\qtcreator\4.png \
 		slides\qtcreator\7.png \
 		slides\qtcreator\9.png \
-		slides\qtcreator\5.png \
-		slides\path\2.png \
-		slides\path\1.png
+		slides\qtcreator\5.png
 	C:\Qt\6.2.2\msvc2019_64\bin\rcc.exe -name qml qml.qrc -o debug\qrc_qml.cpp
 
 compiler_moc_predefs_make_all: debug\moc_predefs.h
@@ -945,7 +943,9 @@ debug\installermenuvm.obj: installermenuvm.cpp installermenuvm.h \
 		C:\Qt\6.2.2\msvc2019_64\include\QtCore\qxmlstream.h \
 		installstatus.h \
 		pugixml-master\src\pugixml.hpp \
-		pugixml-master\src\pugiconfig.hpp
+		pugixml-master\src\pugiconfig.hpp \
+		C:\Qt\6.2.2\msvc2019_64\include\QtCore\QSettings \
+		C:\Qt\6.2.2\msvc2019_64\include\QtCore\qsettings.h
 
 debug\main.obj: main.cpp C:\Qt\6.2.2\msvc2019_64\include\QtGui\QGuiApplication \
 		C:\Qt\6.2.2\msvc2019_64\include\QtGui\qguiapplication.h \

@@ -21,10 +21,18 @@ along with DIBotInstaller. If not, see <http://www.gnu.org/licenses/>.
 #include "distributive.h"
 
 
-
 Distributive::Distributive(QObject *parent) : QObject(parent)
 {
 
+}
+
+
+QString Distributive::absoluteDibotPath(QDir componentDir)
+{
+   QString dibotPath = Distributive::dibotDir().path();
+   QString componentPath = componentDir.path();
+   QString fullPath = QDir::toNativeSeparators(dibotPath + "/" + componentPath);
+   return fullPath;
 }
 
 

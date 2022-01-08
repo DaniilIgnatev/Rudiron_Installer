@@ -16,8 +16,6 @@ You should have received a copy of the GNU General Public License
 along with DIBotInstaller. If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-
 #include <QGuiApplication>
 #include <QObject>
 #include <QQmlComponent>
@@ -28,7 +26,7 @@ along with DIBotInstaller. If not, see <http://www.gnu.org/licenses/>.
 
 #include "installermenuvm.h"
 #include "filesystemapi.hpp"
-
+#include "editenv/editenv.hpp"
 
 // Main wrapper program.
 // Special handling is needed when using Qt Quick Controls for the top window.

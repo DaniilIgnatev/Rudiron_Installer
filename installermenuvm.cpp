@@ -140,38 +140,53 @@ void InstallerMenuVM::addPATH()
     //    proc1->start(prog1, args1);
     //    proc1->waitForFinished();
 
-    e = QProcessEnvironment::systemEnvironment();
-    QString path = e.value("Path");
-    qDebug() << path;
-//    QFile* pathValueFile = Distributive::pathValueFile();
-//    pathValueFile->open(QIODevice::WriteOnly | QIODevice::Text);
-//    pathValueFile->write(path.toUtf8());
-//    pathValueFile->close();
-//    pathValueFile->deleteLater();
+//    e = QProcessEnvironment::systemEnvironment();
+//    QString path = e.value("Path");
+//    qDebug() << path;
+    //    QFile* pathValueFile = Distributive::pathValueFile();
+    //    pathValueFile->open(QIODevice::WriteOnly | QIODevice::Text);
+    //    pathValueFile->write(path.toUtf8());
+    //    pathValueFile->close();
+    //    pathValueFile->deleteLater();
 
+    char *pValue;
+    size_t len;
+    errno_t err = _dupenv_s( &pValue, &len, "PATH" );
+    if (err) return;
 
-    QString gccPath = QDir::toNativeSeparators(Distributive::gccBinDirPath);
-    if (!path.contains(gccPath)){
-        if (path.at(path.length() - 1) != ';'){
-            path.append(";");
-        }
-        path.append(gccPath);
+    QString path = QString(pValue);
+    qDebug() << "Path value: " << path;
+
+    QString appendPath = "";
+
+    QString gccFullPath = Distributive::absoluteDibotPath(Distributive::gccBinDirPath);
+    if (!path.contains(gccFullPath)){
+        appendPath.append(gccFullPath);
+
     }
 
-    QString openocdPath = QDir::toNativeSeparators(Distributive::openocd_binDirPath);
-    if (!path.contains(openocdPath)){
-        if (path.at(path.length() - 1) != ';'){
-            path.append(";");
-        }
-        path.append(openocdPath);
-    }
+    QString openocdFullPath = Distributive::absoluteDibotPath(Distributive::openocd_binDirPath);
 
-    qDebug() << "Path overriden with: " << path;
-    QProcess *proc = new QProcess;
-    QString prog = "setx";
-    QStringList args{"Path", path};
-    proc->start(prog, args);
-    proc->waitForFinished();
+    if (!path.contains(openocdFullPath)){
+        appendPath.append(";");
+        appendPath.append(openocdFullPath);
+
+    }
+    appendPath.append(";");
+    qDebug() << "Append Path: " << appendPath;
+
+    pathAdd(es_user, L"HELLO");
+
+//    if (appendPath != ";"){
+//        QString newPath = appendPath + path;
+//        qDebug() << "New Path: " << newPath;
+
+//        QProcess *proc = new QProcess;
+//        QString prog = "setx";
+//        QStringList args{"PATH", "%PATH%" + newPath};
+//        proc->start(prog, args);
+//        proc->waitForFinished();
+//    }
 }
 
 

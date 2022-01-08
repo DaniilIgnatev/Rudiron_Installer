@@ -90,13 +90,13 @@ void InstallerMenuVM::addPATH()
     qDebug() << "\nCurrent Path: " << pathVal;
 
     QString appendPath = "";
-    QString gccFullPath = Distributive::absoluteDibotPath(Distributive::gccBinDirPath);
+    QString gccFullPath = Distributive::absoluteComponentPath(Distributive::gccBinDirPath);
     if (!pathVal.contains(gccFullPath)){
         appendPath.append(";");
         appendPath.append(gccFullPath);
     }
 
-    QString openocdFullPath = Distributive::absoluteDibotPath(Distributive::openocd_binDirPath);
+    QString openocdFullPath = Distributive::absoluteComponentPath(Distributive::openocd_binDirPath);
 
     if (!pathVal.contains(openocdFullPath)){
         appendPath.append(";");

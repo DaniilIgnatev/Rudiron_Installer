@@ -157,7 +157,7 @@ void QtCreatorConfig::createOpenOCDDebugProvider()
             </value>\
             <value type=\"int\" key=\"BareMetal.GdbServerProvider.Mode\">0</value>\
             <value type=\"QString\" key=\"BareMetal.GdbServerProvider.PeripheralDescriptionFile\">";
-    debugProvider.append(Distributive::svdFilePath);
+    debugProvider.append(Distributive::absoluteComponentPath(Distributive::svdFilePath));
     debugProvider += "</value>\
             <value type=\"QString\" key=\"BareMetal.GdbServerProvider.ResetCommands\">monitor reset halt</value>\
             <value type=\"bool\" key=\"BareMetal.GdbServerProvider.UseExtendedRemote\">false</value>\
@@ -170,15 +170,15 @@ void QtCreatorConfig::createOpenOCDDebugProvider()
     debugProvider +="</value>\
             <value type=\"QString\" key=\"BareMetal.OpenOcdGdbServerProvider.AdditionalArguments\"></value>\
             <value type=\"QString\" key=\"BareMetal.OpenOcdGdbServerProvider.ConfigurationPath\">";
-    debugProvider.append(Distributive::openocd_interfaceFilePath);
+    debugProvider.append(Distributive::absoluteComponentPath(Distributive::openocd_interfaceFilePath));
     debugProvider += "</value>\
             <value type=\"QString\" key=\"BareMetal.OpenOcdGdbServerProvider.ExecutableFile\">";
-    debugProvider.append(Distributive::openocd_binFilePath);
+    debugProvider.append(Distributive::absoluteComponentPath(Distributive::openocd_binFilePath));
     debugProvider += "</value>"\
                      "<value type=\"QString\" key=\"BareMetal.OpenOcdGdbServerProvider.Host\">localhost</value>\
             <value type=\"int\" key=\"BareMetal.OpenOcdGdbServerProvider.Port\">3333</value>\
             <value type=\"QString\" key=\"BareMetal.OpenOcdGdbServerProvider.RootScriptsDir\">";
-    debugProvider.append(Distributive::openocd_scriptsDirPath);
+    debugProvider.append(Distributive::absoluteComponentPath(Distributive::openocd_scriptsDirPath));
     debugProvider += "</value>\
             </valuemap>\
             </data>";
@@ -357,10 +357,10 @@ void QtCreatorConfig::addCmake()
             <value type=\"bool\" key=\"AutoCreateBuildDirectory\">false</value>\
             <value type=\"bool\" key=\"AutoDetected\">false</value>\
             <value type=\"bool\" key=\"AutoRun\">true</value>\
-            <value type=\"QString\" key=\"Binary\">" + Distributive::cmakeBinPath + "</value>\
+            <value type=\"QString\" key=\"Binary\">" + Distributive::absoluteComponentPath(Distributive::cmakeBinPath) + "</value>\
             <value type=\"QString\" key=\"DisplayName\">" + QtCreatorConfig::cmake_name + "</value>\
             <value type=\"QString\" key=\"Id\">" + QtCreatorConfig::cmake_id + "</value>\
-            <value type=\"QString\" key=\"QchFile\">" + Distributive::cmakeQchPath + "</value>\
+            <value type=\"QString\" key=\"QchFile\">" + Distributive::absoluteComponentPath(Distributive::cmakeQchPath) + "</value>\
             </valuemap>";
 
             pugi::xml_document doc;
@@ -430,7 +430,7 @@ void QtCreatorConfig::addCmake()
 
 
         if (cmaketoolStatus != ::failed){
-            //QString debugPath = Distributive::debugPath + "/cmaketools.xml";
+            //QString debugPath = Distributive::absoluteComponentPath(Distributive::debugPath) + "/cmaketools.xml";
             doc.save_file(path.toUtf8());
         }
     }
@@ -495,7 +495,7 @@ void QtCreatorConfig::addDebugger()
                     <value type=\"QString\">arm-baremetal-generic-elf-32bit</value>\
                     </valuelist>\
                     <value type=\"bool\" key=\"AutoDetected\">false</value>\
-                    <value type=\"QString\" key=\"Binary\">" + Distributive::gdbBinPath + "</value>\
+                    <value type=\"QString\" key=\"Binary\">" + Distributive::absoluteComponentPath(Distributive::gdbBinPath) + "</value>\
                     <value type=\"QString\" key=\"DisplayName\">" + QtCreatorConfig::debugger_name + "</value>\
                     <value type=\"int\" key=\"EngineType\">1</value>\
                     <value type=\"QString\" key=\"Id\">" + QtCreatorConfig::debugger_id + "</value>\
@@ -513,7 +513,7 @@ void QtCreatorConfig::addDebugger()
 
 
         if (debuggerStatus != ::failed){
-            //QString debugPath = Distributive::debugPath + "/debuggers.xml";
+            //QString debugPath = Distributive::absoluteComponentPath(Distributive::debugPath) + "/debuggers.xml";
             doc.save_file(path.toUtf8());
         }
     }
@@ -540,8 +540,10 @@ QString QtCreatorConfig::toolchain_xml_path()
 
 void QtCreatorConfig::addToolchain()
 {
-    gccStatus = ::failed;
     QString path = toolchain_xml_path();
+
+    gccStatus = ::failed;
+    gppStatus = ::failed;
 
 
     pugi::xml_document doc;
@@ -585,7 +587,7 @@ void QtCreatorConfig::addToolchain()
                     <variable>ToolChain." + QString::number(count - 1) + "</variable>\
                     <valuemap type=\"QVariantMap\">\
                     <value type=\"QString\" key=\"ProjectExplorer.GccToolChain.OriginalTargetTriple\">arm-none-eabi</value>\
-                    <value type=\"QString\" key=\"ProjectExplorer.GccToolChain.Path\">" + Distributive::gccBinPath + "</value>\
+                    <value type=\"QString\" key=\"ProjectExplorer.GccToolChain.Path\">" + Distributive::absoluteComponentPath(Distributive::gccBinPath) + "</value>\
                     <valuelist type=\"QVariantList\" key=\"ProjectExplorer.GccToolChain.PlatformCodeGenFlags\"/>\
                     <valuelist type=\"QVariantList\" key=\"ProjectExplorer.GccToolChain.PlatformLinkerFlags\"/>\
                     <valuelist type=\"QVariantList\" key=\"ProjectExplorer.GccToolChain.SupportedAbis\">\
@@ -607,7 +609,7 @@ void QtCreatorConfig::addToolchain()
 
 
         if (gccStatus != ::failed){
-            //QString debugPath = Distributive::debugPath + "/toolchains.xml";
+            //QString debugPath = Distributive::absoluteComponentPath(Distributive::debugPath) + "/toolchains.xml";
             doc.save_file(path.toUtf8());
         }
 
@@ -621,7 +623,7 @@ void QtCreatorConfig::addToolchain()
                     <variable>ToolChain." + QString::number(count - 1) + "</variable>\
                     <valuemap type=\"QVariantMap\">\
                     <value type=\"QString\" key=\"ProjectExplorer.GccToolChain.OriginalTargetTriple\">arm-none-eabi</value>\
-                    <value type=\"QString\" key=\"ProjectExplorer.GccToolChain.Path\">" + Distributive::gppBinPath + "</value>\
+                    <value type=\"QString\" key=\"ProjectExplorer.GccToolChain.Path\">" + Distributive::absoluteComponentPath(Distributive::gppBinPath) + "</value>\
                     <valuelist type=\"QVariantList\" key=\"ProjectExplorer.GccToolChain.PlatformCodeGenFlags\"/>\
                     <valuelist type=\"QVariantList\" key=\"ProjectExplorer.GccToolChain.PlatformLinkerFlags\"/>\
                     <valuelist type=\"QVariantList\" key=\"ProjectExplorer.GccToolChain.SupportedAbis\">\
@@ -643,7 +645,7 @@ void QtCreatorConfig::addToolchain()
 
 
         if (gppStatus != ::failed){
-            //QString debugPath = Distributive::debugPath + "/toolchains.xml";
+            //QString debugPath = Distributive::absoluteComponentPath(Distributive::debugPath) + "/toolchains.xml";
             doc.save_file(path.toUtf8());
         }
     }
@@ -744,7 +746,7 @@ void QtCreatorConfig::addKit()
 
 
         if (kit_status != ::failed){
-            //QString debugPath = Distributive::debugPath + "/toolchains.xml";
+            //QString debugPath = Distributive::absoluteComponentPath(Distributive::debugPath) + "/toolchains.xml";
             doc.save_file(path.toUtf8());
         }
     }

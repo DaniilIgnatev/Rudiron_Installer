@@ -133,6 +133,7 @@ ColumnLayout{
         contentQML: "contentUI/StagesObserverUI.qml"
         enabled: installerui_root.licenceAccepted
         model: [{
+                //ДОБАВИТЬ НАДПИСЬ "ПЕРЕД УСТАНОВКОЙ ЗАКРОЙТЕ QT CREATOR"
                 imagesURLList: ["../slides/toolchain/1.png", "../slides/toolchain/2.png", "../slides/toolchain/3.png", "../slides/toolchain/4.png", "../slides/toolchain/5.png", "../slides/toolchain/6.png", "../slides/toolchain/7.png", "../slides/toolchain/8.png"],
                 hintList: ["Установщик активирует плагин BareMetal", "Установщик создает отладочный интерфейс", "Установщик создает отладочное устройство", "Установщик регистрирует cmake", "Установщик регистрирует отладчик arm gdb", "Установщик регистрирует компилятор arm gcc", "Установщик регистрирует компилятор arm g++", "Установщик добавляет инструментарий разработки под ARM"],
                 installFunction: function(){

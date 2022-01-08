@@ -27,10 +27,18 @@ Distributive::Distributive(QObject *parent) : QObject(parent)
 }
 
 
-QString Distributive::absoluteDibotPath(QDir componentDir)
+QString Distributive::absoluteComponentPath(QDir componentDir)
 {
    QString dibotPath = Distributive::dibotDir().path();
    QString componentPath = componentDir.path();
+   QString fullPath = QDir::toNativeSeparators(dibotPath + "/" + componentPath);
+   return fullPath;
+}
+
+
+QString Distributive::absoluteComponentPath(QString componentPath)
+{
+   QString dibotPath = Distributive::dibotDir().path();
    QString fullPath = QDir::toNativeSeparators(dibotPath + "/" + componentPath);
    return fullPath;
 }

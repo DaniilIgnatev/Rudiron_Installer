@@ -8,7 +8,7 @@ RowLayout  {
     anchors.fill: parent
     spacing: 20
 
-    property bool licenceAccepted: false
+    property bool licenceAccepted: true
 
 
     InstallerMenuVM{

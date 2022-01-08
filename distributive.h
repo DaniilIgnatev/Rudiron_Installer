@@ -19,7 +19,10 @@ public:
     //DIBOT
 
 
-    static QString absoluteDibotPath(QDir componentDir);
+    static QString absoluteComponentPath(QDir componentDir);
+
+
+    static QString absoluteComponentPath(QString componentPath);
 
 
     static QDir dibotDir();

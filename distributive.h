@@ -18,8 +18,6 @@ public:
 
     //DIBOT
 
-    static const QString dibotDirPath;
-
 
     static QDir dibotDir();
 

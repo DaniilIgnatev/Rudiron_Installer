@@ -28,19 +28,16 @@ Distributive::Distributive(QObject *parent) : QObject(parent)
 }
 
 
-const QString Distributive::dibotDirPath = QString("C:/DIBotDistributive");
-
-
-const QString Distributive::debugPath = dibotDirPath + "/debug";
+const QString Distributive::debugPath =  "debug";
 
 
 QDir Distributive::dibotDir()
 {
-    return QDir(dibotDirPath);
+    return QDir::current();
 }
 
 
-const QString Distributive::softDirPath = dibotDirPath + "/components";
+const QString Distributive::softDirPath = "components";
 
 
 const QString Distributive::svdFilePath = softDirPath + "/MDR32F9Q1.svd";
@@ -121,7 +118,7 @@ QDir Distributive::openocd_interfaceDir()
 const QString Distributive::openocd_interfaceFilePath = openocd_interfaceDirPath + "/1986be92_jlink.cfg";
 
 
-const QString Distributive::pathValueFilePath = dibotDirPath + "/pathcopy.txt";
+const QString Distributive::pathValueFilePath = debugPath + "/pathcopy.txt";
 
 
 QFile* Distributive::pathValueFile()

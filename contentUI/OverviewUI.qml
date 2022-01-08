@@ -26,42 +26,84 @@ import com.FileSystemAPI 1.0
 
 
 
+
+//    Text{
+//        id: textOverview
+//        text: "<b>Описание</b> <i>продукта.</i><b>Описание</b> <i>продукта.</i><b>Описание</b> <i>продукта.</i><b>Описание</b> <i>продукта.</i><b>Описание</b> <i>продукта.</i><b>Описание</b> <i>продукта.</i><b>Описание</b> <i>продукта.</i><b>Описание</b> <i>продукта.</i><b>Описание</b> <i>продукта.</i><b>Описание</b> <i>продукта.</i>"
+
+//        wrapMode: Text.Wrap
+//        padding: 10
+//        font.pointSize: 12
+//        fontSizeMode: Text.Fit
+//        textFormat: Text.RichText
+//        font.family: "Arial"
+//        Layout.fillHeight: true
+//        Layout.fillWidth: true
+//    }
+
 ColumnLayout{
 
-    FileSystemAPI{
-        id: file_system_api
-    }
 
-    Component.onCompleted: {
-        readOverviewFile()
-    }
+    Text {
+        Layout.fillWidth: true
+        padding: 14
 
+        text: "<h2>Внимательно читайте инструкции на каждом этапе установки</h2>"
 
-    function readOverviewFile(){
-        var html = file_system_api.getFileContent(":/contentUI/overview.html")
-        textOverview.text = html
-    }
-
-
-    Text{
-        id: textOverview
-        text: "<b>Описание</b> <i>продукта.</i><b>Описание</b> <i>продукта.</i><b>Описание</b> <i>продукта.</i><b>Описание</b> <i>продукта.</i><b>Описание</b> <i>продукта.</i><b>Описание</b> <i>продукта.</i><b>Описание</b> <i>продукта.</i><b>Описание</b> <i>продукта.</i><b>Описание</b> <i>продукта.</i><b>Описание</b> <i>продукта.</i>"
-
-        wrapMode: Text.Wrap
-        padding: 10
-        font.pointSize: 12
-        fontSizeMode: Text.Fit
-        textFormat: Text.RichText
         font.family: "Arial"
+        wrapMode: Text.Wrap
+        fontSizeMode: Text.Fit
+        font.pointSize: 14
+        textFormat: Text.RichText
+    }
+
+    ScrollView{
         Layout.fillHeight: true
         Layout.fillWidth: true
+
+        FileSystemAPI{
+            id: file_system_api
+        }
+
+        id: scrollableBox
+
+        clip: true
+        wheelEnabled: true
+
+        Component.onCompleted: {
+            readTextFile()
+        }
+
+        function readTextFile(){
+            var html = file_system_api.getFileContent(":/contentUI/overview.html")
+            textbox.text = html
+        }
+
+        ScrollBar.vertical.policy: ScrollBar.AlwaysOn
+        ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
+        ScrollBar.horizontal.interactive: false
+        ScrollBar.vertical.interactive: true
+
+
+        Text {
+            id: textbox
+            anchors.fill: parent
+            padding: 10
+
+            text: "<b>Описание</b> <i>продукта.</i><b>Описание</b> <i>продукта.</i><b>Описание</b> <i>продукта.</i><b>Описание</b> <i>продукта.</i><b>Описание</b> <i>продукта.</i><b>Описание</b> <i>продукта.</i><b>Описание</b> <i>продукта.</i><b>Описание</b> <i>продукта.</i><b>Описание</b> <i>продукта.</i><b>Описание</b> <i>продукта.</i>"
+
+            font.family: "Arial"
+            wrapMode: Text.Wrap
+            fontSizeMode: Text.Fit
+            font.pointSize: 12
+            textFormat: Text.RichText
+        }
     }
 }
 
 
-
 /*##^##
 Designer {
-    D{i:0;autoSize:true;height:480;width:600}D{i:1}D{i:2}
+    D{i:0;autoSize:true;height:480;width:600}D{i:1}D{i:3}D{i:4}D{i:2}
 }
 ##^##*/

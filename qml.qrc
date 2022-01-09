@@ -8,15 +8,6 @@
         <file>contentUI/LicenceUI.qml</file>
         <file>contentUI/StagesObserverUI.qml</file>
         <file>contentUI/licence.html</file>
-        <file>slides/qtcreator/1.png</file>
-        <file>slides/qtcreator/2.png</file>
-        <file>slides/qtcreator/3.png</file>
-        <file>slides/qtcreator/4.png</file>
-        <file>slides/qtcreator/5.png</file>
-        <file>slides/qtcreator/6.png</file>
-        <file>slides/qtcreator/7.png</file>
-        <file>slides/qtcreator/8.png</file>
-        <file>slides/qtcreator/9.png</file>
         <file>slides/jlink/1.png</file>
         <file>slides/jlink/2.png</file>
         <file>slides/jlink/3.png</file>
@@ -38,36 +29,16 @@
         <file>slides/toolchain/6.png</file>
         <file>slides/toolchain/7.png</file>
         <file>slides/toolchain/8.png</file>
-        <file>slides/guide/1.png</file>
-        <file>slides/guide/2.png</file>
-        <file>slides/guide/3.png</file>
-        <file>slides/guide/4.png</file>
-        <file>slides/guide/5.png</file>
-        <file>slides/guide/6.png</file>
-        <file>slides/guide/7.png</file>
-        <file>slides/guide/8.png</file>
-        <file>slides/guide/9.png</file>
-        <file>slides/guide/10.png</file>
-        <file>slides/guide/11.png</file>
-        <file>slides/guide/12.png</file>
-        <file>slides/guide/13.png</file>
-        <file>slides/guide/14.png</file>
-        <file>slides/guide/15.png</file>
-        <file>slides/guide/16.png</file>
-        <file>slides/guide/17.png</file>
-        <file>slides/guide/18.png</file>
-        <file>slides/guide/19.png</file>
-        <file>slides/guide/20.png</file>
-        <file>slides/guide/21.png</file>
-        <file>slides/guide/22.png</file>
-        <file>slides/guide/23.png</file>
-        <file>slides/guide/24.png</file>
-        <file>slides/guide/25.png</file>
-        <file>slides/guide/26.png</file>
-        <file>slides/guide/27.png</file>
-        <file>slides/guide/28.png</file>
-        <file>slides/guide/29.png</file>
         <file>contentUI/overview.html</file>
         <file>InstallerUI.qml</file>
+        <file>slides/qtcreator/2022-01-09_12-02-57.png</file>
+        <file>slides/qtcreator/2022-01-09_12-03-46.png</file>
+        <file>slides/qtcreator/2022-01-09_12-03-54.png</file>
+        <file>slides/qtcreator/2022-01-09_12-04-32.png</file>
+        <file>slides/qtcreator/2022-01-09_12-04-55.png</file>
+        <file>slides/qtcreator/2022-01-09_12-07-32.png</file>
+        <file>slides/qtcreator/2022-01-09_12-07-42.png</file>
+        <file>slides/qtcreator/2022-01-09_12-07-55.png</file>
+        <file>slides/qtcreator/2022-01-09_12-08-10.png</file>
     </qresource>
 </RCC>

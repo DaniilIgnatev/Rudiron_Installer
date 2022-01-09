@@ -65,7 +65,7 @@ QDir Distributive::softDir()
 }
 
 
-const QString Distributive::qtCreatorInstallerPath = softDirPath + "/qt-creator.exe";
+const QString Distributive::qtCreatorInstallerPath = softDirPath + "/qt-unified-windows-x86-online.exe";
 
 
 const QString Distributive::jlinkBinPath = softDirPath + "/JLink.exe";

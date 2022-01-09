@@ -29,7 +29,7 @@ ColumnLayout{
 
     id: stagesObserver
 
-    property var position: 0
+    property int position: 0
 
 
     property var imagesURLList: ["../slides/qtcreator/1.png"]
@@ -83,6 +83,8 @@ ColumnLayout{
         Layout.fillHeight: true
 
         source: stagesObserver.imagesURLList[stagesObserver.position]
+        asynchronous: false
+        cache: true
 
         Layout.margins: 0
 
@@ -116,6 +118,7 @@ ColumnLayout{
 
 
     ProgressBar{
+        Layout.fillWidth: false
         Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
         from: 0.0
         to: 1.0
@@ -225,6 +228,7 @@ ColumnLayout{
 
 /*##^##
 Designer {
-    D{i:0;autoSize:true;formeditorZoom:0.75;height:480;width:640}
+    D{i:0;autoSize:true;formeditorZoom:0.75;height:480;width:640}D{i:1}D{i:2}D{i:3}D{i:4}
+D{i:6}D{i:8}D{i:9}D{i:11}D{i:12}D{i:5}
 }
 ##^##*/

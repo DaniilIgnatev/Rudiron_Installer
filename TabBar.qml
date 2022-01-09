@@ -61,14 +61,34 @@ ColumnLayout{
         id: tab2
         onCheckedChanged: tabbar_root.tabChecked(position)
         position: 2
-        text: "QT Creator"
+        text: "Qt Creator"
         contentQML: "contentUI/StagesObserverUI.qml"
         enabled: installerui_root.licenceAccepted
         model: [{
-                imagesURLList: ["../slides/qtcreator/1.png", "../slides/qtcreator/2.png", "../slides/qtcreator/3.png", "../slides/qtcreator/4.png", "../slides/qtcreator/5.png", "../slides/qtcreator/6.png", "../slides/qtcreator/7.png", "../slides/qtcreator/8.png", "../slides/qtcreator/9.png"],
-                hintList: ["Нажмите \"Next\"", "Нажмите \"Next\"", "Нажмите \"Далее\"", "Нажмите \"Далее\"", "Нажмите \"Далее\"", "Нажмите \"Далее\"", "Нажмите \"Далее\"", "Нажмите \"Далее\"", "Нажмите \"Установить\""],
+                imagesURLList: [
+                    "../slides/qtcreator/2022-01-09_12-02-57.png",
+                    "../slides/qtcreator/2022-01-09_12-03-46.png",
+                    "../slides/qtcreator/2022-01-09_12-03-54.png",
+                    "../slides/qtcreator/2022-01-09_12-04-32.png",
+                    "../slides/qtcreator/2022-01-09_12-04-55.png",
+                    "../slides/qtcreator/2022-01-09_12-07-32.png",
+                    "../slides/qtcreator/2022-01-09_12-07-42.png",
+                    "../slides/qtcreator/2022-01-09_12-07-55.png",
+                    "../slides/qtcreator/2022-01-09_12-08-10.png",
+                ],
+                hintList: [
+                    "Предлагается онлайн установщик Qt Creator. Укажите учетную запись Qt. Нажмите \"Далее\".",
+                    "Отметьте оба условия соглашения. Нажмите \"Далее\".",
+                    "Нажмите \"Далее\".",
+                    "Выберите предоставлять ли анонимную информацию разработчикам Qt Creator. Нажмите \"Далее\".",
+                    "Нажмите \"Далее\".",
+                    "Все опции необязательны для разработки под данный микроконтроллер. Нажмите \"Далее\".",
+                    "Примите лицензионное соглашение. Нажмите \"Далее\".",
+                    "Нажмите \"Далее\".",
+                    "Нажмите \"Установить\".",
+                ],
                 installFunction: function(){
-                    console.log("Install QT Creator");
+                    console.log("Install Qt Creator");
                     installerVM.installQTCreator()}
             }]
     }

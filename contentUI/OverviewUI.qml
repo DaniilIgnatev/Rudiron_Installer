@@ -46,12 +46,20 @@ ColumnLayout{
 
     Text {
         Layout.fillWidth: true
-        padding: 14
+        padding: 15
 
         text: "<h2>Внимательно читайте инструкции на каждом этапе установки</h2>"
+        horizontalAlignment: Text.AlignHCenter
+        verticalAlignment: Text.AlignVCenter
+        lineHeightMode: Text.ProportionalHeight
 
         font.family: "Arial"
-        wrapMode: Text.Wrap
+        wrapMode: Text.WordWrap
+        renderType: Text.QtRendering
+        topPadding: 10
+        bottomPadding: 5
+        rightPadding: 30
+        leftPadding: 30
         fontSizeMode: Text.Fit
         font.pointSize: 14
         textFormat: Text.RichText

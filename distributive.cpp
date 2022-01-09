@@ -113,7 +113,7 @@ QDir Distributive::openocd_binDir()
 const QString Distributive::openocd_binFilePath = openocd_binDirPath + "/openocd.exe";
 
 
-const QString Distributive::openocd_scriptsDirPath = openocdDirPath + "/share/openocd/scripts";
+const QString Distributive::openocd_scriptsDirPath = openocdDirPath + "/scripts";
 
 
 QDir Distributive::openocd_scriptsDir()

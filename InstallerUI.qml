@@ -3,6 +3,7 @@ import QtQuick.Layouts 1.15
 import "contentUI"
 import com.dibot 1.0
 
+
 RowLayout  {
     id: installerui_root
     anchors.fill: parent

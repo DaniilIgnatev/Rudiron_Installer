@@ -96,12 +96,14 @@ ColumnLayout{
                 hoverEnabled: true
                 acceptedButtons: Qt.LeftButton
                 onClicked: {
-                    var component = Qt.createComponent("qrc:/ImageWindow.qml")
-                    if (component !== null){
-                        if (component.status === Component.Ready){
-                            var window = component.createObject(stagesObserver)
-                            window.imageSource = image.source
-                            window.show()
+                    if (image.source != "qrc:/slides/white.png"){
+                        var component = Qt.createComponent("qrc:/ImageWindow.qml")
+                        if (component !== null){
+                            if (component.status === Component.Ready){
+                                var window = component.createObject(stagesObserver)
+                                window.imageSource = image.source
+                                window.show()
+                            }
                         }
                     }
                 }

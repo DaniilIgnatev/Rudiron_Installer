@@ -212,10 +212,28 @@ release\qrc_qml.cpp: qml.qrc \
 		contentUI\overview.html \
 		contentUI\LicenceUI.qml \
 		contentUI\licence.html \
+		slides\white.png \
 		slides\zadig\3.png \
 		slides\zadig\4.png \
 		slides\zadig\2.png \
 		slides\zadig\1.png \
+		slides\guide\2022-01-09_13-54-18.png \
+		slides\guide\2022-01-09_13-40-58.png \
+		slides\guide\2022-01-09_13-55-22.png \
+		slides\guide\2022-01-09_13-50-37.png \
+		slides\guide\2022-01-09_13-47-38.png \
+		slides\guide\2022-01-09_13-52-50.png \
+		slides\guide\2022-01-09_13-40-28.png \
+		slides\guide\2022-01-09_13-46-53.png \
+		slides\guide\2022-01-08_19-23-57.png \
+		slides\guide\2022-01-09_13-47-51.png \
+		slides\guide\2022-01-09_13-57-06.png \
+		slides\guide\2022-01-08_19-26-07.png \
+		slides\guide\2022-01-09_13-52-27.png \
+		slides\guide\2022-01-09_13-50-09.png \
+		slides\guide\2022-01-09_13-47-02.png \
+		slides\guide\2022-01-09_13-56-13.png \
+		slides\guide\2022-01-08_19-25-10.png \
 		slides\python27\3.png \
 		slides\python27\4.png \
 		slides\python27\2.png \

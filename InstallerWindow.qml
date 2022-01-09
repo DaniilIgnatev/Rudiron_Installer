@@ -35,19 +35,6 @@ Window {
     maximumWidth: minimumWidth
     maximumHeight: minimumHeight
 
-//    InstallerMenu{
-//        anchors.left: parent.left
-//        anchors.right: parent.right
-//        anchors.top: parent.top
-//        anchors.bottom: parent.bottom
-//        anchors.leftMargin: 10
-//        anchors.rightMargin: 10
-//        anchors.topMargin: 5
-//        anchors.bottomMargin: 5
-//        //anchors.margins: 20
-//        }
-
-
     InstallerUI{
 
     }

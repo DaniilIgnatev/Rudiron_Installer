@@ -40,5 +40,6 @@
         <file>slides/qtcreator/2022-01-09_12-07-42.png</file>
         <file>slides/qtcreator/2022-01-09_12-07-55.png</file>
         <file>slides/qtcreator/2022-01-09_12-08-10.png</file>
+        <file>ImageWindow.qml</file>
     </qresource>
 </RCC>

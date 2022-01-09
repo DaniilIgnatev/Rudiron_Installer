@@ -32,7 +32,7 @@ ColumnLayout{
     property int position: 0
 
 
-    property var imagesURLList: ["../slides/qtcreator/1.png"]
+    property var imagesURLList: ["qrc:/slides/qtcreator/1.png"]
 
 
     property var hintList: ["Нажмите \"Далее\""]
@@ -90,6 +90,28 @@ ColumnLayout{
 
         smooth: true
         fillMode: Image.PreserveAspectFit
+
+        MouseArea {
+                anchors.fill: parent
+                hoverEnabled: true
+                acceptedButtons: Qt.LeftButton
+                onClicked: {
+                    var component = Qt.createComponent("qrc:/ImageWindow.qml")
+                    if (component !== null){
+                        if (component.status === Component.Ready){
+                            var window = component.createObject(stagesObserver)
+                            window.imageSource = image.source
+                            window.show()
+                        }
+                    }
+                }
+                onEntered: {
+                    image.opacity = 0.7;
+                }
+                onExited: {
+                    image.opacity = 1.0;
+                }
+            }
     }
 
 
@@ -167,7 +189,7 @@ ColumnLayout{
 
 
         Button{
-            property var installed: false
+            property bool installed: false
 
             id: buttonInstall
             text: installed ?  "Выполнено" : "Установить"
@@ -228,7 +250,7 @@ ColumnLayout{
 
 /*##^##
 Designer {
-    D{i:0;autoSize:true;formeditorZoom:0.75;height:480;width:640}D{i:1}D{i:2}D{i:3}D{i:4}
-D{i:6}D{i:8}D{i:9}D{i:11}D{i:12}D{i:5}
+    D{i:0;autoSize:true;height:480;width:640}D{i:1}D{i:3}D{i:2}D{i:4}D{i:5}D{i:7}D{i:9}
+D{i:10}D{i:12}D{i:13}D{i:6}
 }
 ##^##*/

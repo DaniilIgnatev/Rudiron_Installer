@@ -205,6 +205,7 @@ debug\qrc_qml.cpp: qml.qrc \
 		TabBar.qml \
 		Tab.qml \
 		InstallerUI.qml \
+		ImageWindow.qml \
 		InstallerWindow.qml \
 		Installer_Debug.qml \
 		contentUI\OverviewUI.qml \

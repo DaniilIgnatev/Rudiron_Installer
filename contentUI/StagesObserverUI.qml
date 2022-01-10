@@ -32,6 +32,9 @@ ColumnLayout{
     property int position: 0
 
 
+    property bool installed: false
+
+
     property var imagesURLList: ["qrc:/slides/qtcreator/1.png"]
 
 
@@ -44,14 +47,6 @@ ColumnLayout{
 
 
     property var installFunction: ({})
-
-
-    onPositionChanged: {
-        console.log("position: " + position)
-        if (position === length() - 1){
-            buttonInstall.enabled = true
-        }
-    }
 
 
     Text{
@@ -96,13 +91,13 @@ ColumnLayout{
                 hoverEnabled: true
                 acceptedButtons: Qt.LeftButton
                 onClicked: {
-                    if (image.source != "qrc:/slides/white.png"){
+                    if (image.source.toString() !== ("qrc:/slides/white.png")){
                         var component = Qt.createComponent("qrc:/ImageWindow.qml")
                         if (component !== null){
                             if (component.status === Component.Ready){
                                 var window = component.createObject(stagesObserver)
                                 window.imageSource = image.source
-                                window.show()
+                                window.showFullScreen()
                             }
                         }
                     }
@@ -123,9 +118,10 @@ ColumnLayout{
 
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
+        wrapMode: Text.Wrap
         font.italic: true
 
-        font.pointSize: 10
+        font.pointSize: 12
         font.family: "Arial"
 
         fontSizeMode: Text.VerticalFit
@@ -136,25 +132,10 @@ ColumnLayout{
 
         Layout.fillWidth: true
         Layout.fillHeight: false
-
-        Layout.topMargin: 5
-    }
-
-
-    ProgressBar{
-        Layout.fillWidth: false
-        Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-        from: 0.0
-        to: 1.0
-        value: stagesObserver.position / (stagesObserver.length() - 1)
-
-        Layout.topMargin: 5
-        Layout.preferredWidth: parent.width / 5
     }
 
 
     RowLayout{
-
         Layout.fillWidth: true
         Layout.fillHeight: false
 
@@ -190,18 +171,26 @@ ColumnLayout{
         }
 
 
-        Button{
-            property bool installed: false
+        ProgressBar{
+            visible: stagesObserver.position !== length() - 1
+            Layout.fillWidth: false
+            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+            from: 0.0
+            to: 1.0
+            value: stagesObserver.position / (stagesObserver.length() - 1)
+            Layout.preferredWidth: parent.width / 5
+        }
 
+
+        Button{
             id: buttonInstall
             text: installed ?  "Выполнено" : "Установить"
             font.weight: installed ? Font.Bold : Font.Normal
-            visible: stagesObserver.installFunction != null
-            enabled: true
+            visible: stagesObserver.installFunction != null && (stagesObserver.position === length() - 1)
+            enabled: (stagesObserver.position === length() - 1) && !stagesObserver.installed
             onClicked: {
                 stagesObserver.installFunction()
-                installed = true
-                enabled = false
+                stagesObserver.installed = true
             }
 
             font.pointSize: 8
@@ -252,7 +241,7 @@ ColumnLayout{
 
 /*##^##
 Designer {
-    D{i:0;autoSize:true;height:480;width:640}D{i:1}D{i:3}D{i:2}D{i:4}D{i:5}D{i:7}D{i:9}
-D{i:10}D{i:12}D{i:13}D{i:6}
+    D{i:0;autoSize:true;height:480;width:640}D{i:1}D{i:3}D{i:2}D{i:4}D{i:6}D{i:8}D{i:9}
+D{i:10}D{i:12}D{i:13}D{i:5}
 }
 ##^##*/

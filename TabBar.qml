@@ -101,8 +101,20 @@ ColumnLayout{
         contentQML: "contentUI/StagesObserverUI.qml"
         enabled: installerui_root.licenceAccepted
         model: [{
-                imagesURLList: ["../slides/jlink/1.png", "../slides/jlink/2.png", "../slides/jlink/3.png", "../slides/jlink/4.png", "../slides/jlink/5.png"],
-                hintList: ["Нажмите \"Next\"", "Нажмите \"I Agree\"", "Нажмите \"Install\"", "Нажмите \"Ok\"", "Нажмите \"Finish\""],
+                imagesURLList: [
+                    "../slides/jlink/1.png",
+                    "../slides/jlink/2.png",
+                    "../slides/jlink/3.png",
+                    "../slides/jlink/4.png",
+                    "../slides/jlink/5.png"
+                ],
+                hintList: [
+                    "Нажмите \"Next\".",
+                    "Нажмите \"I Agree\".",
+                    "Нажмите \"Install\".",
+                    "Нажмите \"Ok\".",
+                    "Нажмите \"Finish\"."
+                ],
                 installFunction: function(){
 //                    console.log("installJlink");
                     installerVM.installJlink()
@@ -118,8 +130,18 @@ ColumnLayout{
         contentQML: "contentUI/StagesObserverUI.qml"
         enabled: installerui_root.licenceAccepted
         model: [{
-                imagesURLList: ["../slides/zadig/1.png", "../slides/zadig/2.png", "../slides/zadig/3.png", "../slides/zadig/4.png"],
-                hintList: ["Нажмите \"Options\"", "Нажмите \"List All Devices\"", "Выберите устройство \"BULK interface\" и драйвер \"WinUSB\", нажмите \"Replace Driver\"", "Процесс замены драйвера может занять занять нескольтко минут"],
+                imagesURLList: [
+                    "../slides/zadig/1.png",
+                    "../slides/zadig/2.png",
+                    "../slides/zadig/3.png",
+                    "../slides/zadig/4.png"
+                ],
+                hintList: [
+                    "Нажмите \"Options\".",
+                    "Нажмите \"List All Devices\".",
+                    "Выберите устройство \"BULK interface\" и драйвер \"WinUSB\", нажмите \"Replace Driver\".",
+                    "Процесс замены драйвера может занять занять нескольтко минут."
+                ],
                 installFunction: function(){
 //                    console.log("runZadig");
                     installerVM.runZadig()
@@ -135,8 +157,18 @@ ColumnLayout{
         contentQML: "contentUI/StagesObserverUI.qml"
         enabled: installerui_root.licenceAccepted
         model: [{
-                imagesURLList: ["../slides/python27/1.png", "../slides/python27/2.png", "../slides/python27/3.png", "../slides/python27/4.png"],
-                hintList: ["Нажмите \"Next\"", "Нажмите \"Next\"", "Нажмите \"Next\"", "Нажмите \"Finish\""],
+                imagesURLList: [
+                    "../slides/python27/1.png",
+                    "../slides/python27/2.png",
+                    "../slides/python27/3.png",
+                    "../slides/python27/4.png"
+                ],
+                hintList: [
+                    "Нажмите \"Next\".",
+                    "Нажмите \"Next\".",
+                    "Нажмите \"Next\".",
+                    "Нажмите \"Finish\"."
+                ],
                 installFunction: function(){
 //                    console.log("Install Python27");
                     installerVM.installPython()
@@ -165,15 +197,15 @@ ColumnLayout{
                     "../slides/toolchain/8.png"
                 ],
                 hintList: [
-                    "Перед первой установкой откройте и закройте Qt Creator",
-                    "Установщик активирует плагин BareMetal",
-                    "Установщик создает отладочный интерфейс",
-                    "Установщик создает отладочное устройство",
-                    "Установщик регистрирует cmake",
-                    "Установщик регистрирует отладчик arm gdb",
-                    "Установщик регистрирует компилятор arm gcc",
-                    "Установщик регистрирует компилятор arm g++",
-                    "Установщик добавляет инструментарий разработки под ARM"
+                    "Перед первой установкой откройте и закройте Qt Creator.",
+                    "Установщик активирует плагин BareMetal.",
+                    "Установщик создает отладочный интерфейс.",
+                    "Установщик создает отладочное устройство.",
+                    "Установщик регистрирует cmake.",
+                    "Установщик регистрирует отладчик arm gdb.",
+                    "Установщик регистрирует компилятор arm gcc.",
+                    "Установщик регистрирует компилятор arm g++.",
+                    "Установщик добавляет инструментарий разработки под ARM."
                 ],
                 installFunction: function(){
 //                    console.log("Install Toolkit");
@@ -197,6 +229,8 @@ ColumnLayout{
         enabled: installerui_root.licenceAccepted
         model: [{
                 imagesURLList: [
+                    "../slides/guide/2022-01-10_11-47-06.png",
+                    "../slides/guide/2022-01-10_11-47-46.png",
                     "../slides/guide/2022-01-08_19-23-57.png",
                     "../slides/guide/2022-01-08_19-25-10.png",
                     "../slides/guide/2022-01-08_19-26-07.png",
@@ -217,24 +251,26 @@ ColumnLayout{
                     "../slides/guide/2022-01-09_21-05-13.png",
                 ],
                 hintList: [
-                    "При первом запуске возможно появится предупреждение, нажмите \"ОК\"",
-                    "Выберите только комплект \"1986be92qi_arm\", нажмите \"Configure project\"",
-                    "Вкладка \"Проекты\". Можно изменить каталог сборки",
+                    "Запустите Qt Creator. Во вкладке \"Файл\" выберите \"открыть проект\".",
+                    "Откройте qbs файл проекта.",
+                    "При первом запуске, если появилось предупреждение, нажмите \"ОК\".",
+                    "Выберите только комплект \"1986be92qi_arm\", нажмите \"Configure project\".",
+                    "Вкладка \"Проекты\". Можно изменить каталог сборки.",
                     "Вкладка \"Редактор\". В файле app.cpp пишется код программы",
-                    "Вкладка \"Редактор\". В файле board.hpp нужно раскомментировать версию платы",
-                    "Вкладка \"diron_qbs\". Можно переключать сборку между отладкой и выпуском",
-                    "Для сборки проекта нажмите на иконку молотока",
-                    "Пример проверки связи программатора JLink с контроллером",
-                    "openocd запустит сервер, к которому можно подключиться из gdb или telnet",
-                    "Пример команды программирования напрямую через openocd и JLink",
-                    "Микроконтроллер успешно прошит",
+                    "Вкладка \"Редактор\". В файле board.hpp нужно раскомментировать версию платы.",
+                    "Вкладка \"diron_qbs\". Можно переключать сборку между отладкой и выпуском.",
+                    "Для сборки проекта нажмите на иконку молотока.",
+                    "Подключите программатор к контроллеру. Пример команды проверки связи с платой.",
+                    "Запустится сервер, к которому можно подключиться через gdb или telnet.",
+                    "Пример команды программирования напрямую через openocd и JLink.",
+                    "Микроконтроллер успешно прошит.",
                     "Прошивка и отладка возможна через Qt Creator. Зеленая стрелка внизу слева.",
                     "У микроконтроллера ограничение в 6 точек останова. При превышении возникнет ошибка.",
-                    "Управление отладчиком производится через кнопки в центре экрана",
-                    "Активируйте обзоры \"Регистры\" и \"Регистры периферии\"",
-                    "В окне \"Регистры периферии\" правой кнопкой мыши выберите группу регистров PORTA",
-                    "Правой кнопкой мыши выберите двоичный формат",
-                    "Установка выделенного бита в 1 зажгет светодиод",
+                    "Управление отладчиком производится через кнопки в центре экрана.",
+                    "Активируйте обзоры \"Регистры\" и \"Регистры периферии\".",
+                    "В окне \"Регистры периферии\" правой кнопкой мыши выберите группу регистров PORTA.",
+                    "Правой кнопкой мыши выберите двоичный формат.",
+                    "Установка выделенного бита в 1 зажгет светодиод.",
                     ],
                 installFunction: null
             }]

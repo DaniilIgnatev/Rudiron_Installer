@@ -144,7 +144,7 @@ ColumnLayout{
 
         Button{
             id: buttonBack
-            text: "Предыдущий"
+            text: stagesObserver.position > 0 ? "Предыдущий" : "Начало"
             font.weight: Font.Normal
             Layout.leftMargin: width / 4
             enabled: stagesObserver.position > 0
@@ -214,8 +214,9 @@ ColumnLayout{
 
         Button{
             id: buttonForward
-            text: "Следующий"
+            text: (stagesObserver.position !== length() - 1) ? "Следующий" : "Конец"
             font.weight: Font.Normal
+
             Layout.rightMargin: width / 4
             enabled: stagesObserver.position + 1 < stagesObserver.imagesURLList.length
             onClicked: {

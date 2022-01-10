@@ -194,10 +194,6 @@ void QtCreatorConfig::createOpenOCDDebugProvider()
         xml_node countNode;
         int serverProviderCount = 0;
 
-        //        xml_node versionNode;
-        //        int version = 0;
-
-
         for (pugi::xml_node dataNode: dataNodes){
             pugi::xml_node variable = dataNode.child("variable");
             xml_node value = dataNode.child("value");
@@ -206,11 +202,6 @@ void QtCreatorConfig::createOpenOCDDebugProvider()
                 countNode = dataNode;
             }
             else
-                //                if (QString(variable.text().as_string()) == "Version"){
-                //                    version = value.text().as_int();
-                //                    versionNode = dataNode;
-                //                }
-                //                else
                 if (QString(variable.text().as_string()).contains("DebugServerProvider")){
                     serverProviderList.append(dataNode);
                 }
@@ -305,28 +296,28 @@ void QtCreatorConfig::createBareMetalDevice()
             bareMetalDefaultNode.first_child().set_value(bareMetalDevice_id.toUtf8());
         }
 
+        bool hasDev = false;
+        pugi::xml_node deviceListNode;
 
         pugi::xml_node DeviceListNode = DeviceManagerNode.child("valuelist");
-
-
-        bool hasDev = false;
-
         for(pugi::xml_node dev: DeviceListNode.children()){
             for(pugi::xml_node devTag: dev.children()){
                 if (QString(devTag.text().as_string()) == QtCreatorConfig::bareMetalDevice_id){
                     hasDev = true;
+                    deviceListNode = dev;
                 }
             }
         }
 
         if (hasDev){
             bareMetalDeviceStatus = ::existed;
+            DeviceListNode.remove_child(deviceListNode);
         }
         else{
-            DeviceListNode.append_buffer(devStr.toUtf8(), devStr.size());
             bareMetalDeviceStatus = ::added;
         }
 
+        DeviceListNode.append_buffer(devStr.toUtf8(), devStr.size());
 
         if (bareMetalDeviceStatus != ::failed){
             doc.save_file(path.toUtf8());
@@ -372,10 +363,10 @@ void QtCreatorConfig::addCmake()
 
         xml_node countNode;
         int count = -1;
-
+        int targetCount = -1;
 
         xml_node defaultNode;
-
+        xml_node cmake_dataNode;
 
         for (xml_node dataNode: dataNodes){
             xml_node variable = dataNode.child("variable");
@@ -399,35 +390,41 @@ void QtCreatorConfig::addCmake()
                         xml_node idNode = variantmap.find_child([](xml_node node){return QString(node.attribute("key").as_string()) == "Id";});
 
                         if (QString(idNode.text().as_string()) == QtCreatorConfig::cmake_id){
+                            targetCount = varStr.split('.')[1].toInt();
                             cmaketoolStatus = ::existed;
+                            cmake_dataNode = dataNode;
                         }
                     }
         }
 
-        if (cmaketoolStatus == ::failed){
-            count++;
-            countNode.child("value").first_child().set_value(QString::number(count).toUtf8());
 
-            QString defaultValue = QString(defaultNode.child("value").first_child().text().as_string());
-            if (defaultValue == ""){
-                defaultValue = QtCreatorConfig::cmake_id;
-                defaultNode.child("value").append_buffer(defaultValue.toUtf8(), defaultValue.size());
-            }
-
-
-            xml_node dataNode = creatorNode.append_child("data");
-            xml_node variableNode = dataNode.append_child("variable");
-
-            QString variableStr = "CMakeTools.";
-            variableStr.append(QString::number(count - 1));
-            variableNode.append_buffer(variableStr.toUtf8(), variableStr.size());
-
-            dataNode.append_buffer(cmaketoolStr.toUtf8(),cmaketoolStr.size());
-
-
-            cmaketoolStatus = ::added;
+        if (cmaketoolStatus != ::existed){
+            count += 1;
+            targetCount = count - 1;
+        }
+        else{
+            creatorNode.remove_child(cmake_dataNode);
         }
 
+
+        countNode.child("value").first_child().set_value(QString::number(count).toUtf8());
+
+        QString defaultValue = QString(defaultNode.child("value").first_child().text().as_string());
+        if (defaultValue == ""){
+            defaultValue = QtCreatorConfig::cmake_id;
+            defaultNode.child("value").append_buffer(defaultValue.toUtf8(), defaultValue.size());
+        }
+
+
+        xml_node dataNode = creatorNode.append_child("data");
+        xml_node variableNode = dataNode.append_child("variable");
+
+        QString variableStr = "CMakeTools.";
+        variableStr.append(QString::number(targetCount));
+        variableNode.append_buffer(variableStr.toUtf8(), variableStr.size());
+
+        dataNode.append_buffer(cmaketoolStr.toUtf8(),cmaketoolStr.size());
+        cmaketoolStatus = ::added;
 
         if (cmaketoolStatus != ::failed){
             //QString debugPath = Distributive::absoluteComponentPath(Distributive::debugPath) + "/cmaketools.xml";
@@ -463,6 +460,9 @@ void QtCreatorConfig::addDebugger()
 
         xml_node countNode;
         int count = -1;
+        int targetCount = -1;
+
+        xml_node debuggerDataNode;
 
         for (xml_node dataNode: dataNodes){
             xml_node variable = dataNode.child("variable");
@@ -478,39 +478,46 @@ void QtCreatorConfig::addDebugger()
                     xml_node idNode = valuemap.find_child([](xml_node node){return QString(node.attribute("key").as_string()) == "Id";});
 
                     if (QString(idNode.first_child().text().as_string()) == QtCreatorConfig::debugger_id){
+                        targetCount = varStr.split('.')[1].toInt();
                         debuggerStatus = ::existed;
+                        debuggerDataNode = dataNode;
                     }
                 }
         }
 
 
-        if (debuggerStatus == ::failed){
-            count++;
-            countNode.child("value").first_child().set_value(QString::number(count).toUtf8());
-
-            QString debuggerStr = "<data>\
-                    <variable>DebuggerItem." + QString::number(count - 1) + "</variable>\
-                    <valuemap type=\"QVariantMap\">\
-                    <valuelist type=\"QVariantList\" key=\"Abis\">\
-                    <value type=\"QString\">arm-baremetal-generic-elf-32bit</value>\
-                    </valuelist>\
-                    <value type=\"bool\" key=\"AutoDetected\">false</value>\
-                    <value type=\"QString\" key=\"Binary\">" + Distributive::absoluteComponentPath(Distributive::gdbBinPath) + "</value>\
-                    <value type=\"QString\" key=\"DisplayName\">" + QtCreatorConfig::debugger_name + "</value>\
-                    <value type=\"int\" key=\"EngineType\">1</value>\
-                    <value type=\"QString\" key=\"Id\">" + QtCreatorConfig::debugger_id + "</value>\
-                    <value type=\"QDateTime\" key=\"LastModified\"></value>\
-                    <value type=\"QString\" key=\"Version\">10.0.0</value>\
-                    <value type=\"QString\" key=\"WorkingDirectory\"></value>\
-                    </valuemap>\
-                    </data>\
-                    <data>";
-
-                    creatorNode.append_buffer(debuggerStr.toUtf8(), debuggerStr.length());
-
-            debuggerStatus = ::added;
+        if (debuggerStatus != ::existed){
+            count += 1;
+            targetCount = count - 1;
+        }
+        else{
+            creatorNode.remove_child(debuggerDataNode);
         }
 
+
+        countNode.child("value").first_child().set_value(QString::number(count).toUtf8());
+
+        QString debuggerStr = "<data>\
+                <variable>DebuggerItem." + QString::number(targetCount) + "</variable>\
+                <valuemap type=\"QVariantMap\">\
+                <valuelist type=\"QVariantList\" key=\"Abis\">\
+                <value type=\"QString\">arm-baremetal-generic-elf-32bit</value>\
+                </valuelist>\
+                <value type=\"bool\" key=\"AutoDetected\">false</value>\
+                <value type=\"QString\" key=\"Binary\">" + Distributive::absoluteComponentPath(Distributive::gdbBinPath) + "</value>\
+                <value type=\"QString\" key=\"DisplayName\">" + QtCreatorConfig::debugger_name + "</value>\
+                <value type=\"int\" key=\"EngineType\">1</value>\
+                <value type=\"QString\" key=\"Id\">" + QtCreatorConfig::debugger_id + "</value>\
+                <value type=\"QDateTime\" key=\"LastModified\"></value>\
+                <value type=\"QString\" key=\"Version\">10.0.0</value>\
+                <value type=\"QString\" key=\"WorkingDirectory\"></value>\
+                </valuemap>\
+                </data>\
+                <data>";
+
+                creatorNode.append_buffer(debuggerStr.toUtf8(), debuggerStr.length());
+
+        debuggerStatus = ::added;
 
         if (debuggerStatus != ::failed){
             //QString debugPath = Distributive::absoluteComponentPath(Distributive::debugPath) + "/debuggers.xml";
@@ -553,6 +560,11 @@ void QtCreatorConfig::addToolchain()
 
         xml_node countNode;
         int count = -1;
+        int gcc_targetCount = -1;
+        int gpp_targetCount = -1;
+
+        xml_node gcc_dataNode;
+        xml_node gpp_dataNode;
 
         for (xml_node dataNode: dataNodes){
             xml_node variable = dataNode.child("variable");
@@ -568,80 +580,88 @@ void QtCreatorConfig::addToolchain()
                     xml_node idNode = valuemap.find_child([](xml_node node){return QString(node.attribute("key").as_string()) == "ProjectExplorer.ToolChain.Id";});
 
                     if (QString(idNode.first_child().text().as_string()) == QtCreatorConfig::gcc_id){
+                        gcc_targetCount = varStr.split('.')[1].toInt();
                         gccStatus = ::existed;
+                        gcc_dataNode = dataNode;
                     }
                     else
                         if (QString(idNode.first_child().text().as_string()) == QtCreatorConfig::gpp_id){
+                            gpp_targetCount = varStr.split('.')[1].toInt();
                             gppStatus = ::existed;
+                            gpp_dataNode = dataNode;
                         }
                 }
         }
 
 
         //GCC
-        if (gccStatus == ::failed){
-            count++;
-            countNode.child("value").first_child().set_value(QString::number(count).toUtf8());
-
-            QString gccStr = "<data>\
-                    <variable>ToolChain." + QString::number(count - 1) + "</variable>\
-                    <valuemap type=\"QVariantMap\">\
-                    <value type=\"QString\" key=\"ProjectExplorer.GccToolChain.OriginalTargetTriple\">arm-none-eabi</value>\
-                    <value type=\"QString\" key=\"ProjectExplorer.GccToolChain.Path\">" + Distributive::absoluteComponentPath(Distributive::gccBinPath) + "</value>\
-                    <valuelist type=\"QVariantList\" key=\"ProjectExplorer.GccToolChain.PlatformCodeGenFlags\"/>\
-                    <valuelist type=\"QVariantList\" key=\"ProjectExplorer.GccToolChain.PlatformLinkerFlags\"/>\
-                    <valuelist type=\"QVariantList\" key=\"ProjectExplorer.GccToolChain.SupportedAbis\">\
-                    <value type=\"QString\">arm-baremetal-generic-elf-32bit</value>\
-                    </valuelist>\
-                    <value type=\"QString\" key=\"ProjectExplorer.GccToolChain.TargetAbi\">arm-baremetal-generic-elf-32bit</value>\
-                    <value type=\"bool\" key=\"ProjectExplorer.ToolChain.Autodetect\">false</value>\
-                    <value type=\"QString\" key=\"ProjectExplorer.ToolChain.DisplayName\">" + QtCreatorConfig::gcc_name + "</value>\
-                    <value type=\"QString\" key=\"ProjectExplorer.ToolChain.Id\">" + QtCreatorConfig::gcc_id + "</value>\
-                    <value type=\"int\" key=\"ProjectExplorer.ToolChain.Language\">1</value>\
-                    <value type=\"QString\" key=\"ProjectExplorer.ToolChain.LanguageV2\">C</value>\
-                    </valuemap>\
-                    </data>";
-
-                    creatorNode.append_buffer(gccStr.toUtf8(), gccStr.length());
-
-            gccStatus = ::added;
+        if (gccStatus != ::existed){
+            count += 1;
+            gcc_targetCount = count - 1;
+        }
+        else{
+            creatorNode.remove_child(gcc_dataNode);
         }
 
+        countNode.child("value").first_child().set_value(QString::number(count).toUtf8());
 
-        if (gccStatus != ::failed){
-            //QString debugPath = Distributive::absoluteComponentPath(Distributive::debugPath) + "/toolchains.xml";
-            doc.save_file(path.toUtf8());
-        }
+        QString gccStr = "<data>\
+                <variable>ToolChain." + QString::number(gcc_targetCount) + "</variable>\
+                <valuemap type=\"QVariantMap\">\
+                <value type=\"QString\" key=\"ProjectExplorer.GccToolChain.OriginalTargetTriple\">arm-none-eabi</value>\
+                <value type=\"QString\" key=\"ProjectExplorer.GccToolChain.Path\">" + Distributive::absoluteComponentPath(Distributive::gccBinPath) + "</value>\
+                <valuelist type=\"QVariantList\" key=\"ProjectExplorer.GccToolChain.PlatformCodeGenFlags\"/>\
+                <valuelist type=\"QVariantList\" key=\"ProjectExplorer.GccToolChain.PlatformLinkerFlags\"/>\
+                <valuelist type=\"QVariantList\" key=\"ProjectExplorer.GccToolChain.SupportedAbis\">\
+                <value type=\"QString\">arm-baremetal-generic-elf-32bit</value>\
+                </valuelist>\
+                <value type=\"QString\" key=\"ProjectExplorer.GccToolChain.TargetAbi\">arm-baremetal-generic-elf-32bit</value>\
+                <value type=\"bool\" key=\"ProjectExplorer.ToolChain.Autodetect\">false</value>\
+                <value type=\"QString\" key=\"ProjectExplorer.ToolChain.DisplayName\">" + QtCreatorConfig::gcc_name + "</value>\
+                <value type=\"QString\" key=\"ProjectExplorer.ToolChain.Id\">" + QtCreatorConfig::gcc_id + "</value>\
+                <value type=\"int\" key=\"ProjectExplorer.ToolChain.Language\">1</value>\
+                <value type=\"QString\" key=\"ProjectExplorer.ToolChain.LanguageV2\">C</value>\
+                </valuemap>\
+                </data>";
+
+                creatorNode.append_buffer(gccStr.toUtf8(), gccStr.length());
+
+        gccStatus = ::added;
 
 
         //G++
-        if (gppStatus == ::failed){
-            count++;
-            countNode.child("value").first_child().set_value(QString::number(count).toUtf8());
-
-            QString gppStr = "<data>\
-                    <variable>ToolChain." + QString::number(count - 1) + "</variable>\
-                    <valuemap type=\"QVariantMap\">\
-                    <value type=\"QString\" key=\"ProjectExplorer.GccToolChain.OriginalTargetTriple\">arm-none-eabi</value>\
-                    <value type=\"QString\" key=\"ProjectExplorer.GccToolChain.Path\">" + Distributive::absoluteComponentPath(Distributive::gppBinPath) + "</value>\
-                    <valuelist type=\"QVariantList\" key=\"ProjectExplorer.GccToolChain.PlatformCodeGenFlags\"/>\
-                    <valuelist type=\"QVariantList\" key=\"ProjectExplorer.GccToolChain.PlatformLinkerFlags\"/>\
-                    <valuelist type=\"QVariantList\" key=\"ProjectExplorer.GccToolChain.SupportedAbis\">\
-                    <value type=\"QString\">arm-baremetal-generic-elf-32bit</value>\
-                    </valuelist>\
-                    <value type=\"QString\" key=\"ProjectExplorer.GccToolChain.TargetAbi\">arm-baremetal-generic-elf-32bit</value>\
-                    <value type=\"bool\" key=\"ProjectExplorer.ToolChain.Autodetect\">false</value>\
-                    <value type=\"QString\" key=\"ProjectExplorer.ToolChain.DisplayName\">" + QtCreatorConfig::gpp_name + "</value>\
-                    <value type=\"QString\" key=\"ProjectExplorer.ToolChain.Id\">" + QtCreatorConfig::gpp_id + "</value>\
-                    <value type=\"int\" key=\"ProjectExplorer.ToolChain.Language\">2</value>\
-                    <value type=\"QString\" key=\"ProjectExplorer.ToolChain.LanguageV2\">Cxx</value>\
-                    </valuemap>\
-                    </data>";
-
-                    creatorNode.append_buffer(gppStr.toUtf8(), gppStr.length());
-
-            gppStatus = ::added;
+        if (gppStatus != ::existed){
+            count += 1;
+            gpp_targetCount = count - 1;
         }
+        else{
+            creatorNode.remove_child(gpp_dataNode);
+        }
+
+        countNode.child("value").first_child().set_value(QString::number(count).toUtf8());
+
+        QString gppStr = "<data>\
+                <variable>ToolChain." + QString::number(gpp_targetCount) + "</variable>\
+                <valuemap type=\"QVariantMap\">\
+                <value type=\"QString\" key=\"ProjectExplorer.GccToolChain.OriginalTargetTriple\">arm-none-eabi</value>\
+                <value type=\"QString\" key=\"ProjectExplorer.GccToolChain.Path\">" + Distributive::absoluteComponentPath(Distributive::gppBinPath) + "</value>\
+                <valuelist type=\"QVariantList\" key=\"ProjectExplorer.GccToolChain.PlatformCodeGenFlags\"/>\
+                <valuelist type=\"QVariantList\" key=\"ProjectExplorer.GccToolChain.PlatformLinkerFlags\"/>\
+                <valuelist type=\"QVariantList\" key=\"ProjectExplorer.GccToolChain.SupportedAbis\">\
+                <value type=\"QString\">arm-baremetal-generic-elf-32bit</value>\
+                </valuelist>\
+                <value type=\"QString\" key=\"ProjectExplorer.GccToolChain.TargetAbi\">arm-baremetal-generic-elf-32bit</value>\
+                <value type=\"bool\" key=\"ProjectExplorer.ToolChain.Autodetect\">false</value>\
+                <value type=\"QString\" key=\"ProjectExplorer.ToolChain.DisplayName\">" + QtCreatorConfig::gpp_name + "</value>\
+                <value type=\"QString\" key=\"ProjectExplorer.ToolChain.Id\">" + QtCreatorConfig::gpp_id + "</value>\
+                <value type=\"int\" key=\"ProjectExplorer.ToolChain.Language\">2</value>\
+                <value type=\"QString\" key=\"ProjectExplorer.ToolChain.LanguageV2\">Cxx</value>\
+                </valuemap>\
+                </data>";
+
+                creatorNode.append_buffer(gppStr.toUtf8(), gppStr.length());
+
+        gppStatus = ::added;
 
 
         if (gppStatus != ::failed){
@@ -677,6 +697,8 @@ void QtCreatorConfig::addKit()
 
         xml_node countNode;
         int count = -1;
+        int targetCount = -1;//!!!!!
+        xml_node kit_dataNode;
 
         for (xml_node dataNode: dataNodes){
             xml_node variable = dataNode.child("variable");
@@ -692,58 +714,63 @@ void QtCreatorConfig::addKit()
                     xml_node idNode = valuemap.find_child([](xml_node node){return QString(node.attribute("key").as_string()) == "PE.Profile.Id";});
 
                     if (QString(idNode.first_child().text().as_string()) == QtCreatorConfig::kit_id){
+                        targetCount = varStr.split('.')[1].toInt();//!!!!!
                         kit_status = ::existed;
+                        kit_dataNode = dataNode;
                     }
                 }
         }
 
 
-        if (kit_status == ::failed){
-            count++;
-            countNode.child("value").first_child().set_value(QString::number(count).toUtf8());
-
-            QString kitStr = "<data>\
-                    <variable>Profile." + QString::number(count - 1) + "</variable>\
-                    <valuemap type=\"QVariantMap\">\
-                    <value type=\"bool\" key=\"PE.Profile.AutoDetected\">false</value>\
-                    <value type=\"QString\" key=\"PE.Profile.AutoDetectionSource\"></value>\
-                    <valuemap type=\"QVariantMap\" key=\"PE.Profile.Data\">\
-                    <valuelist type=\"QVariantList\" key=\"CMake.ConfigurationKitInformation\">\
-                    <value type=\"QString\">QT_QMAKE_EXECUTABLE:STRING=%{Qt:qmakeExecutable}</value>\
-                    <value type=\"QString\">CMAKE_PREFIX_PATH:STRING=%{Qt:QT_INSTALL_PREFIX}</value>\
-                    <value type=\"QString\">CMAKE_C_COMPILER:STRING=%{Compiler:Executable:C}</value>\
-                    <value type=\"QString\">CMAKE_CXX_COMPILER:STRING=%{Compiler:Executable:Cxx}</value>\
-                    </valuelist>\
-                    <valuemap type=\"QVariantMap\" key=\"CMake.GeneratorKitInformation\">\
-                    <value type=\"QString\" key=\"ExtraGenerator\"></value>\
-                    <value type=\"QString\" key=\"Generator\">NMake Makefiles JOM</value>\
-                    <value type=\"QString\" key=\"Platform\"></value>\
-                    <value type=\"QString\" key=\"Toolset\"></value>\
-                    </valuemap>\
-                    <value type=\"QString\" key=\"CMakeProjectManager.CMakeKitInformation\">" + QtCreatorConfig::cmake_id + "</value>\
-                    <value type=\"QString\" key=\"Debugger.Information\">" + QtCreatorConfig::debugger_id + "</value>\
-                    <value type=\"QString\" key=\"PE.Profile.Device\">" + QtCreatorConfig::bareMetalDevice_id + "</value>\
-                    <value type=\"QString\" key=\"PE.Profile.DeviceType\">BareMetalOsType</value>\
-                    <valuemap type=\"QVariantMap\" key=\"PE.Profile.ToolChainsV3\">\
-                    <value type=\"QByteArray\" key=\"C\">" + QtCreatorConfig::gcc_id + "</value>\
-                    <value type=\"QByteArray\" key=\"Cxx\">" + QtCreatorConfig::gpp_id + "</value>\
-                    </valuemap>\
-                    </valuemap>\
-                    <value type=\"QString\" key=\"PE.Profile.DeviceTypeForIcon\"></value>\
-                    <value type=\"QString\" key=\"PE.Profile.Icon\"></value>\
-                    <value type=\"QString\" key=\"PE.Profile.Id\">" + QtCreatorConfig::kit_id + "</value>\
-                    <valuelist type=\"QVariantList\" key=\"PE.Profile.MutableInfo\"/>\
-                    <value type=\"QString\" key=\"PE.Profile.Name\">" + QtCreatorConfig::kit_name + "</value>\
-                    <value type=\"bool\" key=\"PE.Profile.SDK\">false</value>\
-                    <valuelist type=\"QVariantList\" key=\"PE.Profile.StickyInfo\"/>\
-                    </valuemap>\
-                    </data>";
-
-                    creatorNode.append_buffer(kitStr.toUtf8(), kitStr.length());
-
-            kit_status = ::added;
+        if (kit_status != ::existed){//!!!!!
+            count += 1;//!!!!!
+            targetCount = count - 1;//!!!!!
+        }
+        else{
+            creatorNode.remove_child(kit_dataNode);//!!!!!
         }
 
+        countNode.child("value").first_child().set_value(QString::number(count).toUtf8());
+        //!!!!!
+        QString kitStr = "<data>\
+                <variable>Profile." + QString::number(targetCount) + "</variable>\
+                <valuemap type=\"QVariantMap\">\
+                <value type=\"bool\" key=\"PE.Profile.AutoDetected\">false</value>\
+                <value type=\"QString\" key=\"PE.Profile.AutoDetectionSource\"></value>\
+                <valuemap type=\"QVariantMap\" key=\"PE.Profile.Data\">\
+                <valuelist type=\"QVariantList\" key=\"CMake.ConfigurationKitInformation\">\
+                <value type=\"QString\">QT_QMAKE_EXECUTABLE:STRING=%{Qt:qmakeExecutable}</value>\
+                <value type=\"QString\">CMAKE_PREFIX_PATH:STRING=%{Qt:QT_INSTALL_PREFIX}</value>\
+                <value type=\"QString\">CMAKE_C_COMPILER:STRING=%{Compiler:Executable:C}</value>\
+                <value type=\"QString\">CMAKE_CXX_COMPILER:STRING=%{Compiler:Executable:Cxx}</value>\
+                </valuelist>\
+                <valuemap type=\"QVariantMap\" key=\"CMake.GeneratorKitInformation\">\
+                <value type=\"QString\" key=\"ExtraGenerator\"></value>\
+                <value type=\"QString\" key=\"Generator\">NMake Makefiles JOM</value>\
+                <value type=\"QString\" key=\"Platform\"></value>\
+                <value type=\"QString\" key=\"Toolset\"></value>\
+                </valuemap>\
+                <value type=\"QString\" key=\"CMakeProjectManager.CMakeKitInformation\">" + QtCreatorConfig::cmake_id + "</value>\
+                <value type=\"QString\" key=\"Debugger.Information\">" + QtCreatorConfig::debugger_id + "</value>\
+                <value type=\"QString\" key=\"PE.Profile.Device\">" + QtCreatorConfig::bareMetalDevice_id + "</value>\
+                <value type=\"QString\" key=\"PE.Profile.DeviceType\">BareMetalOsType</value>\
+                <valuemap type=\"QVariantMap\" key=\"PE.Profile.ToolChainsV3\">\
+                <value type=\"QByteArray\" key=\"C\">" + QtCreatorConfig::gcc_id + "</value>\
+                <value type=\"QByteArray\" key=\"Cxx\">" + QtCreatorConfig::gpp_id + "</value>\
+                </valuemap>\
+                </valuemap>\
+                <value type=\"QString\" key=\"PE.Profile.DeviceTypeForIcon\"></value>\
+                <value type=\"QString\" key=\"PE.Profile.Icon\"></value>\
+                <value type=\"QString\" key=\"PE.Profile.Id\">" + QtCreatorConfig::kit_id + "</value>\
+                <valuelist type=\"QVariantList\" key=\"PE.Profile.MutableInfo\"/>\
+                <value type=\"QString\" key=\"PE.Profile.Name\">" + QtCreatorConfig::kit_name + "</value>\
+                <value type=\"bool\" key=\"PE.Profile.SDK\">false</value>\
+                <valuelist type=\"QVariantList\" key=\"PE.Profile.StickyInfo\"/>\
+                </valuemap>\
+                </data>";
+
+                creatorNode.append_buffer(kitStr.toUtf8(), kitStr.length());
+        kit_status = ::added;
 
         if (kit_status != ::failed){
             //QString debugPath = Distributive::absoluteComponentPath(Distributive::debugPath) + "/toolchains.xml";

@@ -197,7 +197,7 @@ ColumnLayout{
             text: installed ?  "Выполнено" : "Установить"
             font.weight: installed ? Font.Bold : Font.Normal
             visible: stagesObserver.installFunction != null
-            enabled: false
+            enabled: true
             onClicked: {
                 stagesObserver.installFunction()
                 installed = true

@@ -19,7 +19,6 @@ along with DIBotInstaller. If not, see <http://www.gnu.org/licenses/>.
 
 
 #include "installermenuvm.h"
-#include <windows.h>
 #include <QSettings>
 
 

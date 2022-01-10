@@ -1,7 +1,7 @@
 QT += quick xml
 QT += quickcontrols2
 
-
+RC_ICONS = icon.ico
 CONFIG += c++11
 
 # The following define makes your compiler emit warnings if you use

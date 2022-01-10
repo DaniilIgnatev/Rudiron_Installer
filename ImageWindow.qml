@@ -2,9 +2,11 @@ import QtQuick 2.6
 import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.15
 import QtQml 2.15
+import "contentUI"
 
 Window {
     id: imagewindow_root
+
     width: 800; height: 600
     minimumWidth: 800
     minimumHeight: 600
@@ -118,30 +120,12 @@ Window {
                 Layout.fillHeight: false
             }
 
-            Button{
-                id: buttonBack
+            ButtonStyled{
+                id: buttonClose
                 text: "Закрыть"
-                Layout.fillWidth: false
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-                topPadding: 0
-                bottomPadding: 0
-                rightPadding: 0
-                leftPadding: 0
-                font.weight: Font.Normal
                 onClicked: {
                     imagewindow_root.close()
-                }
-
-                font.pointSize: 14
-                font.family: "Arial"
-                font.bold: true
-                Layout.preferredHeight: 40
-                Layout.preferredWidth: 120
-                background: Rectangle{
-                    color: parent.pressed ? "#274472" : "#41729f"
-                    radius: 2
-                    anchors.bottom: parent.bottom
-                    anchors.fill: parent
                 }
             }
 

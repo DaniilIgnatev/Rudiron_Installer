@@ -23,26 +23,51 @@ import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
 
 
-Window {
+//black "#262730"
+//blue "#5171A5"
+//violet "#3F3047"
+//silversand "#BBC8CA"
+//magnolia "#FFFAFF"
+//jet "#303036"
+//indigoblue "#16425B"
 
-    id: app
+RowLayout{
+    id: tab_root
 
-    title: "Установка ДИРОН"
-    visible: true
+    property int position: 0
 
-    minimumWidth: 800
-    minimumHeight: minimumWidth * 3 / 4
+    property string contentQML: ""
 
-    maximumWidth: minimumWidth
-    maximumHeight: minimumHeight
+    property alias text: button.text
 
-    InstallerUI{
+    property alias checked: button.checked
 
+    property bool statusEnabled: false
+
+    property bool installStatus: false
+
+    property var model: {({})}
+
+
+    TabButtonUI{
+        id: button
+
+        Layout.fillWidth: true
+        Layout.fillHeight: false
+
+        Layout.preferredHeight: width / 2
+
+        onCheckedChanged: {
+            if (checked){
+                tab_root.parent.selectedPos = tab_root.position
+            }
+        }
     }
 }
 
+
 /*##^##
 Designer {
-    D{i:0;autoSize:true;height:600;width:800}D{i:1}
+    D{i:0;autoSize:true;height:480;width:640}D{i:1}
 }
 ##^##*/

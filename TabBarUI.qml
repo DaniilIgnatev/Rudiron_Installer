@@ -41,7 +41,7 @@ ColumnLayout{
     }
 
 
-    Tab{
+    TabUI{
         id: tab0
         onCheckedChanged: tabbar_root.tabChecked(position)
         position: 0
@@ -49,7 +49,7 @@ ColumnLayout{
         contentQML: "contentUI/OverviewUI.qml"
     }
 
-    Tab{
+    TabUI{
         id: tab1
         onCheckedChanged: tabbar_root.tabChecked(position)
         position: 1
@@ -57,7 +57,7 @@ ColumnLayout{
         contentQML: "contentUI/LicenceUI.qml"
     }
 
-    Tab{
+    TabUI{
         id: tab2
         onCheckedChanged: tabbar_root.tabChecked(position)
         position: 2
@@ -65,6 +65,7 @@ ColumnLayout{
         contentQML: "contentUI/StagesObserverUI.qml"
         enabled: installerui_root.licenceAccepted
         model: [{
+                title: text,
                 imagesURLList: [
                     "../slides/qtcreator/2022-01-09_12-02-57.png",
                     "../slides/qtcreator/2022-01-09_12-03-46.png",
@@ -93,7 +94,7 @@ ColumnLayout{
             }]
     }
 
-    Tab{
+    TabUI{
         id: tab3
         onCheckedChanged: tabbar_root.tabChecked(position)
         position: 3
@@ -101,6 +102,7 @@ ColumnLayout{
         contentQML: "contentUI/StagesObserverUI.qml"
         enabled: installerui_root.licenceAccepted
         model: [{
+                title: text,
                 imagesURLList: [
                     "../slides/jlink/1.png",
                     "../slides/jlink/2.png",
@@ -122,7 +124,7 @@ ColumnLayout{
             }]
     }
 
-    Tab{
+    TabUI{
         id: tab4
         onCheckedChanged: tabbar_root.tabChecked(position)
         position: 4
@@ -130,13 +132,16 @@ ColumnLayout{
         contentQML: "contentUI/StagesObserverUI.qml"
         enabled: installerui_root.licenceAccepted
         model: [{
+                title: text,
                 imagesURLList: [
+                    "../slides/zadig/jlink.png",
                     "../slides/zadig/1.png",
                     "../slides/zadig/2.png",
                     "../slides/zadig/3.png",
                     "../slides/zadig/4.png"
                 ],
                 hintList: [
+                    "Подключите JLink-совместимый программатор к компьютеру",
                     "Нажмите \"Options\".",
                     "Нажмите \"List All Devices\".",
                     "Выберите устройство \"BULK interface\" и драйвер \"WinUSB\", нажмите \"Replace Driver\".",
@@ -149,7 +154,7 @@ ColumnLayout{
             }]
     }
 
-    Tab{
+    TabUI{
         id: tab5
         onCheckedChanged: tabbar_root.tabChecked(position)
         position: 5
@@ -157,6 +162,7 @@ ColumnLayout{
         contentQML: "contentUI/StagesObserverUI.qml"
         enabled: installerui_root.licenceAccepted
         model: [{
+                title: text,
                 imagesURLList: [
                     "../slides/python27/1.png",
                     "../slides/python27/2.png",
@@ -177,7 +183,7 @@ ColumnLayout{
     }
 
 
-    Tab{
+    TabUI{
         id: tab6
         onCheckedChanged: tabbar_root.tabChecked(position)
         position: 6
@@ -185,8 +191,9 @@ ColumnLayout{
         contentQML: "contentUI/StagesObserverUI.qml"
         enabled: installerui_root.licenceAccepted
         model: [{
+                title: text,
                 imagesURLList: [
-                    "qrc:/slides/white.png",
+                    "../slides/toolchain/qt_logo_green_rgb_whitespace.png",
                     "../slides/toolchain/1.png",
                     "../slides/toolchain/2.png",
                     "../slides/toolchain/3.png",
@@ -220,7 +227,7 @@ ColumnLayout{
             }]
     }
 
-    Tab{
+    TabUI{
         id: tab7
         onCheckedChanged: tabbar_root.tabChecked(position)
         position: 7
@@ -228,6 +235,7 @@ ColumnLayout{
         contentQML: "contentUI/StagesObserverUI.qml"
         enabled: installerui_root.licenceAccepted
         model: [{
+                title: text,
                 imagesURLList: [
                     "../slides/guide/2022-01-10_11-47-06.png",
                     "../slides/guide/2022-01-10_11-47-46.png",
@@ -283,7 +291,7 @@ ColumnLayout{
 
 
     function tabChecked(pos){
-//        console.log("tab" + pos + " checked")
+        console.log("tab" + pos + " checked")
 
         for (var i = 0; i < tabs.length; i++){
             var tab = tabs[i];

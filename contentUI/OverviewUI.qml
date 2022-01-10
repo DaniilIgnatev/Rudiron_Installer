@@ -25,55 +25,34 @@ import com.dibot 1.0
 import com.FileSystemAPI 1.0
 
 
-
-
-//    Text{
-//        id: textOverview
-//        text: "<b>Описание</b> <i>продукта.</i><b>Описание</b> <i>продукта.</i><b>Описание</b> <i>продукта.</i><b>Описание</b> <i>продукта.</i><b>Описание</b> <i>продукта.</i><b>Описание</b> <i>продукта.</i><b>Описание</b> <i>продукта.</i><b>Описание</b> <i>продукта.</i><b>Описание</b> <i>продукта.</i><b>Описание</b> <i>продукта.</i>"
-
-//        wrapMode: Text.Wrap
-//        padding: 10
-//        font.pointSize: 12
-//        fontSizeMode: Text.Fit
-//        textFormat: Text.RichText
-//        font.family: "Arial"
-//        Layout.fillHeight: true
-//        Layout.fillWidth: true
-//    }
-
 ColumnLayout{
 
 
     Text {
         Layout.fillWidth: true
-        padding: 15
+        padding: 10
 
-        text: "<h2>Внимательно читайте инструкции на каждом этапе установки</h2>"
+        text: "<h2>Внимательно следуйте инструкциям на каждом этапе установки</h2>"
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
-        lineHeightMode: Text.ProportionalHeight
-
         font.family: "Arial"
-        wrapMode: Text.WordWrap
+
         renderType: Text.QtRendering
-        topPadding: 10
-        bottomPadding: 5
-        rightPadding: 30
-        leftPadding: 30
-        fontSizeMode: Text.Fit
         font.pointSize: 14
+
+        wrapMode: Text.Wrap
+        fontSizeMode: Text.Fit
         textFormat: Text.RichText
     }
 
     ScrollView{
+        id: scrollableBox
         Layout.fillHeight: true
         Layout.fillWidth: true
 
         FileSystemAPI{
             id: file_system_api
         }
-
-        id: scrollableBox
 
         clip: true
         wheelEnabled: true
@@ -95,15 +74,13 @@ ColumnLayout{
 
         Text {
             id: textbox
-            anchors.fill: parent
+            width: scrollableBox.width
+            font.pointSize: 12
             padding: 10
-
             text: "<b>Описание</b> <i>продукта.</i><b>Описание</b> <i>продукта.</i><b>Описание</b> <i>продукта.</i><b>Описание</b> <i>продукта.</i><b>Описание</b> <i>продукта.</i><b>Описание</b> <i>продукта.</i><b>Описание</b> <i>продукта.</i><b>Описание</b> <i>продукта.</i><b>Описание</b> <i>продукта.</i><b>Описание</b> <i>продукта.</i>"
-
             font.family: "Arial"
             wrapMode: Text.Wrap
             fontSizeMode: Text.Fit
-            font.pointSize: 12
             textFormat: Text.RichText
         }
     }

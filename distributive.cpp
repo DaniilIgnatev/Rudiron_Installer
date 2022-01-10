@@ -29,17 +29,25 @@ Distributive::Distributive(QObject *parent) : QObject(parent)
 
 QString Distributive::absoluteComponentPath(QDir componentDir)
 {
-   QString dibotPath = Distributive::dibotDir().path();
+   QString dironPath = Distributive::dibotDir().path();
+   dironPath = dironPath.remove("installer");
+
    QString componentPath = componentDir.path();
-   QString fullPath = QDir::toNativeSeparators(dibotPath + "/" + componentPath);
+   QString fixedComponentPath = componentPath.remove("../");
+
+   QString fullPath = QDir::toNativeSeparators(dironPath + "/" + fixedComponentPath);
    return fullPath;
 }
 
 
 QString Distributive::absoluteComponentPath(QString componentPath)
 {
-   QString dibotPath = Distributive::dibotDir().path();
-   QString fullPath = QDir::toNativeSeparators(dibotPath + "/" + componentPath);
+   QString dironPath = Distributive::dibotDir().path();
+   dironPath = dironPath.remove("installer");
+
+   QString fixedComponentPath = componentPath.remove("../");
+
+   QString fullPath = QDir::toNativeSeparators(dironPath + "/" + fixedComponentPath);
    return fullPath;
 }
 
@@ -53,7 +61,7 @@ QDir Distributive::dibotDir()
 }
 
 
-const QString Distributive::softDirPath = "components";
+const QString Distributive::softDirPath = "../components";
 
 
 const QString Distributive::svdFilePath = softDirPath + "/MDR32F9Q1.svd";

@@ -24,7 +24,6 @@ import QtQuick.Layouts 1.12
 import com.dibot 1.0
 
 
-
 ColumnLayout{
 
     id: stagesObserver
@@ -35,7 +34,10 @@ ColumnLayout{
     property bool installed: false
 
 
-    property var imagesURLList: ["qrc:/slides/qtcreator/1.png"]
+    property string title: "Заголовок"
+
+
+    property var imagesURLList: ["qrc:/slides/qtcreator/2022-01-09_12-02-57.png"]
 
 
     property var hintList: ["Нажмите \"Далее\""]
@@ -47,15 +49,39 @@ ColumnLayout{
 
 
     property var installFunction: ({})
+    spacing: 15
 
 
     Text{
-        text: "Слайд № " + (stagesObserver.position + 1)
+        text: stagesObserver.title
 
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
 
         font.pointSize: 14
+        font.family: "Arial"
+        font.bold: true
+
+        fontSizeMode: Text.VerticalFit
+        Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+
+        renderType: Text.QtRendering
+        textFormat: Text.PlainText
+
+        Layout.topMargin: 15
+        Layout.fillWidth: true
+        Layout.fillHeight: false
+        //Layout.preferredHeight: 50
+    }
+
+    Text{
+        text: "№ " + (stagesObserver.position + 1)
+
+        horizontalAlignment: Text.AlignHCenter
+        verticalAlignment: Text.AlignVCenter
+        topPadding: -5
+
+        font.pointSize: 12
         font.family: "Arial"
 
         fontSizeMode: Text.VerticalFit
@@ -64,9 +90,9 @@ ColumnLayout{
         renderType: Text.QtRendering
         textFormat: Text.PlainText
 
-        Layout.fillWidth: false
+        Layout.topMargin: 5
+        Layout.fillWidth: true
         Layout.fillHeight: false
-        Layout.topMargin: 15
         //Layout.preferredHeight: 50
     }
 
@@ -87,7 +113,8 @@ ColumnLayout{
         fillMode: Image.PreserveAspectFit
 
         MouseArea {
-                anchors.fill: parent
+            anchors.fill: parent
+            anchors.topMargin: -5
                 hoverEnabled: true
                 acceptedButtons: Qt.LeftButton
                 onClicked: {
@@ -97,7 +124,7 @@ ColumnLayout{
                             if (component.status === Component.Ready){
                                 var window = component.createObject(stagesObserver)
                                 window.imageSource = image.source
-                                window.showFullScreen()
+                                window.showMaximized()
                             }
                         }
                     }
@@ -118,7 +145,9 @@ ColumnLayout{
 
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
-        wrapMode: Text.Wrap
+        wrapMode: Text.WordWrap
+        rightPadding: 15
+        leftPadding: 15
         font.italic: true
 
         font.pointSize: 12
@@ -142,26 +171,14 @@ ColumnLayout{
         Layout.topMargin: 5
         Layout.preferredHeight: 50
 
-        Button{
+        ButtonStyled{
             id: buttonBack
             text: stagesObserver.position > 0 ? "Предыдущий" : "Начало"
-            font.weight: Font.Normal
+
             Layout.leftMargin: width / 4
             enabled: stagesObserver.position > 0
             onClicked: {
                 stagesObserver.position--
-            }
-
-            font.pointSize: 8
-            font.family: "Arial"
-            font.bold: true
-            Layout.preferredHeight: 40
-            Layout.preferredWidth: 90
-            background: Rectangle{
-                color: parent.pressed ? "#274472" : "#41729f"
-                radius: 2
-                anchors.bottom: parent.bottom
-                anchors.fill: parent
             }
         }
 
@@ -170,10 +187,8 @@ ColumnLayout{
             Layout.fillHeight: true
         }
 
-
         ProgressBar{
             visible: stagesObserver.position !== length() - 1
-            Layout.fillWidth: false
             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
             from: 0.0
             to: 1.0
@@ -182,7 +197,7 @@ ColumnLayout{
         }
 
 
-        Button{
+        ButtonStyled{
             id: buttonInstall
             text: installed ?  "Выполнено" : "Установить"
             font.weight: installed ? Font.Bold : Font.Normal
@@ -192,47 +207,21 @@ ColumnLayout{
                 stagesObserver.installFunction()
                 stagesObserver.installed = true
             }
-
-            font.pointSize: 8
-            font.family: "Arial"
-            font.bold: true
-            Layout.preferredHeight: 40
-            Layout.preferredWidth: 90
-            background: Rectangle{
-                color: parent.pressed ? "#274472" : "#41729f"
-                radius: 2
-                anchors.bottom: parent.bottom
-                anchors.fill: parent
-            }
         }
-
 
         Item{
             Layout.fillWidth: true
             Layout.fillHeight: true
         }
 
-        Button{
+        ButtonStyled{
             id: buttonForward
             text: (stagesObserver.position !== length() - 1) ? "Следующий" : "Конец"
-            font.weight: Font.Normal
 
             Layout.rightMargin: width / 4
             enabled: stagesObserver.position + 1 < stagesObserver.imagesURLList.length
             onClicked: {
                 stagesObserver.position++
-            }
-
-            font.pointSize: 8
-            font.family: "Arial"
-            font.bold: true
-            Layout.preferredHeight: 40
-            Layout.preferredWidth: 90
-            background: Rectangle{
-                color: parent.pressed ? "#274472" : "#41729f"
-                radius: 2
-                anchors.bottom: parent.bottom
-                anchors.fill: parent
             }
         }
     }
@@ -242,7 +231,7 @@ ColumnLayout{
 
 /*##^##
 Designer {
-    D{i:0;autoSize:true;height:480;width:640}D{i:1}D{i:3}D{i:2}D{i:4}D{i:6}D{i:8}D{i:9}
-D{i:10}D{i:12}D{i:13}D{i:5}
+    D{i:0;autoSize:true;height:480;width:640}D{i:1}D{i:2}D{i:4}D{i:3}D{i:5}D{i:7}D{i:8}
+D{i:9}D{i:10}D{i:11}D{i:12}D{i:6}
 }
 ##^##*/

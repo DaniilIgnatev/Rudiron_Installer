@@ -40,8 +40,7 @@ ColumnLayout{
 
     Text {
         text: "Лицензионное соглашение"
-        wrapMode: Text.Wrap
-        font.pointSize: 12
+        wrapMode: Text.NoWrap
         font.bold: true
         textFormat: Text.PlainText
         font.family: "Arial"
@@ -51,7 +50,6 @@ ColumnLayout{
     Text {
         text: "Пожалуйста, прочтите следующую важную информацию перед тем, как продолжить."
         wrapMode: Text.Wrap
-        font.pointSize: 12
         textFormat: Text.PlainText
         font.family: "Arial"
         Layout.fillWidth: true
@@ -68,7 +66,6 @@ ColumnLayout{
         text: "Любое использование приобретенного Программного продукта, в том числе его установка и запуск, означает согласие с условиями приведенного ниже Лицензионного соглашения."
         font.family: "Arial"
         wrapMode: Text.Wrap
-        font.pointSize: 10
         textFormat: Text.PlainText
         Layout.fillWidth: true
         Layout.leftMargin: licenceUI_root.leftMargin

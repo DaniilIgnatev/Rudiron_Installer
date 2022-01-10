@@ -9,7 +9,7 @@ RowLayout  {
     anchors.fill: parent
     spacing: 20
 
-    property bool licenceAccepted: true
+    property bool licenceAccepted: false
 
 
     InstallerMenuVM{
@@ -25,7 +25,7 @@ RowLayout  {
     }
 
 
-    TabBar {
+    TabBarUI {
         id: installerui_tabbar
         Layout.fillHeight: true
         Layout.fillWidth: false
@@ -60,6 +60,7 @@ RowLayout  {
                         component.createObject(this, {
                                                    width: this.width,
                                                    height: this.height,
+                                                   title: stagesModel.title,
                                                    imagesURLList: stagesModel.imagesURLList,
                                                    hintList: stagesModel.hintList,
                                                    installFunction: stagesModel.installFunction
@@ -94,6 +95,6 @@ RowLayout  {
 
 /*##^##
 Designer {
-    D{i:0;autoSize:true;height:600;width:800}D{i:1}D{i:3}D{i:2}
+    D{i:0;autoSize:true;height:600;width:800}D{i:1}D{i:2}D{i:4}D{i:3}
 }
 ##^##*/

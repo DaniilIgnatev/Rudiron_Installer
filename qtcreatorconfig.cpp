@@ -142,7 +142,7 @@ QString QtCreatorConfig::debugServerProviders_xml_path()
 
 void QtCreatorConfig::createOpenOCDDebugProvider()
 {
-    debugServerProviderStatus = ::failed;
+    debugServerProviderStatus = ::added;
     QString path = debugServerProviders_xml_path();
 
     QString debugProvider = "<data>\
@@ -220,11 +220,11 @@ void QtCreatorConfig::createOpenOCDDebugProvider()
             qtcreatorNode.append_buffer(debugProvider.toUtf8(), debugProvider.size());
             serverProviderCount++;
             countNode.child("value").first_child().set_value(QString::number(serverProviderCount).toUtf8());
-            debugServerProviderStatus = ::added;
         }
 
-        if (debugServerProviderStatus != ::failed){
-            doc.save_file(path.toUtf8());
+        if (!doc.save_file(path.toUtf8())){
+            qDebug() << "ОШИБКА ЗАПИСИ В " << path.toUtf8();
+            debugServerProviderStatus = ::failed;
         }
     }
 }
@@ -244,7 +244,7 @@ QString QtCreatorConfig::devices_xml_path()
 
 void QtCreatorConfig::createBareMetalDevice()
 {
-    bareMetalDeviceStatus = ::failed;
+    bareMetalDeviceStatus = ::added;
     QString path = devices_xml_path();
 
     QString devStr = "<valuemap type=\"QVariantMap\">\
@@ -313,14 +313,12 @@ void QtCreatorConfig::createBareMetalDevice()
             bareMetalDeviceStatus = ::existed;
             DeviceListNode.remove_child(deviceListNode);
         }
-        else{
-            bareMetalDeviceStatus = ::added;
-        }
 
         DeviceListNode.append_buffer(devStr.toUtf8(), devStr.size());
 
-        if (bareMetalDeviceStatus != ::failed){
-            doc.save_file(path.toUtf8());
+        if (!doc.save_file(path.toUtf8())){
+            qDebug() << "ОШИБКА ЗАПИСИ В " << path.toUtf8();
+            bareMetalDeviceStatus = ::failed;
         }
     }
 }
@@ -341,7 +339,7 @@ QString QtCreatorConfig::cmaketools_xml_path()
 
 void QtCreatorConfig::addCmake()
 {
-    cmaketoolStatus = ::failed;
+    cmaketoolStatus = ::added;
     QString path = cmaketools_xml_path();
 
     QString cmaketoolStr = "<valuemap type=\"QVariantMap\">\
@@ -424,11 +422,11 @@ void QtCreatorConfig::addCmake()
         variableNode.append_buffer(variableStr.toUtf8(), variableStr.size());
 
         dataNode.append_buffer(cmaketoolStr.toUtf8(),cmaketoolStr.size());
-        cmaketoolStatus = ::added;
 
-        if (cmaketoolStatus != ::failed){
-            //QString debugPath = Distributive::absoluteComponentPath(Distributive::debugPath) + "/cmaketools.xml";
-            doc.save_file(path.toUtf8());
+        //QString debugPath = Distributive::absoluteComponentPath(Distributive::debugPath) + "/cmaketools.xml";
+        if (!doc.save_file(path.toUtf8())){
+            qDebug() << "ОШИБКА ЗАПИСИ В " << path.toUtf8();
+            cmaketoolStatus = ::failed;
         }
     }
 }
@@ -449,7 +447,7 @@ QString QtCreatorConfig::debuggers_xml_path()
 
 void QtCreatorConfig::addDebugger()
 {
-    debuggerStatus = ::failed;
+    debuggerStatus = ::added;
     QString path = debuggers_xml_path();
 
 
@@ -517,11 +515,10 @@ void QtCreatorConfig::addDebugger()
 
                 creatorNode.append_buffer(debuggerStr.toUtf8(), debuggerStr.length());
 
-        debuggerStatus = ::added;
-
-        if (debuggerStatus != ::failed){
-            //QString debugPath = Distributive::absoluteComponentPath(Distributive::debugPath) + "/debuggers.xml";
-            doc.save_file(path.toUtf8());
+        //QString debugPath = Distributive::absoluteComponentPath(Distributive::debugPath) + "/debuggers.xml";
+        if (!doc.save_file(path.toUtf8())){
+            qDebug() << "ОШИБКА ЗАПИСИ В " << path.toUtf8();
+            debuggerStatus = ::failed;
         }
     }
 }
@@ -549,8 +546,8 @@ void QtCreatorConfig::addToolchain()
 {
     QString path = toolchain_xml_path();
 
-    gccStatus = ::failed;
-    gppStatus = ::failed;
+    gccStatus = ::added;
+    gppStatus = ::added;
 
 
     pugi::xml_document doc;
@@ -626,9 +623,6 @@ void QtCreatorConfig::addToolchain()
 
                 creatorNode.append_buffer(gccStr.toUtf8(), gccStr.length());
 
-        gccStatus = ::added;
-
-
         //G++
         if (gppStatus != ::existed){
             count += 1;
@@ -661,12 +655,12 @@ void QtCreatorConfig::addToolchain()
 
                 creatorNode.append_buffer(gppStr.toUtf8(), gppStr.length());
 
-        gppStatus = ::added;
 
-
-        if (gppStatus != ::failed){
-            //QString debugPath = Distributive::absoluteComponentPath(Distributive::debugPath) + "/toolchains.xml";
-            doc.save_file(path.toUtf8());
+        //QString debugPath = Distributive::absoluteComponentPath(Distributive::debugPath) + "/toolchains.xml";
+        if (!doc.save_file(path.toUtf8())){
+            qDebug() << "ОШИБКА ЗАПИСИ В " << path.toUtf8();
+            gccStatus = ::failed;
+            gppStatus = ::failed;
         }
     }
 }
@@ -686,7 +680,7 @@ QString QtCreatorConfig::profiles_xml_path()
 
 void QtCreatorConfig::addKit()
 {
-    kit_status = ::failed;
+    kit_status = ::added;
     QString path = profiles_xml_path();
 
 
@@ -770,11 +764,11 @@ void QtCreatorConfig::addKit()
                 </data>";
 
                 creatorNode.append_buffer(kitStr.toUtf8(), kitStr.length());
-        kit_status = ::added;
 
-        if (kit_status != ::failed){
-            //QString debugPath = Distributive::absoluteComponentPath(Distributive::debugPath) + "/toolchains.xml";
-            doc.save_file(path.toUtf8());
+        //QString debugPath = Distributive::absoluteComponentPath(Distributive::debugPath) + "/toolchains.xml";
+        if (!doc.save_file(path.toUtf8())){
+            qDebug() << "ОШИБКА ЗАПИСИ В " << path.toUtf8();
+            kit_status = ::failed;
         }
     }
 }

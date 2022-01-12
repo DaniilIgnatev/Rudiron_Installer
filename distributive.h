@@ -43,7 +43,7 @@ public:
 
     //SOFT
 
-    static const QString softDirPath;
+    static const QString componentsDirPath;
 
 
     static QDir softDir();

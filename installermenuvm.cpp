@@ -82,6 +82,16 @@ void InstallerMenuVM::setPythonInstalled(bool value)
 }
 
 
+QString InstallerMenuVM::printPathes()
+{
+    QString qtprojectDir = this->qtCreatorOptions->qtprojectDir.path();
+    QString qtcreatorDir = this->qtCreatorOptions->qtcreatorDir.path();
+
+    QString pathes = qtprojectDir.append("\n").append(qtcreatorDir);
+    return pathes;
+}
+
+
 void InstallerMenuVM::addPATH()
 {
     QSettings registry("HKEY_CURRENT_USER\\Environment", QSettings::NativeFormat);
@@ -120,21 +130,21 @@ void InstallerMenuVM::addPATH()
 
 void InstallerMenuVM::installQTCreator()
 {
-    QString path = QDir(Distributive::qtCreatorInstallerPath).canonicalPath();
+    QString path = Distributive::absoluteComponentPath(Distributive::qtCreatorInstallerPath);
     QDesktopServices::openUrl(QUrl("file:///" + path, QUrl::TolerantMode));
 }
 
 
 void InstallerMenuVM::installJlink()
 {
-    QString path = QDir(Distributive::jlinkBinPath).canonicalPath();
+    QString path = Distributive::absoluteComponentPath(Distributive::jlinkBinPath);
     QDesktopServices::openUrl(QUrl("file:///" + path, QUrl::TolerantMode));
 }
 
 
 void InstallerMenuVM::runZadig()
 {
-    QString path = QDir(Distributive::zadigBinPath).canonicalPath();
+    QString path = Distributive::absoluteComponentPath(Distributive::zadigBinPath);
     QDesktopServices::openUrl(QUrl("file:///" + path, QUrl::TolerantMode));
 }
 
@@ -165,7 +175,7 @@ void InstallerMenuVM::createCmakeTools()
 
 void InstallerMenuVM::installPython()
 {
-    QString path = QDir(Distributive::pythonInstallerPath).canonicalPath();
+    QString path = Distributive::absoluteComponentPath(Distributive::pythonInstallerPath);
     QDesktopServices::openUrl(QUrl("file:///" + path, QUrl::TolerantMode));
 }
 

@@ -78,6 +78,9 @@ signals:
 public slots:
 
 
+    QString printPathes();
+
+
     void addPATH();
 
 

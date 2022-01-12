@@ -61,28 +61,28 @@ QDir Distributive::dibotDir()
 }
 
 
-const QString Distributive::softDirPath = "../components";
+const QString Distributive::componentsDirPath = "../components";
 
 
-const QString Distributive::svdFilePath = softDirPath + "/MDR32F9Q1.svd";
+const QString Distributive::svdFilePath = componentsDirPath + "/MDR32F9Q1.svd";
 
 
 QDir Distributive::softDir()
 {
-    return QDir(softDirPath);
+    return QDir(componentsDirPath);
 }
 
 
-const QString Distributive::qtCreatorInstallerPath = softDirPath + "/qt-unified-windows-x86-online.exe";
+const QString Distributive::qtCreatorInstallerPath = componentsDirPath + "/qt-unified-windows-x86-online.exe";
 
 
-const QString Distributive::jlinkBinPath = softDirPath + "/JLink.exe";
+const QString Distributive::jlinkBinPath = componentsDirPath + "/JLink.exe";
 
 
-const QString Distributive::zadigBinPath = softDirPath + "/zadig.exe";
+const QString Distributive::zadigBinPath = componentsDirPath + "/zadig.exe";
 
 
-const QString Distributive::gccDirPath = softDirPath + "/gcc-arm-none-eabi";
+const QString Distributive::gccDirPath = componentsDirPath + "/gcc-arm-none-eabi";
 
 
 QDir Distributive::gccDir()
@@ -100,7 +100,7 @@ QDir Distributive::gccBinDir()
 }
 
 
-const QString Distributive::openocdDirPath = softDirPath + "/openocd";
+const QString Distributive::openocdDirPath = componentsDirPath + "/openocd";
 
 
 QDir Distributive::openocdDir()
@@ -163,13 +163,13 @@ QDir Distributive::pythonStandartFolderDir()
 }
 
 
-const QString Distributive::cmakeBinPath = softDirPath + "/cmake/bin/cmake.exe";
+const QString Distributive::cmakeBinPath = componentsDirPath + "/cmake/bin/cmake.exe";
 
 
-const QString Distributive::cmakeQchPath = softDirPath + "/cmake/doc/cmake/CMake.qch";
+const QString Distributive::cmakeQchPath = componentsDirPath + "/cmake/doc/cmake/CMake.qch";
 
 
-const QString Distributive::pythonInstallerPath = softDirPath + "/python-2.7.msi";
+const QString Distributive::pythonInstallerPath = componentsDirPath + "/python-2.7.msi";
 
 
 const QString Distributive::gdbBinPath = gccBinDirPath + "/arm-none-eabi-gdb-py.exe";

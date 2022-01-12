@@ -29,15 +29,6 @@ class QtCreatorConfig : public QObject
     Q_OBJECT
 protected:
 
-    //qtproject
-    QDir qtprojectDir;
-
-
-
-    //qtcreator
-    QDir qtcreatorDir;
-
-
 
     //BARE METAL PLUGIN
 
@@ -143,6 +134,13 @@ protected:
     QString profiles_xml_path();
 
 public:
+
+    //qtproject
+    QDir qtprojectDir;
+
+    //qtcreator
+    QDir qtcreatorDir;
+
 
     static const QString toolchain_name;
 

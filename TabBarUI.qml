@@ -27,8 +27,17 @@ ColumnLayout{
     id: tabbar_root
 
 
+    property bool withJLink: false
+
+
+    onWithJLinkChanged: {
+        buildTabs()
+    }
+
+
     Component.onCompleted: {
-        tab1.checked = true
+        buildTabs()
+        tabs[0].checked = true
         updateContent()
     }
 
@@ -41,19 +50,45 @@ ColumnLayout{
     }
 
 
-    TabUI{
-        id: tab0
-        onCheckedChanged: tabbar_root.tabChecked(position)
-        position: 0
-        text: "Описание"
-        contentQML: "contentUI/OverviewUI.qml"
-        visible: false
+    property var tabs: []
+
+
+    function tabChecked(pos){
+        console.log("tab" + pos + " checked")
+
+        for (var i = 0; i < tabs.length; i++){
+            var tab = tabs[i];
+            if (tab.position !== pos){
+                tab.checked = false
+            }
+        }
     }
+
+
+    function buildTabs(){
+        if (withJLink){
+            tabs = [tab1, tab2, tab3, tab4, tab5, tab6, tab7]
+        }
+        else{
+            tabs = [tab1, tab2, tab3, tab4, tab5, tab6, tab7]
+        }
+        updateTabsPosition()
+    }
+
+
+    function updateTabsPosition(){
+        var i = 0
+        tabs.forEach(e => {
+            e.position = i
+            i++
+        })
+    }
+
 
     TabUI{
         id: tab1
         onCheckedChanged: tabbar_root.tabChecked(position)
-        position: 1
+        position: 0
         text: "Лицензия"
         contentQML: "contentUI/LicenceUI.qml"
     }
@@ -61,7 +96,7 @@ ColumnLayout{
     TabUI{
         id: tab2
         onCheckedChanged: tabbar_root.tabChecked(position)
-        position: 2
+        position: 1
         text: "Qt Creator"
         contentQML: "contentUI/StagesObserverUI.qml"
         enabled: installerui_root.licenceAccepted
@@ -90,7 +125,6 @@ ColumnLayout{
                     "Нажмите \"Установить\".",
                 ],
                 installFunction: function(){
-//                    console.log("Install Qt Creator");
                     installerVM.installQTCreator()}
             }]
     }
@@ -119,7 +153,6 @@ ColumnLayout{
                     "Нажмите \"Finish\"."
                 ],
                 installFunction: function(){
-//                    console.log("installJlink");
                     installerVM.installJlink()
                 }
             }]
@@ -149,7 +182,6 @@ ColumnLayout{
                     "Процесс замены драйвера может занять занять нескольтко минут."
                 ],
                 installFunction: function(){
-//                    console.log("runZadig");
                     installerVM.runZadig()
                 }
             }]
@@ -177,7 +209,6 @@ ColumnLayout{
                     "Нажмите \"Finish\"."
                 ],
                 installFunction: function(){
-//                    console.log("Install Python27");
                     installerVM.installPython()
                 }
             }]
@@ -216,7 +247,6 @@ ColumnLayout{
                     "Установщик добавляет инструментарий разработки под ARM."
                 ],
                 installFunction: function(){
-//                    console.log("Install Toolkit");
                     installerVM.enableBareMetalPlugin()
                     installerVM.createOpenOCDDebugProvider()
                     installerVM.createBareMetalDevice()
@@ -286,21 +316,7 @@ ColumnLayout{
     }
 
 
-    property int selectedPos: 1
-
-    property var tabs: [/*tab0, */tab1, tab2, tab3, tab4, tab5, tab6, tab7]
-
-
-    function tabChecked(pos){
-        console.log("tab" + pos + " checked")
-
-        for (var i = 0; i < tabs.length; i++){
-            var tab = tabs[i];
-            if (tab.position !== pos){
-                tab.checked = false
-            }
-        }
-    }
+    property int selectedPos: 0
 
 
     onSelectedPosChanged: {

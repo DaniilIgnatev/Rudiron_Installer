@@ -42,6 +42,7 @@ Window {
         anchors.fill: parent
         visible: currentIndex == 0
         onButtonNext: {
+            //installerbody.
             app.currentIndex = 1
         }
     }
@@ -49,7 +50,7 @@ Window {
     InstallerBody {
         anchors.fill: parent
         visible: currentIndex == 1
-        id: installerui_root
+        id: installerbody
     }
 }
 

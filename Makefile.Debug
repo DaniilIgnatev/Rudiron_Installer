@@ -215,7 +215,6 @@ debug\qrc_qml.cpp: qml.qrc \
 		ImageWindow.qml \
 		TabUI.qml \
 		icon.png \
-		render_top.png \
 		Intro.qml \
 		slides\white.png \
 		slides\zadig\3.png \

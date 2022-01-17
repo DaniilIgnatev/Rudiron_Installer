@@ -12,6 +12,8 @@ ColumnLayout{
 
     signal buttonNext
 
+    property bool withJLink: false
+
     Text {
         color: "#e35b00"
         Layout.fillWidth: true
@@ -80,16 +82,28 @@ ColumnLayout{
                 ColumnLayout{
 
                     RadioButton{
-                        id: radioLicence
+                        id: radio1
                         text: "Имеется JLink-совместимый программатор"
                         Layout.topMargin: 0
                         font.family: "Arial"
+                        checked: false
+                        onCheckedChanged: (v) => {
+                                              if (v){
+                                                  intro_root.withJLink = true
+                                              }
+                                          }
                     }
                     RadioButton{
+                        id: radio2
                         text: "Отсутствует JLink-совместимый программатор"
                         Layout.topMargin: 5
                         font.family: "Arial"
-                        checked: true
+                        checked: false
+                        onCheckedChanged: (v) => {
+                                              if (v){
+                                                  intro_root.withJLink = false
+                                              }
+                                          }
                     }
                 }
 
@@ -99,6 +113,7 @@ ColumnLayout{
 
                 ButtonStyled{
                     text: "Далее"
+                    enabled: radio1.checked || radio2.checked
                     onPressed: {
                         intro_root.buttonNext()
                     }

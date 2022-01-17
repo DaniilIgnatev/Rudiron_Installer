@@ -3,7 +3,6 @@ import QtQuick.Layouts 1.15
 import "contentUI"
 import com.dibot 1.0
 
-Item{
     RowLayout  {
         id: installerui_root
         spacing: 20
@@ -94,7 +93,6 @@ Item{
         }
     }
 
-}
 
 
 

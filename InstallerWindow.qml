@@ -21,7 +21,7 @@ along with DIBotInstaller. If not, see <http://www.gnu.org/licenses/>.
 import QtQuick 2.12
 import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
-
+import com.dibot 1.0
 
 Window {
 
@@ -36,13 +36,25 @@ Window {
     maximumWidth: minimumWidth
     maximumHeight: minimumHeight
 
-    InstallerUI{
+    property int currentIndex: 0
 
+    Intro {
+        anchors.fill: parent
+        visible: currentIndex == 0
+        onButtonNext: {
+            app.currentIndex = 1
+        }
+    }
+
+    InstallerBody {
+        anchors.fill: parent
+        visible: currentIndex == 1
+        id: installerui_root
     }
 }
 
 /*##^##
 Designer {
-    D{i:0;autoSize:true;height:600;width:800}D{i:1}
+    D{i:0;autoSize:true;height:600;width:800}D{i:2}D{i:3}D{i:1}
 }
 ##^##*/

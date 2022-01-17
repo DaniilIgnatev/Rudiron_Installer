@@ -28,7 +28,7 @@ ColumnLayout{
 
 
     Component.onCompleted: {
-        tab0.checked = true
+        tab1.checked = true
         updateContent()
     }
 
@@ -47,6 +47,7 @@ ColumnLayout{
         position: 0
         text: "Описание"
         contentQML: "contentUI/OverviewUI.qml"
+        visible: false
     }
 
     TabUI{
@@ -285,9 +286,9 @@ ColumnLayout{
     }
 
 
-    property int selectedPos: 0
+    property int selectedPos: 1
 
-    property var tabs: [tab0, tab1, tab2, tab3, tab4, tab5, tab6, tab7]
+    property var tabs: [/*tab0, */tab1, tab2, tab3, tab4, tab5, tab6, tab7]
 
 
     function tabChecked(pos){

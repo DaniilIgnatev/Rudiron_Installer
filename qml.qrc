@@ -69,6 +69,5 @@
         <file>icon.ico</file>
         <file>Intro.qml</file>
         <file>InstallerBody.qml</file>
-        <file>render_top.png</file>
     </qresource>
 </RCC>

@@ -36,7 +36,7 @@ Window {
     maximumWidth: minimumWidth
     maximumHeight: minimumHeight
 
-    property int currentIndex: 0
+    property int currentIndex: 1
 
     Intro {
         anchors.fill: parent

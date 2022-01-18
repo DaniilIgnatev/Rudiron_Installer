@@ -33,23 +33,24 @@ Window {
 
             Rectangle {
                 id: photoFrame
-                                width: flick.width
-                                height: flick.height
+                width: flick.width
+                height: flick.height
                 scale: defaultSize / Math.max(image.sourceSize.width, image.sourceSize.height)
                 Behavior on scale { NumberAnimation { duration: 200 } }
                 Behavior on x { NumberAnimation { duration: 200 } }
                 Behavior on y { NumberAnimation { duration: 200 } }
-//                border.color: "black"
-//                border.width: 2
+                //                border.color: "black"
+                //                border.width: 2
 
                 transformOrigin: Item.Center
                 smooth: true
                 antialiasing: true
-                                    Component.onCompleted: {
-                                        x = 0
-                                        y = 0
-                                        rotation = 0
-                                    }
+                Component.onCompleted: {
+                    x = 0
+                    y = 0
+                    rotation = 0
+                }
+
                 Image {
                     id: image
                     anchors.centerIn: parent
@@ -57,6 +58,7 @@ Window {
                     source: imagewindow_root.imageSource
                     antialiasing: true
                 }
+
                 PinchArea {
                     anchors.fill: parent
                     pinch.target: photoFrame
@@ -90,6 +92,10 @@ Window {
                         anchors.fill: parent
                         drag.target: photoFrame
                         scrollGestureEnabled: false  // 2-finger-flick gesture should pass through to the Flickable
+                        onHoveredChanged: {
+                            console.log("onHoveredChanged")
+                        }
+
                         onPressed: {
                             photoFrame.z = ++imagewindow_root.highestZ;
                         }

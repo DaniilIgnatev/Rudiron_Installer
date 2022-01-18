@@ -8,7 +8,7 @@ import com.dibot 1.0
         spacing: 20
         anchors.fill: parent
 
-        property bool licenceAccepted: false
+        property bool licenceAccepted: true
 
 
         InstallerMenuVM{

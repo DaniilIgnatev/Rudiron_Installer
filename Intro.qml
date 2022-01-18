@@ -17,7 +17,7 @@ ColumnLayout{
     Text {
         color: "#e35b00"
         Layout.fillWidth: true
-        padding: 10
+        Layout.topMargin: 10
 
         text: "<h2>Вас приветствует установщик ДИРОН</h2>"
         horizontalAlignment: Text.AlignHCenter
@@ -36,6 +36,8 @@ ColumnLayout{
         id: scrollableBox
         Layout.fillHeight: true
         Layout.fillWidth: true
+
+        Layout.topMargin: 0
 
         FileSystemAPI{
             id: file_system_api
@@ -87,11 +89,6 @@ ColumnLayout{
                         Layout.topMargin: 0
                         font.family: "Arial"
                         checked: false
-                        onCheckedChanged: (v) => {
-                                              if (v){
-                                                  intro_root.withJLink = true
-                                              }
-                                          }
                     }
                     RadioButton{
                         id: radio2
@@ -99,11 +96,6 @@ ColumnLayout{
                         Layout.topMargin: 5
                         font.family: "Arial"
                         checked: false
-                        onCheckedChanged: (v) => {
-                                              if (v){
-                                                  intro_root.withJLink = false
-                                              }
-                                          }
                     }
                 }
 
@@ -115,6 +107,7 @@ ColumnLayout{
                     text: "Далее"
                     enabled: radio1.checked || radio2.checked
                     onPressed: {
+                        withJLink = radio1.checked
                         intro_root.buttonNext()
                     }
                 }
@@ -126,7 +119,6 @@ ColumnLayout{
 
 /*##^##
 Designer {
-    D{i:0;autoSize:true;height:480;width:640}D{i:1}D{i:3}D{i:5}D{i:8}D{i:9}D{i:7}D{i:10}
-D{i:11}D{i:6}D{i:4}D{i:2}
+    D{i:0;autoSize:true;height:480;width:640}D{i:1}D{i:3}D{i:5}D{i:6}D{i:4}D{i:2}
 }
 ##^##*/

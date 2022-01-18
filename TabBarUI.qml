@@ -42,7 +42,7 @@ ColumnLayout{
     }
 
 
-    spacing: 10
+    spacing: 70 / tabs.length
 
 
     InstallerMenuVM{
@@ -66,13 +66,26 @@ ColumnLayout{
 
 
     function buildTabs(){
+        tabs = getFiltredTabs()
+        updateTabsVisibility()
+        updateTabsPosition()
+    }
+
+
+    function getFiltredTabs(){
         if (withJLink){
-            tabs = [tab1, tab2, tab3, tab4, tab5, tab6, tab7]
+            return [tab1, tab2, tab3, tab4, tab5, tab6, tab7]
         }
         else{
-            tabs = [tab1, tab2, tab3, tab4, tab5, tab6, tab7]
+            return [tab1, tab2, tab5, tab6, tab7]
         }
-        updateTabsPosition()
+    }
+
+
+    function updateTabsVisibility(){
+        tabs.forEach(e => {
+            e.visible = true
+        })
     }
 
 
@@ -87,6 +100,7 @@ ColumnLayout{
 
     TabUI{
         id: tab1
+        visible: false
         onCheckedChanged: tabbar_root.tabChecked(position)
         position: 0
         text: "Лицензия"
@@ -95,6 +109,7 @@ ColumnLayout{
 
     TabUI{
         id: tab2
+        visible: false
         onCheckedChanged: tabbar_root.tabChecked(position)
         position: 1
         text: "Qt Creator"
@@ -131,6 +146,7 @@ ColumnLayout{
 
     TabUI{
         id: tab3
+        visible: false
         onCheckedChanged: tabbar_root.tabChecked(position)
         position: 3
         text: "JLink"
@@ -160,6 +176,7 @@ ColumnLayout{
 
     TabUI{
         id: tab4
+        visible: false
         onCheckedChanged: tabbar_root.tabChecked(position)
         position: 4
         text: "Zadig"
@@ -189,6 +206,7 @@ ColumnLayout{
 
     TabUI{
         id: tab5
+        visible: false
         onCheckedChanged: tabbar_root.tabChecked(position)
         position: 5
         text: "Python 2.7"
@@ -217,6 +235,7 @@ ColumnLayout{
 
     TabUI{
         id: tab6
+        visible: false
         onCheckedChanged: tabbar_root.tabChecked(position)
         position: 6
         text: "Инструментарий"
@@ -260,6 +279,7 @@ ColumnLayout{
 
     TabUI{
         id: tab7
+        visible: false
         onCheckedChanged: tabbar_root.tabChecked(position)
         position: 7
         text: "Руководство"

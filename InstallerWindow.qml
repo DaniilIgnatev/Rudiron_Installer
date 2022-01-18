@@ -36,13 +36,13 @@ Window {
     maximumWidth: minimumWidth
     maximumHeight: minimumHeight
 
-    property int currentIndex: 1
+    property int currentIndex: 0
 
     Intro {
         anchors.fill: parent
         visible: currentIndex == 0
         onButtonNext: {
-            //installerbody.
+            installerbody.withJLink = withJLink
             app.currentIndex = 1
         }
     }

@@ -71,7 +71,6 @@ ColumnLayout{
         Layout.topMargin: 15
         Layout.fillWidth: true
         Layout.fillHeight: false
-        //Layout.preferredHeight: 50
     }
 
     Text{
@@ -93,7 +92,6 @@ ColumnLayout{
         Layout.topMargin: 5
         Layout.fillWidth: true
         Layout.fillHeight: false
-        //Layout.preferredHeight: 50
     }
 
 

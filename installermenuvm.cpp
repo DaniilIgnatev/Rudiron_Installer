@@ -99,6 +99,7 @@ void InstallerMenuVM::addPATH()
     qDebug() << "\nCurrent Path: " << pathVal;
 
     QString appendPath = "";
+
     QString gccFullPath = Distributive::absoluteComponentPath(Distributive::gccBinDirPath);
     if (!pathVal.contains(gccFullPath)){
         appendPath.append(";");
@@ -106,10 +107,16 @@ void InstallerMenuVM::addPATH()
     }
 
     QString openocdFullPath = Distributive::absoluteComponentPath(Distributive::openocd_binDirPath);
-
     if (!pathVal.contains(openocdFullPath)){
         appendPath.append(";");
         appendPath.append(openocdFullPath);
+
+    }
+
+    QString cmakeFullPath = Distributive::absoluteComponentPath(Distributive::cmake_binDirPath);
+    if (!pathVal.contains(cmakeFullPath)){
+        appendPath.append(";");
+        appendPath.append(cmakeFullPath);
 
     }
 

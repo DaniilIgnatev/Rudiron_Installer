@@ -35,6 +35,13 @@ ColumnLayout{
     }
 
 
+    function licenceAccepted(){
+        if (selectedPos + 1 < tabs.length){
+            tabs[selectedPos + 1].checked = true
+        }
+    }
+
+
     Component.onCompleted: {
         buildTabs()
         tabs[0].checked = true
@@ -55,6 +62,7 @@ ColumnLayout{
 
     function tabChecked(pos){
         console.log("tab" + pos + " checked")
+        selectedPos = pos
 
         for (var i = 0; i < tabs.length; i++){
             var tab = tabs[i];
@@ -101,7 +109,7 @@ ColumnLayout{
     TabUI{
         id: tab1
         visible: false
-        onCheckedChanged: tabbar_root.tabChecked(position)
+        onCheckedChanged: if (checked) {tabbar_root.tabChecked(position)}
         position: 0
         text: "Лицензия"
         contentQML: "contentUI/LicenceUI.qml"
@@ -110,7 +118,7 @@ ColumnLayout{
     TabUI{
         id: tab2
         visible: false
-        onCheckedChanged: tabbar_root.tabChecked(position)
+        onCheckedChanged: if (checked) {tabbar_root.tabChecked(position)}
         position: 1
         text: "Qt Creator"
         contentQML: "contentUI/StagesObserverUI.qml"
@@ -147,7 +155,7 @@ ColumnLayout{
     TabUI{
         id: tab3
         visible: false
-        onCheckedChanged: tabbar_root.tabChecked(position)
+        onCheckedChanged: if (checked) {tabbar_root.tabChecked(position)}
         position: 3
         text: "JLink"
         contentQML: "contentUI/StagesObserverUI.qml"
@@ -177,7 +185,7 @@ ColumnLayout{
     TabUI{
         id: tab4
         visible: false
-        onCheckedChanged: tabbar_root.tabChecked(position)
+        onCheckedChanged: if (checked) {tabbar_root.tabChecked(position)}
         position: 4
         text: "Zadig"
         contentQML: "contentUI/StagesObserverUI.qml"
@@ -207,7 +215,7 @@ ColumnLayout{
     TabUI{
         id: tab5
         visible: false
-        onCheckedChanged: tabbar_root.tabChecked(position)
+        onCheckedChanged: if (checked) {tabbar_root.tabChecked(position)}
         position: 5
         text: "Python 2.7"
         contentQML: "contentUI/StagesObserverUI.qml"
@@ -236,7 +244,7 @@ ColumnLayout{
     TabUI{
         id: tab6
         visible: false
-        onCheckedChanged: tabbar_root.tabChecked(position)
+        onCheckedChanged: if (checked) {tabbar_root.tabChecked(position)}
         position: 6
         text: "Инструментарий"
         contentQML: "contentUI/StagesObserverUI.qml"
@@ -280,7 +288,7 @@ ColumnLayout{
     TabUI{
         id: tab7
         visible: false
-        onCheckedChanged: tabbar_root.tabChecked(position)
+        onCheckedChanged: if (checked) {tabbar_root.tabChecked(position)}
         position: 7
         text: "Руководство"
         contentQML: "contentUI/StagesObserverUI.qml"

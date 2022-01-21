@@ -56,12 +56,6 @@ RowLayout{
         Layout.fillHeight: false
 
         Layout.preferredHeight: width / 2
-
-        onCheckedChanged: {
-            if (checked){
-                tab_root.parent.selectedPos = tab_root.position
-            }
-        }
     }
 }
 

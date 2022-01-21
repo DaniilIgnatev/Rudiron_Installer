@@ -30,7 +30,7 @@ Distributive::Distributive(QObject *parent) : QObject(parent)
 QString Distributive::absoluteComponentPath(QDir componentDir)
 {
    QString dironPath = Distributive::dibotDir().path();
-   dironPath = dironPath.remove("installer");
+   dironPath = dironPath.remove("installer", Qt::CaseInsensitive);
 
    QString componentPath = componentDir.path();
    QString fixedComponentPath = componentPath.remove("../");
@@ -43,7 +43,7 @@ QString Distributive::absoluteComponentPath(QDir componentDir)
 QString Distributive::absoluteComponentPath(QString componentPath)
 {
    QString dironPath = Distributive::dibotDir().path();
-   dironPath = dironPath.remove("installer");
+   dironPath = dironPath.remove("installer", Qt::CaseInsensitive);
 
    QString fixedComponentPath = componentPath.remove("../");
 
@@ -163,7 +163,16 @@ QDir Distributive::pythonStandartFolderDir()
 }
 
 
-const QString Distributive::cmakeBinPath = componentsDirPath + "/cmake/bin/cmake.exe";
+const QString Distributive::cmake_binDirPath = componentsDirPath + "/cmake/bin";
+
+
+QDir Distributive::cmake_binDir()
+{
+    return QDir(Distributive::cmake_binDirPath);
+}
+
+
+const QString Distributive::cmakeAppPath = Distributive::cmake_binDirPath + "/cmake.exe";
 
 
 const QString Distributive::cmakeQchPath = componentsDirPath + "/cmake/doc/cmake/CMake.qch";

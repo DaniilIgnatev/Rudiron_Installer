@@ -123,7 +123,13 @@ public:
 
     //CMAKE
 
-    static const QString cmakeBinPath;
+    static const QString cmake_binDirPath;
+
+
+    static QDir cmake_binDir();
+
+
+    static const QString cmakeAppPath;
 
 
     static const QString cmakeQchPath;

@@ -346,7 +346,7 @@ void QtCreatorConfig::addCmake()
             <value type=\"bool\" key=\"AutoCreateBuildDirectory\">false</value>\
             <value type=\"bool\" key=\"AutoDetected\">false</value>\
             <value type=\"bool\" key=\"AutoRun\">true</value>\
-            <value type=\"QString\" key=\"Binary\">" + Distributive::absoluteComponentPath(Distributive::cmakeBinPath) + "</value>\
+            <value type=\"QString\" key=\"Binary\">" + Distributive::absoluteComponentPath(Distributive::cmakeAppPath) + "</value>\
             <value type=\"QString\" key=\"DisplayName\">" + QtCreatorConfig::cmake_name + "</value>\
             <value type=\"QString\" key=\"Id\">" + QtCreatorConfig::cmake_id + "</value>\
             <value type=\"QString\" key=\"QchFile\">" + Distributive::absoluteComponentPath(Distributive::cmakeQchPath) + "</value>\

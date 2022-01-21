@@ -24,8 +24,8 @@ RowLayout  {
 
     onLicenceAcceptedChanged: {
         if (licenceAccepted){
-            console.log("Edit PATH");
             installerVM.addPATH()
+            installerui_tabbar.licenceAccepted()
         }
     }
 

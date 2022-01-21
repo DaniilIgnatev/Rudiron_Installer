@@ -25,6 +25,7 @@ RowLayout  {
     onLicenceAcceptedChanged: {
         if (licenceAccepted){
             installerVM.addPATH()
+            installerVM.addCompilerVariables()
             installerui_tabbar.licenceAccepted()
         }
     }
@@ -88,14 +89,6 @@ RowLayout  {
                     console.log("Error loading component:", component.errorString());
                 }
             }
-        }
-
-
-        OverviewUI {
-            id: overviewUI
-            anchors.fill: parent
-            anchors.rightMargin: 0
-            anchors.leftMargin: 0
         }
     }
 }

@@ -84,6 +84,9 @@ public slots:
     void addPATH();
 
 
+    void addCompilerVariables();
+
+
     void installQTCreator();
 
 

@@ -135,6 +135,36 @@ void InstallerMenuVM::addPATH()
 }
 
 
+void InstallerMenuVM::addCompilerVariables()
+{
+    QSettings registry("HKEY_CURRENT_USER\\Environment", QSettings::NativeFormat);
+
+    QString CC_current_value = registry.value("CC", "").toString();
+    qDebug() << "\nCurrent CC: " << CC_current_value;
+    QString CC_new_value = "arm-none-eabi-gcc.exe";
+
+    if (!CC_current_value.contains(CC_new_value)){
+        QProcess *proc = new QProcess;
+        QString prog = "setx";
+        QStringList args{"CC", CC_new_value};
+        proc->start(prog, args);
+        proc->waitForFinished();
+    }
+
+    QString CXX_current_value = registry.value("CXX", "").toString();
+    qDebug() << "\nCurrent CXX: " << CXX_current_value;
+    QString CXX_new_value = "arm-none-eabi-g++.exe";
+
+    if (!CXX_current_value.contains(CXX_new_value)){
+        QProcess *proc = new QProcess;
+        QString prog = "setx";
+        QStringList args{"CXX", CXX_new_value};
+        proc->start(prog, args);
+        proc->waitForFinished();
+    }
+}
+
+
 void InstallerMenuVM::installQTCreator()
 {
     QString path = Distributive::absoluteComponentPath(Distributive::qtCreatorInstallerPath);

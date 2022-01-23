@@ -29,26 +29,26 @@ Distributive::Distributive(QObject *parent) : QObject(parent)
 
 QString Distributive::absoluteComponentPath(QDir componentDir)
 {
-   QString dironPath = Distributive::dibotDir().path();
-   dironPath = dironPath.remove("installer", Qt::CaseInsensitive);
+    QString dironPath = Distributive::dibotDir().path();
+    dironPath = dironPath.remove("installer", Qt::CaseInsensitive);
 
-   QString componentPath = componentDir.path();
-   QString fixedComponentPath = componentPath.remove("../");
+    QString componentPath = componentDir.path();
+    QString fixedComponentPath = componentPath.remove("../");
 
-   QString fullPath = QDir::toNativeSeparators(dironPath + "/" + fixedComponentPath);
-   return fullPath;
+    QString fullPath = QDir::toNativeSeparators(dironPath + "/" + fixedComponentPath);
+    return fullPath;
 }
 
 
 QString Distributive::absoluteComponentPath(QString componentPath)
 {
-   QString dironPath = Distributive::dibotDir().path();
-   dironPath = dironPath.remove("installer", Qt::CaseInsensitive);
+    QString dironPath = Distributive::dibotDir().path();
+    dironPath = dironPath.remove("installer", Qt::CaseInsensitive);
 
-   QString fixedComponentPath = componentPath.remove("../");
+    QString fixedComponentPath = componentPath.remove("../");
 
-   QString fullPath = QDir::toNativeSeparators(dironPath + "/" + fixedComponentPath);
-   return fullPath;
+    QString fullPath = QDir::toNativeSeparators(dironPath + "/" + fixedComponentPath);
+    return fullPath;
 }
 
 
@@ -73,10 +73,18 @@ QDir Distributive::softDir()
 }
 
 
+#ifdef _WIN32_
 const QString Distributive::qtCreatorInstallerPath = componentsDirPath + "/qt-unified-windows-x86-online.exe";
+#else
+const QString Distributive::qtCreatorInstallerPath = componentsDirPath + "/qt-unified-linux-x64-online.run";
+#endif
 
 
+#ifdef _WIN32_
 const QString Distributive::jlinkBinPath = componentsDirPath + "/JLink.exe";
+#else
+const QString Distributive::jlinkBinPath = componentsDirPath + "/JLink.deb";
+#endif
 
 
 const QString Distributive::zadigBinPath = componentsDirPath + "/zadig.exe";
@@ -118,7 +126,11 @@ QDir Distributive::openocd_binDir()
 }
 
 
+#ifdef _WIN32_
 const QString Distributive::openocd_binFilePath = openocd_binDirPath + "/openocd.exe";
+#else
+const QString Distributive::openocd_binFilePath = openocd_binDirPath + "/openocd";
+#endif
 
 
 const QString Distributive::openocd_scriptsDirPath = openocdDirPath + "/scripts";
@@ -172,7 +184,11 @@ QDir Distributive::cmake_binDir()
 }
 
 
+#ifdef _WIN32_
 const QString Distributive::cmakeAppPath = Distributive::cmake_binDirPath + "/cmake.exe";
+#else
+const QString Distributive::cmakeAppPath = Distributive::cmake_binDirPath + "/cmake";
+#endif
 
 
 const QString Distributive::cmakeQchPath = componentsDirPath + "/cmake/doc/cmake/CMake.qch";
@@ -181,11 +197,22 @@ const QString Distributive::cmakeQchPath = componentsDirPath + "/cmake/doc/cmake
 const QString Distributive::pythonInstallerPath = componentsDirPath + "/python-2.7.msi";
 
 
+#ifdef _WIN32_
 const QString Distributive::gdbBinPath = gccBinDirPath + "/arm-none-eabi-gdb-py.exe";
+#else
+const QString Distributive::gdbBinPath = gccBinDirPath + "/arm-none-eabi-gdb-py";
+#endif
 
 
+#ifdef _WIN32_
 const QString Distributive::gccBinPath = gccBinDirPath + "/arm-none-eabi-gcc.exe";
+#else
+const QString Distributive::gccBinPath = gccBinDirPath + "/arm-none-eabi-gcc";
+#endif
 
 
+#ifdef _WIN32_
 const QString Distributive::gppBinPath = gccBinDirPath + "/arm-none-eabi-g++.exe";
-
+#else
+const QString Distributive::gppBinPath = gccBinDirPath + "/arm-none-eabi-g++";
+#endif

@@ -1,4 +1,5 @@
 import QtQuick 2.12
+import QtQml 2.15
 import QtQuick.Layouts 1.15
 import "contentUI"
 import com.dibot 1.0
@@ -75,6 +76,9 @@ RowLayout  {
                         break
                     case "contentUI/LicenceUI.qml":
                         var view = component.createObject(this, {width: this.width, height: this.height})
+                        if (Qt.platform.os == "linux"){
+                            view.anchors.fill = this
+                        }
                         view.licenceAccepted = installerui_root.licenceAccepted
                         view.licenceAcceptedSignal.connect((newValue) => {
                                                                installerui_root.licenceAccepted = newValue

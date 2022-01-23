@@ -94,49 +94,116 @@ QString InstallerMenuVM::printPathes()
 
 void InstallerMenuVM::addPATH()
 {
+    #ifdef _WIN32
+        addPATH_Windows();
+    #elif __linux__
+        addPATH_Linux();
+    #endif
+}
+
+
+void InstallerMenuVM::addPATH_Windows(){
     QSettings registry("HKEY_CURRENT_USER\\Environment", QSettings::NativeFormat);
-    QString pathVal = registry.value("Path", "").toString();
-    qDebug() << "\nCurrent Path: " << pathVal;
+    QString path_current = registry.value("Path", "").toString();
+    qDebug() << "\nCurrent Path: " << path_current;
 
     QString appendPath = "";
 
     QString gccFullPath = Distributive::absoluteComponentPath(Distributive::gccBinDirPath);
-    if (!pathVal.contains(gccFullPath)){
+    if (!path_current.contains(gccFullPath)){
         appendPath.append(";");
         appendPath.append(gccFullPath);
     }
 
     QString openocdFullPath = Distributive::absoluteComponentPath(Distributive::openocd_binDirPath);
-    if (!pathVal.contains(openocdFullPath)){
+    if (!path_current.contains(openocdFullPath)){
         appendPath.append(";");
         appendPath.append(openocdFullPath);
 
     }
 
     QString cmakeFullPath = Distributive::absoluteComponentPath(Distributive::cmake_binDirPath);
-    if (!pathVal.contains(cmakeFullPath)){
+    if (!path_current.contains(cmakeFullPath)){
         appendPath.append(";");
         appendPath.append(cmakeFullPath);
-
     }
 
     qDebug() << "\nAppend Path: " << appendPath;
 
     if (!appendPath.isEmpty()){
-        QString newPath = pathVal + appendPath;
+        QString newPath = path_current + appendPath;
         qDebug() << "\nNew Path: " << newPath;
 
-        QProcess *proc = new QProcess;
+        QProcess *process = new QProcess;
         QString prog = "setx";
         QStringList args{"PATH", newPath};
-        proc->start(prog, args);
-        proc->waitForFinished();
+        process->start(prog, args);
+        process->waitForFinished();
+    }
+}
+
+
+void InstallerMenuVM::addPATH_Linux(){
+    QString bashrc_path = QDir::toNativeSeparators(QDir::homePath() + "/.bashrc");
+    QFile bashrc_file = QFile(bashrc_path);
+    bashrc_file.open(QIODeviceBase::ReadOnly);
+    QString currect_bashrc = bashrc_file.readAll();
+    bashrc_file.close();
+
+    QString appendPath = "";
+
+    QString gccFullPath = Distributive::absoluteComponentPath(Distributive::gccBinDirPath);
+    if (!currect_bashrc.contains(gccFullPath)){
+        appendPath.append(":");
+        appendPath.append(gccFullPath);
+    }
+
+    QString openocdFullPath = Distributive::absoluteComponentPath(Distributive::openocd_binDirPath);
+    if (!currect_bashrc.contains(openocdFullPath)){
+        appendPath.append(":");
+        appendPath.append(openocdFullPath);
+
+    }
+
+    QString cmakeFullPath = Distributive::absoluteComponentPath(Distributive::cmake_binDirPath);
+    if (!currect_bashrc.contains(cmakeFullPath)){
+        appendPath.append(":");
+        appendPath.append(cmakeFullPath);
+    }
+
+    qDebug() << "\nAppend Path: " << appendPath;
+
+    if (!appendPath.isEmpty()){
+        QString export1 = "export PATH=\"";
+        QString export2 = "$PATH" + appendPath + "\"";
+
+        QProcess *process = new QProcess;
+        process->start("sh");
+        process->waitForStarted();
+
+        QString bash_command1 = QString("echo ") + "'" + export1 + "' >> " + bashrc_path;
+        process->write(bash_command1.toUtf8());
+
+        QString bash_command2 = QString("echo ") + "'" + export2 + "' >> " + bashrc_path + "\n";
+        process->write(bash_command2.toUtf8());
+
+        process->write("exit\n");
+        process->waitForFinished();
     }
 }
 
 
 void InstallerMenuVM::addCompilerVariables()
 {
+    #ifdef _WIN32
+        addCombilerVariables_Windows();
+    #elif __linux__
+        addCombilerVariables_Linux();
+    #endif
+}
+
+
+void InstallerMenuVM::addCombilerVariables_Windows(){
     QSettings registry("HKEY_CURRENT_USER\\Environment", QSettings::NativeFormat);
 
     QString CC_current_value = registry.value("CC", "").toString();
@@ -162,6 +229,11 @@ void InstallerMenuVM::addCompilerVariables()
         proc->start(prog, args);
         proc->waitForFinished();
     }
+}
+
+
+void InstallerMenuVM::addCombilerVariables_Linux(){
+
 }
 
 

@@ -84,7 +84,19 @@ public slots:
     void addPATH();
 
 
+    void addPATH_Windows();
+
+
+    void addPATH_Linux();
+
+
     void addCompilerVariables();
+
+
+    void addCombilerVariables_Windows();
+
+
+    void addCombilerVariables_Linux();
 
 
     void installQTCreator();

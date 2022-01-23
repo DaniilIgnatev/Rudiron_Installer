@@ -43,6 +43,9 @@ ColumnLayout{
     property var hintList: ["Нажмите \"Далее\""]
 
 
+    property bool showAgain: true
+
+
     function length(){
         return imagesURLList.length
     }
@@ -222,7 +225,10 @@ ColumnLayout{
             onClicked: {
                 stagesObserver.installFunction()
                 stagesObserver.installed = true
-                stagesObserver.position = 0
+
+                if (stagesObserver.showAgain){
+                    stagesObserver.position = 0
+                }
             }
         }
 

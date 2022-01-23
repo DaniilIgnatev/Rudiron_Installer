@@ -71,7 +71,8 @@ RowLayout  {
                                                    title: stagesModel.title,
                                                    imagesURLList: stagesModel.imagesURLList,
                                                    hintList: stagesModel.hintList,
-                                                   installFunction: stagesModel.installFunction
+                                                   installFunction: stagesModel.installFunction,
+                                                   showAgain: stagesModel.showAgain
                                                })
                         break
                     case "contentUI/LicenceUI.qml":

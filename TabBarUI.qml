@@ -125,6 +125,7 @@ ColumnLayout{
         enabled: installerui_root.licenceAccepted
         model: [{
                 title: text,
+                showAgain: true,
                 imagesURLList: [
                     "../slides/qtcreator/2022-01-09_12-02-57.png",
                     "../slides/qtcreator/2022-01-09_12-03-46.png",
@@ -148,7 +149,8 @@ ColumnLayout{
                     "Нажмите \"Установить\".",
                 ],
                 installFunction: function(){
-                    installerVM.installQTCreator()}
+                    installerVM.installQTCreator()
+                }
             }]
     }
 
@@ -162,6 +164,7 @@ ColumnLayout{
         enabled: installerui_root.licenceAccepted
         model: [{
                 title: text,
+                showAgain: true,
                 imagesURLList: [
                     "../slides/jlink/1.png",
                     "../slides/jlink/2.png",
@@ -192,6 +195,7 @@ ColumnLayout{
         enabled: installerui_root.licenceAccepted
         model: [{
                 title: text,
+                showAgain: true,
                 imagesURLList: [
                     "../slides/zadig/jlink.png",
                     "../slides/zadig/1.png",
@@ -222,6 +226,7 @@ ColumnLayout{
         enabled: installerui_root.licenceAccepted
         model: [{
                 title: text,
+                showAgain: true,
                 imagesURLList: [
                     "../slides/python27/1.png",
                     "../slides/python27/2.png",
@@ -251,6 +256,7 @@ ColumnLayout{
         enabled: installerui_root.licenceAccepted
         model: [{
                 title: text,
+                showAgain: false,
                 imagesURLList: [
                     "../slides/toolchain/qt_logo_green_rgb_whitespace.png",
                     "../slides/toolchain/1.png",
@@ -295,6 +301,7 @@ ColumnLayout{
         enabled: installerui_root.licenceAccepted
         model: [{
                 title: text,
+                showAgain: false,
                 imagesURLList: [
                     "../slides/guide/2022-01-10_11-47-06.png",
                     "../slides/guide/2022-01-10_11-47-46.png",

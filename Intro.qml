@@ -19,7 +19,7 @@ ColumnLayout{
         Layout.fillWidth: true
         Layout.topMargin: 10
 
-        text: "<h2>Вас приветствует установщик ДИРОН</h2>"
+        text: "<h2>Вас приветствует установщик Рудирон</h2>"
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
         font.family: "Arial"

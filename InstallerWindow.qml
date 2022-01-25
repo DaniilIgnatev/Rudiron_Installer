@@ -27,7 +27,7 @@ Window {
 
     id: app
 
-    title: "Установка ДИРОН"
+    title: "Установка Рудирон"
     visible: true
 
     x: Screen.width / 2 - width / 2

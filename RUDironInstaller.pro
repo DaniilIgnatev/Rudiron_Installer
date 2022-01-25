@@ -1,6 +1,6 @@
 QT += quick xml
 QT += quickcontrols2
-
+CONFIG += static
 
 RC_ICONS = icon.ico
 CONFIG += c++11

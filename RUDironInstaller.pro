@@ -39,7 +39,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 HEADERS += \
     distributive.h \
-    editenv/editenvTypes.hpp \
     filesystemapi.hpp \
     installermenuvm.h \
     installstatus.h \

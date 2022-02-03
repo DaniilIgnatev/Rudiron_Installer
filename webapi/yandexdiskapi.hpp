@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QNetworkAccessManager>
+#include <QNetworkReply>
 
 
 class YandexDiskAPI: QObject
@@ -16,9 +17,9 @@ public:
 
     YandexDiskAPI(QNetworkAccessManager *networkManager, QObject *parent = nullptr);
 
-    void publicMetainformationRequest();
+    QNetworkReply* publicMetainformationRequest(QString url);
 
-    void publicResouceDownload();
+    QNetworkReply* publicResouceDownload(QString uri);
 };
 
 #endif // YANDEXDISKAPI_H

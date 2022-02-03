@@ -40,6 +40,8 @@ private:
 
     void loadSources();
 
+    void download();
+
 public:
 
     static ComponentsDownloader* instance();

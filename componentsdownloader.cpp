@@ -9,22 +9,6 @@ ComponentsDownloader::ComponentsDownloader(QObject *parent)
     this->yandexapi = WebAPI::instance()->getYandexDisk();
 }
 
-ComponentsDownloader::~ComponentsDownloader()
-{
-    delete this->components;
-}
-
-void ComponentsDownloader::loadSources()
-{
-
-}
-
-void ComponentsDownloader::download()
-{
-
-}
-
-
 ComponentsDownloader *ComponentsDownloader::instance()
 {
     return ComponentsDownloader::singleton;
@@ -36,6 +20,21 @@ QObject *ComponentsDownloader::qmlInstance(QQmlEngine *engine, QJSEngine *script
     Q_UNUSED(scriptEngine);
 
     return instance();
+}
+
+ComponentsDownloader::~ComponentsDownloader()
+{
+    delete this->components;
+}
+
+void ComponentsDownloader::loadSources()
+{
+    yandexapi->publicMetainformationRequest();
+}
+
+void ComponentsDownloader::download()
+{
+
 }
 
 ComponentStatus ComponentsDownloader::currentComponentStatus()

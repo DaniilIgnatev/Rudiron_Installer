@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 6.0.1, 2022-02-03T17:47:55. -->
+<!-- Written by QtCreator 6.0.1, 2022-02-03T18:40:15. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -250,6 +250,7 @@
     <value type="bool" key="RunConfiguration.UseLibrarySearchPath">true</value>
     <value type="bool" key="RunConfiguration.UseQmlDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseQmlDebuggerAuto">true</value>
+    <value type="QString" key="RunConfiguration.WorkingDirectory.default">C:/Users/daniil/Documents/GitHub/build-RudironInstaller-Qt_5_12_10_msvc2017_64-Debug</value>
    </valuemap>
    <value type="qlonglong" key="ProjectExplorer.Target.RunConfigurationCount">1</value>
   </valuemap>

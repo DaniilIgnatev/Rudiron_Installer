@@ -6,8 +6,24 @@ ComponentsDownloader* ComponentsDownloader::singleton = new ComponentsDownloader
 ComponentsDownloader::ComponentsDownloader(QObject *parent)
     : QObject{parent}
 {
+    this->yandexapi = WebAPI::instance()->getYandexDisk();
+}
+
+ComponentsDownloader::~ComponentsDownloader()
+{
+    delete this->components;
+}
+
+void ComponentsDownloader::loadSources()
+{
 
 }
+
+void ComponentsDownloader::download()
+{
+
+}
+
 
 ComponentsDownloader *ComponentsDownloader::instance()
 {
@@ -20,4 +36,9 @@ QObject *ComponentsDownloader::qmlInstance(QQmlEngine *engine, QJSEngine *script
     Q_UNUSED(scriptEngine);
 
     return instance();
+}
+
+ComponentStatus ComponentsDownloader::currentComponentStatus()
+{
+    return components->at(current_component_id);
 }

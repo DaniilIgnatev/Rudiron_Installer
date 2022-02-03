@@ -145,10 +145,11 @@ void InstallerMenuVM::addPATH_Windows(){
 
 void InstallerMenuVM::addPATH_Linux(){
     QString bashrc_path = QDir::toNativeSeparators(QDir::homePath() + "/.bashrc");
-    QFile bashrc_file = QFile(bashrc_path);
-    bashrc_file.open(QIODeviceBase::ReadOnly);
-    QString currect_bashrc = bashrc_file.readAll();
-    bashrc_file.close();
+    QFile *bashrc_file = new QFile(bashrc_path);
+    bashrc_file->open(QIODevice::ReadOnly);
+    QString currect_bashrc = bashrc_file->readAll();
+    bashrc_file->close();
+    delete bashrc_file;
 
     QString appendPath = "";
 

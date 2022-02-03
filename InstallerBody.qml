@@ -1,6 +1,7 @@
 import QtQuick 2.12
-import QtQml 2.15
-import QtQuick.Layouts 1.15
+import QtQml 2.12
+import QtQuick.Layouts 1.12
+
 import "contentUI"
 import com.dibot 1.0
 

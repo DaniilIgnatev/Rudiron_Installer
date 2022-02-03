@@ -1,10 +1,10 @@
 import QtQuick 2.6
 import QtQuick.Controls 2.12
-import QtQuick.Layouts 1.15
-import QtQml 2.15
+import QtQuick.Layouts 1.12
+
 import "contentUI"
 
-Window {
+ApplicationWindow {
     id: imagewindow_root
 
     width: 800; height: 600

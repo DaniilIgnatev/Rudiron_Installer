@@ -18,9 +18,10 @@ along with DIBotInstaller. If not, see <http://www.gnu.org/licenses/>.
 
 
 
-import QtQuick 2.12
+import QtQuick 2.6
 import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
+
 import com.dibot 1.0
 
 
@@ -198,7 +199,7 @@ ColumnLayout{
 
 
         ColumnLayout{
-            Layout.preferredWidth: parent.width / 5
+//            Layout.preferredWidth: parent.width / 5
             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
             visible: stagesObserver.position !== length() - 1
 
@@ -208,7 +209,7 @@ ColumnLayout{
             }
 
             ProgressBar{
-                Layout.preferredWidth: parent.width
+//                Layout.preferredWidth: parent.width
                 from: 0.0
                 to: 1.0
                 value: stagesObserver.position / (stagesObserver.length() - 1)

@@ -26,7 +26,6 @@ SOURCES += \
         qtcreatorconfig.cpp \
         webapi/webapi.cpp \
         webapi/yandexdiskapi.cpp \
-        yandexdiskapi.cpp
 
 RESOURCES += qml.qrc
 
@@ -52,7 +51,6 @@ HEADERS += \
     qtcreatorconfig.h \
     webapi/webapi.hpp \
     webapi/yandexdiskapi.hpp \
-    yandexdiskapi.hpp
 
 DISTFILES += \
     pugixml-master/.codecov.yml \

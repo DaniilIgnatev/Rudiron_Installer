@@ -25,6 +25,7 @@ import QtQuick.Window 2.2
 
 import com.dibot 1.0
 
+
 ApplicationWindow {
 
     id: app

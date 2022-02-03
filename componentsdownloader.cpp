@@ -29,7 +29,31 @@ ComponentsDownloader::~ComponentsDownloader()
 
 void ComponentsDownloader::loadSources()
 {
-    yandexapi->publicMetainformationRequest();
+    auto reply = yandexapi->publicMetainformationRequest("https://disk.yandex.ru/d/nh4bE3Rcb59D9w");
+    connect(reply, &QNetworkReply::finished, this, [=]() {
+        QByteArray metadata_data = reply->readAll();
+        QJsonDocument metadataJson = QJsonDocument::fromJson(metadata_data);
+        QJsonObject metadata = metadataJson.object();
+
+        QString architecture = QSysInfo::buildCpuArchitecture();
+        QString os_type = QSysInfo::kernelType();
+
+        if (os_type == "winnt"){
+            this->sourcesURI = metadata["win_x64"].toString();
+        }
+        else if (os_type == "darwin"){
+            this->sourcesURI = metadata["macOS_x64"].toString();
+        }
+        else{
+            if (architecture == "arm64"){
+                this->sourcesURI = metadata["linux_arm64"].toString();
+            }
+            else{
+                this->sourcesURI = metadata["linux_x64"].toString();
+            }
+        }
+    }
+    );
 }
 
 void ComponentsDownloader::download()

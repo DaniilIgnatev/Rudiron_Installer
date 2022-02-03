@@ -5,6 +5,10 @@
 #include <QList>
 #include "webapi/webapi.hpp"
 
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QJsonValue>
+
 class QQmlEngine;
 class QJSEngine;
 
@@ -37,6 +41,8 @@ private:
     int current_component_id = 0;
 
     QList<ComponentStatus> *components = new QList<ComponentStatus>();
+
+    QString *sourcesURI = nullptr;
 
     void loadSources();
 

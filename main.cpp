@@ -26,7 +26,7 @@ along with DIBotInstaller. If not, see <http://www.gnu.org/licenses/>.
 
 #include "installermenuvm.h"
 #include "filesystemapi.hpp"
-#include "componentsdownloader.hpp"
+#include "packagesdownloader/packagesdownloader.hpp"
 
 // Main wrapper program.
 // Special handling is needed when using Qt Quick Controls for the top window.
@@ -40,7 +40,7 @@ int main(int argc, char ** argv)
     // Register our component type with QML.
     qmlRegisterType<InstallerMenuVM>("com.dibot",1, 0,"InstallerMenuVM");
     qmlRegisterType<FileSystemAPI>("com.FileSystemAPI",1, 0,"FileSystemAPI");
-    qmlRegisterSingletonType<ComponentsDownloader>("com.ComponentsDownloader", 1, 0, "ComponentsDownloader", &ComponentsDownloader::qmlInstance);
+    qmlRegisterSingletonType<PackagesDownloader>("com.ComponentsDownloader", 1, 0, "ComponentsDownloader", &PackagesDownloader::qmlInstance);
 
     QQmlApplicationEngine engine;
     QObject::connect(&engine, SIGNAL(quit()), QCoreApplication::instance(), SLOT(quit()));

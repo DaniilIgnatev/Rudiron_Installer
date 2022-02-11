@@ -1,20 +1,20 @@
-#include "componentsdownloader.hpp"
+#include "packagesdownloader.hpp"
 
-ComponentsDownloader* ComponentsDownloader::singleton = new ComponentsDownloader();
+PackagesDownloader* PackagesDownloader::singleton = new PackagesDownloader();
 
 
-ComponentsDownloader::ComponentsDownloader(QObject *parent)
+PackagesDownloader::PackagesDownloader(QObject *parent)
     : QObject{parent}
 {
     this->yandexapi = WebAPI::instance()->getYandexDisk();
 }
 
-ComponentsDownloader *ComponentsDownloader::instance()
+PackagesDownloader *PackagesDownloader::instance()
 {
-    return ComponentsDownloader::singleton;
+    return PackagesDownloader::singleton;
 }
 
-QObject *ComponentsDownloader::qmlInstance(QQmlEngine *engine, QJSEngine *scriptEngine)
+QObject *PackagesDownloader::qmlInstance(QQmlEngine *engine, QJSEngine *scriptEngine)
 {
     Q_UNUSED(engine);
     Q_UNUSED(scriptEngine);
@@ -22,12 +22,12 @@ QObject *ComponentsDownloader::qmlInstance(QQmlEngine *engine, QJSEngine *script
     return instance();
 }
 
-ComponentsDownloader::~ComponentsDownloader()
+PackagesDownloader::~PackagesDownloader()
 {
     delete this->components;
 }
 
-void ComponentsDownloader::loadSources()
+void PackagesDownloader::loadSources()
 {
     auto reply = yandexapi->publicMetainformationRequest("https://disk.yandex.ru/d/nh4bE3Rcb59D9w");
     connect(reply, &QNetworkReply::finished, this, [=]() {
@@ -56,12 +56,12 @@ void ComponentsDownloader::loadSources()
     );
 }
 
-void ComponentsDownloader::download()
+void PackagesDownloader::download()
 {
 
 }
 
-ComponentStatus ComponentsDownloader::currentComponentStatus()
+ComponentDescriptor PackagesDownloader::currentComponentStatus()
 {
     return components->at(current_component_id);
 }

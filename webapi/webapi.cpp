@@ -2,9 +2,6 @@
 
 
 
-WebAPI* WebAPI::singleton = new WebAPI();
-
-
 WebAPI::WebAPI(QObject *parent)
     : QObject{parent}
 {
@@ -13,7 +10,9 @@ WebAPI::WebAPI(QObject *parent)
 
 WebAPI *WebAPI::instance()
 {
-    return WebAPI::singleton;
+    static WebAPI webapi;
+
+    return &webapi;
 }
 
 YandexDiskAPI *WebAPI::getYandexDisk() const

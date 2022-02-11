@@ -42,7 +42,7 @@ private:
 
     QList<ComponentStatus> *components = new QList<ComponentStatus>();
 
-    QString *sourcesURI = nullptr;
+    QString sourcesURI = nullptr;
 
     void loadSources();
 

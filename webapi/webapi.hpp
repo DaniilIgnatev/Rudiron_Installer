@@ -21,8 +21,6 @@ private:
 
     explicit WebAPI(QObject *parent = nullptr);
 
-    static WebAPI* singleton;
-
     QNetworkAccessManager *networkManager = new QNetworkAccessManager(this);
 
     YandexDiskAPI *yandexDisk = new YandexDiskAPI(networkManager, this);

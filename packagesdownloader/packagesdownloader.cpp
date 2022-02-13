@@ -146,21 +146,45 @@ QList<PackageDescriptor> *PackagesDownloader::getPackages() const
 }
 
 void PackagesDownloader::downloadPackage(PackageDescriptor &descriptor)
-{
+{    
     if (descriptor.type == PackageDescriptor::type_script){
         descriptor.completed = true;
         descriptor.percentage = 100;
-        emit packageDownloadStatusChanged(descriptor);
+        emit packageDownloadFinished(descriptor);
     }
     else{
+        QString destination_path;
+        if (descriptor.type != PackageDescriptor::type_application){
+            destination_path = Distributive::absoluteComponentPath(descriptor.destination) + "/" + descriptor.id;
+        }
+        else{
+            destination_path = descriptor.destination;
+        }
+
         WebAPI_Task* task = yandexapi->downloadPublicResource(descriptor.url);
         connect(task, &WebAPI_Task::reply_changed, this, [=,&descriptor](QNetworkReply &reply){
+             connect(&reply, &QNetworkReply::readyRead, this, [=,&reply,&descriptor]{
+                 qDebug("Ready read");
+             });
+             connect(&reply, &QNetworkReply::downloadProgress, this, [=,&reply,&descriptor](quint64 bytesReceived, quint64 bytesTotal){
+                 int percentage = bytesReceived / bytesTotal;
+                 qDebug() << "Download progress: " << bytesReceived << "bytes of " << bytesTotal << " bytes";
+                 descriptor.percentage = percentage;
+             });
             connect(&reply, &QNetworkReply::finished, this, [=,&reply,&descriptor]{
                 QByteArray data = reply.readAll();
-                QString file_path = Distributive::absoluteComponentPath(descriptor.destination) + "/" + descriptor.id;
+
+                if (descriptor.type == PackageDescriptor::type_archive){
+                    //распаковать архив
+                    //удалить архив
+                }
+                else{
+                    //переименовать
+                }
+
                 descriptor.completed = true;
                 descriptor.percentage = 100;
-                emit packageDownloadStatusChanged(descriptor);
+                emit packageDownloadFinished(descriptor);
                 task->deleteLater();
             });
         });

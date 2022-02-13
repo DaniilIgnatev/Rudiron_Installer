@@ -19,6 +19,7 @@ public:
 private:
     Q_GADGET
     Q_PROPERTY(QString id MEMBER id)
+    //ДОБАВИТЬ name, взять из метаинформации яндекс диска
     Q_PROPERTY(QString type MEMBER type)
     Q_PROPERTY(QString description MEMBER description)
     Q_PROPERTY(QString url MEMBER url)
@@ -93,7 +94,9 @@ signals:
 
     void errorFetching(QString description);
 
-    void packageDownloadStatusChanged(const PackageDescriptor &descriptor);
+    void packageDownloadFinished(const PackageDescriptor &descriptor);
+
+    void packageDownloadChanged(const PackageDescriptor &descriptor);
 
 };
 

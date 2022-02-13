@@ -19,6 +19,8 @@ private slots:
     void fetchSources();
 
     void testFetchPackages();
+
+    void testDownloadPackage();
 };
 
 #endif // PACKAGESDOWNLOADERTESTS_H

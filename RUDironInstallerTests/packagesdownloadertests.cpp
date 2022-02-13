@@ -37,3 +37,21 @@ void PackagesDownloaderTests::testFetchPackages()
         QVERIFY(package.completed == false);
     }
 }
+
+void PackagesDownloaderTests::testDownloadPackage()
+{
+    PackageDescriptor descriptor{
+        "cmake",//QString id;
+        "archive",//QString type;
+        "Система автматизации сборки CMake",//QString description;
+        "https://disk.yandex.ru/d/ItNlaKchne2dBA",//QString url;
+        "../components/",//QString destination;
+        QList<QString>{"cmake"},//QList<QString> contents;
+        0,//int percentage;
+        false,//bool completed;
+    };
+
+    QSignalSpy spy(packagerDownloader, &PackagesDownloader::packageDownloadFinished);
+    packagerDownloader->downloadPackage(descriptor);
+
+}

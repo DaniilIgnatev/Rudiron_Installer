@@ -53,6 +53,7 @@ SOURCES += \
         main.cpp \
         packagesdownloadertests.cpp \
         testsmedaitor.cpp \
+    ziptests.cpp
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -95,4 +96,5 @@ HEADERS += \
     ../webapi/webapi.hpp \
     ../webapi/webapi_task.h \
     ../webapi/yandexdiskapi.hpp \
+    ziptests.hpp
 

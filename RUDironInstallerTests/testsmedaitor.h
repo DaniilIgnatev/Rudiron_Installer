@@ -4,7 +4,9 @@
 #include <QObject>
 #include <QTest>
 #include <QTimer>
+
 #include "packagesdownloadertests.h"
+#include "ziptests.hpp"
 
 class TestsMedaitor : public QObject
 {

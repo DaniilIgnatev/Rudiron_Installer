@@ -28,6 +28,7 @@ void PackagesDownloaderTests::testFetchPackages()
     const QList<PackageDescriptor> *packages = packagerDownloader->getPackages();
     for(const PackageDescriptor &package:*packages){
         QVERIFY(package.id != "");
+        QVERIFY(package.type != "");
         QVERIFY(package.description != "");
         QVERIFY(package.url != "");
         QVERIFY(package.destination != "");

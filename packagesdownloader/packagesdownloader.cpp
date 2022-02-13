@@ -1,5 +1,12 @@
 #include "packagesdownloader.hpp"
 
+
+const QString PackageDescriptor::type_application = "application";
+const QString PackageDescriptor::type_installer = "installer";
+const QString PackageDescriptor::type_archive = "archive";
+const QString PackageDescriptor::type_script = "script";
+
+
 PackagesDownloader::PackagesDownloader(QObject *parent)
     : QObject{parent}
 {
@@ -120,6 +127,7 @@ void PackagesDownloader::parsePackages(QString json_string)
 
         PackageDescriptor descriptor{
             package_object["id"].toString(),
+                    package_object["type"].toString(),
                     package_object["description"].toString(),
                     package_object["url"].toString(),
                     package_object["destination"].toString(),
@@ -137,17 +145,25 @@ QList<PackageDescriptor> *PackagesDownloader::getPackages() const
     return packages;
 }
 
-void PackagesDownloader::downloadPackage()
+void PackagesDownloader::downloadPackage(PackageDescriptor &descriptor)
 {
-
+    if (descriptor.type == PackageDescriptor::type_script){
+        descriptor.completed = true;
+        descriptor.percentage = 100;
+        emit packageDownloadStatusChanged(descriptor);
+    }
+    else{
+        WebAPI_Task* task = yandexapi->downloadPublicResource(descriptor.url);
+        connect(task, &WebAPI_Task::reply_changed, this, [=,&descriptor](QNetworkReply &reply){
+            connect(&reply, &QNetworkReply::finished, this, [=,&reply,&descriptor]{
+                QByteArray data = reply.readAll();
+                QString file_path = Distributive::absoluteComponentPath(descriptor.destination) + "/" + descriptor.id;
+                descriptor.completed = true;
+                descriptor.percentage = 100;
+                emit packageDownloadStatusChanged(descriptor);
+                task->deleteLater();
+            });
+        });
+    }
 }
 
-void PackagesDownloader::downloadPackages(QList<QString> exceptID)
-{
-
-}
-
-PackageDescriptor PackagesDownloader::currentPackageStatus()
-{
-    return packages->at(packages_cursor);
-}

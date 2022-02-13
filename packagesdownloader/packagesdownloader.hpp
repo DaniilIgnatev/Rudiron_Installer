@@ -4,15 +4,22 @@
 #include <QObject>
 #include <QList>
 #include "../webapi/webapi.hpp"
+#include "../distributive.h"
 
 class QQmlEngine;
 class QJSEngine;
 
 
 struct PackageDescriptor {
+public:
+    static const QString type_application;
+    static const QString type_installer;
+    static const QString type_archive;
+    static const QString type_script;
 private:
     Q_GADGET
     Q_PROPERTY(QString id MEMBER id)
+    Q_PROPERTY(QString type MEMBER type)
     Q_PROPERTY(QString description MEMBER description)
     Q_PROPERTY(QString url MEMBER url)
     Q_PROPERTY(QString destination MEMBER destination)
@@ -21,6 +28,7 @@ private:
     Q_PROPERTY(bool completed MEMBER completed)
 public:
        QString id;
+       QString type;
        QString description;
        QString url;
        QString destination;
@@ -74,12 +82,7 @@ public:
     void fetchPackages();
 
 public:
-    ///Загрузить все пакеты из списка, за исключением пакетов с id except
-    void downloadPackages(QList<QString> exceptID);
-
-    PackageDescriptor currentPackageStatus();
-
-    void downloadPackage();
+    void downloadPackage(PackageDescriptor &descriptor);
 
 public slots:
 
@@ -90,9 +93,7 @@ signals:
 
     void errorFetching(QString description);
 
-    void packageDownloaded();
-
-    void currentPackageStatusChanged(PackageDescriptor status);
+    void packageDownloadStatusChanged(const PackageDescriptor &descriptor);
 
 };
 

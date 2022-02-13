@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QList>
+#include <QFile>
 #include "../webapi/webapi.hpp"
 #include "../distributive.h"
 

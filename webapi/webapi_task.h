@@ -27,6 +27,7 @@ private:
 public:
     QNetworkReply& getReply();
     void setReply(QNetworkReply *newReply);
+    QString name;
 
 private slots:
     void reply_redirected(const QUrl &uri);

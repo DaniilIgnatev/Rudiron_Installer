@@ -153,20 +153,22 @@ void PackagesDownloader::downloadPackage(PackageDescriptor &descriptor)
         emit packageDownloadFinished(descriptor);
     }
     else{
-        QString destination_path;
-        if (descriptor.type != PackageDescriptor::type_application){
-            destination_path = Distributive::absoluteComponentPath(descriptor.destination) + "/" + descriptor.id;
-        }
-        else{
-            destination_path = descriptor.destination;
-        }
-
         WebAPI_Task* task = yandexapi->downloadPublicResource(descriptor.url);
         connect(task, &WebAPI_Task::reply_changed, this, [=,&descriptor](QNetworkReply &reply){
-             connect(&reply, &QNetworkReply::readyRead, this, [=,&reply,&descriptor]{
-                 qDebug("Ready read");
+            QString destination_path;
+            if (descriptor.type != PackageDescriptor::type_application){
+                destination_path = Distributive::absoluteComponentPath(descriptor.destination) + "/" + task->name;
+            }
+            else{
+                destination_path = descriptor.destination;
+            }
+            qDebug() << "destination_path: " << destination_path;
+
+            connect(&reply, &QNetworkReply::readyRead, this, [=,&reply,&descriptor]{
+                 //qDebug("Ready read");
+                 //создать файл
              });
-             connect(&reply, &QNetworkReply::downloadProgress, this, [=,&reply,&descriptor](quint64 bytesReceived, quint64 bytesTotal){
+             connect(&reply, &QNetworkReply::downloadProgress, this, [=,&descriptor](quint64 bytesReceived, quint64 bytesTotal){
                  int percentage = bytesReceived / bytesTotal;
                  qDebug() << "Download progress: " << bytesReceived << "bytes of " << bytesTotal << " bytes";
                  descriptor.percentage = percentage;
@@ -175,7 +177,13 @@ void PackagesDownloader::downloadPackage(PackageDescriptor &descriptor)
                 QByteArray data = reply.readAll();
 
                 if (descriptor.type == PackageDescriptor::type_archive){
+                    //сохранить на диск скаченный файл
+                    QFile file(destination_path);
+                    file.open(QIODevice::WriteOnly);
+                    file.write(data);
+                    file.close();
                     //распаковать архив
+
                     //удалить архив
                 }
                 else{

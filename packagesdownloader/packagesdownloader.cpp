@@ -183,6 +183,9 @@ void PackagesDownloader::downloadPackage(PackageDescriptor &descriptor)
                     file.write(data);
                     file.close();
                     //распаковать архив
+                    QuaZip qua(destination_path);
+                    qua.open(QuaZip::mdUnzip);
+                    qua.close();
 
                     //удалить архив
                 }

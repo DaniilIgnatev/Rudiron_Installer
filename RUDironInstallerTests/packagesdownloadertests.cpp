@@ -53,5 +53,4 @@ void PackagesDownloaderTests::testDownloadPackage()
 
     QSignalSpy spy(packagerDownloader, &PackagesDownloader::packageDownloadFinished);
     packagerDownloader->downloadPackage(descriptor);
-
 }

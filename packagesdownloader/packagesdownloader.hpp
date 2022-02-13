@@ -6,6 +6,7 @@
 #include <QFile>
 #include "../webapi/webapi.hpp"
 #include "../distributive.h"
+#include "quazip.h"
 
 class QQmlEngine;
 class QJSEngine;

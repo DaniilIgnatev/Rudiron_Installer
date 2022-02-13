@@ -1,17 +1,20 @@
 #include "packagesdownloader.hpp"
 
-PackagesDownloader* PackagesDownloader::singleton = new PackagesDownloader();
-
-
 PackagesDownloader::PackagesDownloader(QObject *parent)
     : QObject{parent}
 {
     this->yandexapi = WebAPI::instance()->getYandexDisk();
 }
 
+PackagesDownloader::~PackagesDownloader()
+{
+    delete this->packages;
+}
+
 PackagesDownloader *PackagesDownloader::instance()
 {
-    return PackagesDownloader::singleton;
+    static PackagesDownloader singleton;
+    return &singleton;
 }
 
 QObject *PackagesDownloader::qmlInstance(QQmlEngine *engine, QJSEngine *scriptEngine)
@@ -22,46 +25,129 @@ QObject *PackagesDownloader::qmlInstance(QQmlEngine *engine, QJSEngine *scriptEn
     return instance();
 }
 
-PackagesDownloader::~PackagesDownloader()
+void PackagesDownloader::fetchSource()
 {
-    delete this->components;
+    WebAPI_Task* task = yandexapi->downloadPublicResource("https://disk.yandex.ru/d/nh4bE3Rcb59D9w");
+    connect(task, &WebAPI_Task::reply_changed, this, [=](QNetworkReply &reply){
+        connect(&reply, &QNetworkReply::finished, this, [=,&reply]{
+            QString json_string = reply.readAll();
+            parseSources(json_string);
+            emit sourceFetched();
+            task->deleteLater();
+        });
+    });
 }
 
-void PackagesDownloader::loadSources()
+void PackagesDownloader::parseSources(QString json_string)
 {
-    auto reply = yandexapi->publicMetainformationRequest("https://disk.yandex.ru/d/nh4bE3Rcb59D9w");
-    connect(reply, &QNetworkReply::finished, this, [=]() {
-        QByteArray metadata_data = reply->readAll();
-        QJsonDocument metadataJson = QJsonDocument::fromJson(metadata_data);
-        QJsonObject metadata = metadataJson.object();
+    auto json_document = QJsonDocument::fromJson(json_string.toUtf8());
+    auto json_object = json_document.object();
 
-        QString architecture = QSysInfo::buildCpuArchitecture();
-        QString os_type = QSysInfo::kernelType();
+    QString architecture = QSysInfo::buildCpuArchitecture();
+    QString os_type = QSysInfo::kernelType();
 
-        if (os_type == "winnt"){
-            this->sourcesURI = metadata["win_x64"].toString();
-        }
-        else if (os_type == "darwin"){
-            this->sourcesURI = metadata["macOS_x64"].toString();
+    QString sourceURL;
+
+    if (os_type == "winnt"){
+        sources_platform = "win_x64";
+        sourceURL = json_object[sources_platform].toString();
+    }
+    else if (os_type == "darwin"){
+        sources_platform = "macOS_x64";
+        sourceURL = json_object[sources_platform].toString();
+    }
+    else{
+        if (architecture == "arm64"){
+            sources_platform = "linux_arm64";
+            sourceURL = json_object[sources_platform].toString();
         }
         else{
-            if (architecture == "arm64"){
-                this->sourcesURI = metadata["linux_arm64"].toString();
-            }
-            else{
-                this->sourcesURI = metadata["linux_x64"].toString();
-            }
+            sources_platform = "linux_x64";
+            sourceURL = json_object[sources_platform].toString();
         }
     }
-    );
+
+    this->sources_url = sourceURL;
 }
 
-void PackagesDownloader::download()
+const QString &PackagesDownloader::getSources_url() const
+{
+    return sources_url;
+}
+
+const QString &PackagesDownloader::getSources_platform() const
+{
+    return sources_platform;
+}
+
+void PackagesDownloader::fetchPackages()
+{
+    WebAPI_Task* task = yandexapi->downloadPublicResource(this->sources_url);
+    connect(task, &WebAPI_Task::reply_changed, this, [=](QNetworkReply &reply){
+        connect(&reply, &QNetworkReply::finished, this, [=,&reply]{
+            QString json_string = reply.readAll();
+            parsePackages(json_string);
+            emit packagesFetched();
+            task->deleteLater();
+        });
+    });
+}
+
+void PackagesDownloader::parsePackages(QString json_string)
+{
+    if (json_string == ""){
+        emit errorFetching("Пакеты по указанному URL" + this->sources_url + " не найдены");
+        return;
+    }
+    const QJsonObject packagesObject = QJsonDocument::fromJson(json_string.toUtf8()).object();
+
+    QString fetchedPlatform = packagesObject["platform"].toString();
+    if (this->sources_platform != fetchedPlatform){
+        emit errorFetching("Целевая платформы " + this->sources_platform + " и " + fetchedPlatform + " не совпадают");
+        return;
+    }
+
+    const QJsonArray packagesArray = packagesObject["packages"].toArray();
+    this->packages->clear();
+
+    for(const auto &package:packagesArray){
+        auto package_object = package.toObject();
+        const auto contents_array = package_object["contents"].toArray();
+        QList<QString> contents;
+        for (const auto &c:contents_array){
+            contents.append(c.toString());
+        }
+
+        PackageDescriptor descriptor{
+            package_object["id"].toString(),
+                    package_object["description"].toString(),
+                    package_object["url"].toString(),
+                    package_object["destination"].toString(),
+                    contents,
+                    0,
+                    false
+        };
+        this->packages->append(descriptor);
+    }
+}
+
+
+QList<PackageDescriptor> *PackagesDownloader::getPackages() const
+{
+    return packages;
+}
+
+void PackagesDownloader::downloadPackage()
 {
 
 }
 
-ComponentDescriptor PackagesDownloader::currentComponentStatus()
+void PackagesDownloader::downloadPackages(QList<QString> exceptID)
 {
-    return components->at(current_component_id);
+
+}
+
+PackageDescriptor PackagesDownloader::currentPackageStatus()
+{
+    return packages->at(packages_cursor);
 }

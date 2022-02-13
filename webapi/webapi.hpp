@@ -3,8 +3,7 @@
 
 #include <QObject>
 #include <QNetworkAccessManager>
-#include <QNetworkRequest>
-#include <QNetworkReply>
+#include "webapi_task.h"
 
 #include "yandexdiskapi.hpp"
 
@@ -28,6 +27,8 @@ private:
 public:
 
     static WebAPI *instance();
+
+    QNetworkReply* request(const QUrl &uri);
 
     YandexDiskAPI *getYandexDisk() const;
 

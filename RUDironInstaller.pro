@@ -26,6 +26,7 @@ SOURCES += \
         pugixml-master/src/pugixml.cpp \
         qtcreatorconfig.cpp \
         webapi/webapi.cpp \
+    webapi/webapi_task.cpp \
         webapi/yandexdiskapi.cpp \
 
 RESOURCES += qml.qrc
@@ -51,6 +52,7 @@ HEADERS += \
     pugixml-master/src/pugixml.hpp \
     qtcreatorconfig.h \
     webapi/webapi.hpp \
+    webapi/webapi_task.h \
     webapi/yandexdiskapi.hpp \
 
 DISTFILES += \

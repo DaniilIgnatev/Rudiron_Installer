@@ -5,6 +5,8 @@
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
 
+#include "webapi_task.h"
+
 
 class YandexDiskAPI: QObject
 {
@@ -13,13 +15,16 @@ private:
 
     QNetworkAccessManager *networkManager;
 
+    QNetworkReply* publicMetainformationRequest(QString resourceURL);
+
+    QNetworkReply* publicResourceDownloadInfo(QString resourceKey);
+
 public:
 
     YandexDiskAPI(QNetworkAccessManager *networkManager, QObject *parent = nullptr);
 
-    QNetworkReply* publicMetainformationRequest(QString url);
+    WebAPI_Task* downloadPublicResource(QString resourceURL);
 
-    QNetworkReply* publicResouceDownload(QString uri);
 };
 
 #endif // YANDEXDISKAPI_H

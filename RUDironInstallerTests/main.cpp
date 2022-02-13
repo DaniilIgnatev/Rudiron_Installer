@@ -1,10 +1,11 @@
-#include <QTest>
-#include "packagesdownloadertests.h"
+#include "testsmedaitor.h"
 
 
-int main(int argc, char *argv[])
-{
-    PackagesDownloaderTests packagesdownloader;
-    QTest::qExec(&packagesdownloader,argc,argv);
-    return 0;
+
+int main(int argc, char *argv[]) {
+    QApplication a( argc, argv );
+    TestsMedaitor tests;
+    tests.planTests();
+    return a.exec();
 }
+

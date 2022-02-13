@@ -3,6 +3,7 @@ QT += testlib
 QT += network
 
 CONFIG += c++11 console
+QT += widgets
 CONFIG -= app_bundle
 
 # You can make your code fail to compile if it uses deprecated APIs.
@@ -12,9 +13,11 @@ CONFIG -= app_bundle
 SOURCES += \
         ../packagesdownloader/packagesdownloader.cpp \
         ../webapi/webapi.cpp \
+        ../webapi/webapi_task.cpp \
         ../webapi/yandexdiskapi.cpp \
         main.cpp \
-        packagesdownloadertests.cpp
+        packagesdownloadertests.cpp \
+        testsmedaitor.cpp
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -24,5 +27,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 HEADERS += \
     ../packagesdownloader/packagesdownloader.hpp \
     ../webapi/webapi.hpp \
+    ../webapi/webapi_task.h \
     ../webapi/yandexdiskapi.hpp \
-    packagesdownloadertests.h
+    packagesdownloadertests.h \
+    testsmedaitor.h

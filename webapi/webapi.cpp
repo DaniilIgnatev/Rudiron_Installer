@@ -5,14 +5,20 @@
 WebAPI::WebAPI(QObject *parent)
     : QObject{parent}
 {
-
+    networkManager->setRedirectPolicy(QNetworkRequest::RedirectPolicy::UserVerifiedRedirectPolicy);
 }
 
 WebAPI *WebAPI::instance()
 {
-    static WebAPI webapi;
+    static WebAPI singleton;
+    return &singleton;
+}
 
-    return &webapi;
+QNetworkReply *WebAPI::request(const QUrl &uri)
+{
+    const QNetworkRequest request(uri);
+    QNetworkReply* downloadReply = this->networkManager->get(request);
+    return downloadReply;
 }
 
 YandexDiskAPI *WebAPI::getYandexDisk() const

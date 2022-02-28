@@ -48,7 +48,7 @@ RowLayout{
     property var model: {({})}
 
 
-    TabButtonUI{
+    PackagesInstallTabButton {
         id: button
 
         Layout.fillWidth: true

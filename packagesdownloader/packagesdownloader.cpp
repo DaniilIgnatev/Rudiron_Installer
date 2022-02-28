@@ -133,6 +133,7 @@ void PackagesDownloader::parsePackages(QString json_string)
                     package_object["destination"].toString(),
                     contents,
                     0,
+                    false,
                     false
         };
         this->packages->append(descriptor);
@@ -155,49 +156,56 @@ void PackagesDownloader::downloadPackage(PackageDescriptor &descriptor)
     else{
         WebAPI_Task* task = yandexapi->downloadPublicResource(descriptor.url);
         connect(task, &WebAPI_Task::reply_changed, this, [=,&descriptor](QNetworkReply &reply){
-            QString destination_path;
+            QString destination_folder;
+            QString destination_path;//путь сохранения файла
             if (descriptor.type != PackageDescriptor::type_application){
-                destination_path = Distributive::absoluteComponentPath(descriptor.destination) + "/" + task->name;
+                destination_folder = Distributive::absoluteComponentPath(descriptor.destination);
+                destination_path = destination_folder + task->fileName;
             }
             else{
-                destination_path = descriptor.destination;
+                destination_folder = descriptor.destination;
+                destination_path = destination_folder + task->fileName;
             }
+            qDebug() << "destination_folder: " << destination_folder;
             qDebug() << "destination_path: " << destination_path;
 
-            connect(&reply, &QNetworkReply::readyRead, this, [=,&reply,&descriptor]{
-                 //qDebug("Ready read");
-                 //создать файл
-             });
-             connect(&reply, &QNetworkReply::downloadProgress, this, [=,&descriptor](quint64 bytesReceived, quint64 bytesTotal){
-                 int percentage = bytesReceived / bytesTotal;
-                 qDebug() << "Download progress: " << bytesReceived << "bytes of " << bytesTotal << " bytes";
-                 descriptor.percentage = percentage;
-             });
-            connect(&reply, &QNetworkReply::finished, this, [=,&reply,&descriptor]{
-                QByteArray data = reply.readAll();
+            bool folder_exists = QFile::exists(destination_folder);
+            if (!folder_exists){
+                qDebug() << "Error destination_folder doesn't exist. Download canceled!";
+                QString error_description = "Destination folder '" + destination_folder + "' doesn't exist";
+                emit packageDownloadError(descriptor, error_description);
+            }
+            else{
+                //            connect(&reply, &QNetworkReply::readyRead, this, [=,&reply,&descriptor]{
+                //                 //qDebug("Ready read");
+                //                 //создать файл
+                //             });
+                connect(&reply, &QNetworkReply::downloadProgress, this, [=,&descriptor](quint64 bytesReceived, quint64 bytesTotal){
+                    int percentage = bytesReceived / bytesTotal;
+                    qDebug() << "Download " + descriptor.id + " progress: " << bytesReceived << "bytes of " << bytesTotal << " bytes";
+                    descriptor.percentage = percentage;
+                });
+                connect(&reply, &QNetworkReply::finished, this, [=,&reply,&descriptor]{
+                    QByteArray data = reply.readAll();
 
-                if (descriptor.type == PackageDescriptor::type_archive){
-                    //сохранить на диск скаченный файл
                     QFile file(destination_path);
                     file.open(QIODevice::WriteOnly);
                     file.write(data);
                     file.close();
-                    //распаковать архив
-                    QuaZip qua(destination_path);
-                    qua.open(QuaZip::mdUnzip);
-                    qua.close();
 
-                    //удалить архив
-                }
-                else{
-                    //переименовать
-                }
+                    if (descriptor.type == PackageDescriptor::type_archive){
+                        QuaZip qua(destination_path);
+                        qua.open(QuaZip::mdUnzip);
+                        qua.close();
+                        //удалить архив
+                    }
 
-                descriptor.completed = true;
-                descriptor.percentage = 100;
-                emit packageDownloadFinished(descriptor);
-                task->deleteLater();
-            });
+                    descriptor.completed = true;
+                    descriptor.percentage = 100;
+                    emit packageDownloadFinished(descriptor);
+                    task->deleteLater();
+                });
+            }
         });
     }
 }

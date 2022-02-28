@@ -2,8 +2,8 @@
     <qresource prefix="/">
         <file>InstallerWindow.qml</file>
         <file>Installer_Debug.qml</file>
-        <file>TabBarUI.qml</file>
-        <file>TabUI.qml</file>
+        <file>PackagesInstallTabBar.qml</file>
+        <file>PackagesInstallTab.qml</file>
         <file>contentUI/OverviewUI.qml</file>
         <file>contentUI/LicenceUI.qml</file>
         <file>contentUI/StagesObserverUI.qml</file>
@@ -62,12 +62,15 @@
         <file>slides/guide/2022-01-10_11-47-06.png</file>
         <file>slides/guide/2022-01-10_11-47-46.png</file>
         <file>icon.png</file>
-        <file>TabButtonUI.qml</file>
+        <file>PackagesInstallTabButton.qml</file>
         <file>contentUI/ButtonStyled.qml</file>
         <file>slides/toolchain/qt_logo_green_rgb_whitespace.png</file>
         <file>slides/zadig/jlink.png</file>
         <file>icon.ico</file>
         <file>Intro.qml</file>
-        <file>InstallerBody.qml</file>
+        <file>PackagesInstall.qml</file>
+        <file>Licence.qml</file>
+        <file>PackagesOptions.qml</file>
+        <file>PackagesDownload.qml</file>
     </qresource>
 </RCC>

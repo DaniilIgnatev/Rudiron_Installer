@@ -6,12 +6,6 @@ TestsMedaitor::TestsMedaitor(QObject *parent)
 
 }
 
-void TestsMedaitor::runTests(){
-    PackagesDownloaderTests packagesDownloaderTests;
-    QTest::qExec(&packagesDownloaderTests);
-    ZipTests ziptests;
-    QTest::qExec(&ziptests);
-}
 
 void TestsMedaitor::planTests(){
     this->testsTimer = new QTimer(this);
@@ -21,4 +15,13 @@ void TestsMedaitor::planTests(){
         this->runTests();
     });
     this->testsTimer->start();
+}
+
+
+void TestsMedaitor::runTests(){
+    PackagesDownloaderTests packagesDownloaderTests;
+    QTest::qExec(&packagesDownloaderTests);
+
+    ZipTests ziptests;
+    QTest::qExec(&ziptests);
 }

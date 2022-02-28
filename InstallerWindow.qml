@@ -26,7 +26,7 @@ import QtQuick.Window 2.2
 import com.dibot 1.0
 
 
-ApplicationWindow {
+Window {
 
     id: app
 
@@ -42,26 +42,55 @@ ApplicationWindow {
     maximumWidth: minimumWidth
     maximumHeight: minimumHeight
 
-    property int currentIndex: 0
+    property int currentIndex: 2
 
     Intro {
+        id: intro
         anchors.fill: parent
         visible: currentIndex == 0
         onButtonNext: {
-            installerbody.withJLink = withJLink
             app.currentIndex = 1
         }
     }
 
-    InstallerBody {
+    Licence {
+        id: licence
         anchors.fill: parent
         visible: currentIndex == 1
+        onButtonNext: {
+            app.currentIndex = 2
+        }
+    }
+
+    PackagesOptions {
+        id: packagesOptions
+        anchors.fill: parent
+        visible: currentIndex == 2
+        onButtonNext: {
+            app.currentIndex = 3
+        }
+    }
+
+    PackagesDownload {
+        id: packagesDownload
+        anchors.fill: parent
+        visible: currentIndex == 3
+        onButtonNext: {
+            app.currentIndex = 4
+        }
+    }
+
+    PackagesInstall {
         id: installerbody
+        anchors.fill: parent
+        visible: currentIndex == 4
     }
 }
 
+
+
 /*##^##
 Designer {
-    D{i:0;autoSize:true;height:600;width:800}D{i:2}D{i:3}D{i:1}
+    D{i:0;autoSize:true;height:480;width:640}D{i:1}D{i:2}D{i:3}D{i:4}D{i:5}
 }
 ##^##*/

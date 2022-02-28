@@ -32,15 +32,11 @@ ColumnLayout{
     property bool withJLink: false
 
 
+    property bool withVSCode: false
+
+
     onWithJLinkChanged: {
         buildTabs()
-    }
-
-
-    function licenceAccepted(){
-        if (selectedPos + 1 < tabs.length){
-            tabs[selectedPos + 1].checked = true
-        }
     }
 
 
@@ -84,10 +80,10 @@ ColumnLayout{
 
     function getFiltredTabs(){
         if (withJLink){
-            return [tab1, tab2, tab3, tab4, tab5, tab6, tab7]
+            return [tab_qtcreator, tab_jlink, tab_zadig, tab_python27, tab_qtcreator_toolchain, tab_qtcreator_manual]
         }
         else{
-            return [tab1, tab2, tab5, tab6, tab7]
+            return [tab_qtcreator, tab_python27, tab_qtcreator_toolchain, tab_qtcreator_manual]
         }
     }
 
@@ -108,20 +104,124 @@ ColumnLayout{
     }
 
 
-    TabUI{
-        id: tab1
+    Text {
+        color: "#e35b00"
+        Layout.fillWidth: true
+        Layout.topMargin: 10
+
+        text: "<h2>Установка</h2"
+        horizontalAlignment: Text.AlignHCenter
+        verticalAlignment: Text.AlignVCenter
+        font.family: "Arial"
+
+        renderType: Text.QtRendering
+        font.pointSize: 14
+
+        wrapMode: Text.Wrap
+        fontSizeMode: Text.Fit
+        textFormat: Text.RichText
+    }
+
+
+    PackagesInstallTab{
+        id: tab_jlink
         visible: false
         onCheckedChanged: if (checked) {tabbar_root.tabChecked(position)}
         position: 0
-        text: "Лицензия"
-        contentQML: "contentUI/LicenceUI.qml"
+        text: "JLink"
+        contentQML: "contentUI/StagesObserverUI.qml"
+        enabled: installerui_root.licenceAccepted
+        model: [{
+                title: text,
+                showAgain: true,
+                imagesURLList: [
+                    "../slides/jlink/1.png",
+                    "../slides/jlink/2.png",
+                    "../slides/jlink/3.png",
+                    "../slides/jlink/4.png",
+                    "../slides/jlink/5.png"
+                ],
+                hintList: [
+                    "Нажмите \"Next\".",
+                    "Нажмите \"I Agree\".",
+                    "Нажмите \"Install\".",
+                    "Нажмите \"Ok\".",
+                    "Нажмите \"Finish\"."
+                ],
+                installFunction: function(){
+                    installerVM.installJlink()
+                }
+            }]
     }
 
-    TabUI{
-        id: tab2
+
+    PackagesInstallTab{
+        id: tab_zadig
         visible: false
         onCheckedChanged: if (checked) {tabbar_root.tabChecked(position)}
         position: 1
+        text: "Zadig"
+        contentQML: "contentUI/StagesObserverUI.qml"
+        enabled: installerui_root.licenceAccepted
+        model: [{
+                title: text,
+                showAgain: true,
+                imagesURLList: [
+                    "../slides/zadig/jlink.png",
+                    "../slides/zadig/1.png",
+                    "../slides/zadig/2.png",
+                    "../slides/zadig/3.png",
+                    "../slides/zadig/4.png"
+                ],
+                hintList: [
+                    "Подключите JLink-совместимый программатор к компьютеру",
+                    "Нажмите \"Options\".",
+                    "Нажмите \"List All Devices\".",
+                    "Выберите устройство \"BULK interface\" и драйвер \"WinUSB\", нажмите \"Replace Driver\".",
+                    "Процесс замены драйвера может занять занять нескольтко минут."
+                ],
+                installFunction: function(){
+                    installerVM.runZadig()
+                }
+            }]
+    }
+
+
+    PackagesInstallTab{
+        id: tab_python27
+        visible: false
+        onCheckedChanged: if (checked) {tabbar_root.tabChecked(position)}
+        position: 2
+        text: "Python 2.7"
+        contentQML: "contentUI/StagesObserverUI.qml"
+        enabled: installerui_root.licenceAccepted
+        model: [{
+                title: text,
+                showAgain: true,
+                imagesURLList: [
+                    "../slides/python27/1.png",
+                    "../slides/python27/2.png",
+                    "../slides/python27/3.png",
+                    "../slides/python27/4.png"
+                ],
+                hintList: [
+                    "Нажмите \"Next\".",
+                    "Нажмите \"Next\".",
+                    "Нажмите \"Next\".",
+                    "Нажмите \"Finish\"."
+                ],
+                installFunction: function(){
+                    installerVM.installPython()
+                }
+            }]
+    }
+
+
+    PackagesInstallTab{
+        id: tab_qtcreator
+        visible: false
+        onCheckedChanged: if (checked) {tabbar_root.tabChecked(position)}
+        position: 3
         text: "Qt Creator"
         contentQML: "contentUI/StagesObserverUI.qml"
         enabled: installerui_root.licenceAccepted
@@ -156,103 +256,12 @@ ColumnLayout{
             }]
     }
 
-    TabUI{
-        id: tab3
-        visible: false
-        onCheckedChanged: if (checked) {tabbar_root.tabChecked(position)}
-        position: 3
-        text: "JLink"
-        contentQML: "contentUI/StagesObserverUI.qml"
-        enabled: installerui_root.licenceAccepted
-        model: [{
-                title: text,
-                showAgain: true,
-                imagesURLList: [
-                    "../slides/jlink/1.png",
-                    "../slides/jlink/2.png",
-                    "../slides/jlink/3.png",
-                    "../slides/jlink/4.png",
-                    "../slides/jlink/5.png"
-                ],
-                hintList: [
-                    "Нажмите \"Next\".",
-                    "Нажмите \"I Agree\".",
-                    "Нажмите \"Install\".",
-                    "Нажмите \"Ok\".",
-                    "Нажмите \"Finish\"."
-                ],
-                installFunction: function(){
-                    installerVM.installJlink()
-                }
-            }]
-    }
 
-    TabUI{
-        id: tab4
+    PackagesInstallTab{
+        id: tab_qtcreator_toolchain
         visible: false
         onCheckedChanged: if (checked) {tabbar_root.tabChecked(position)}
         position: 4
-        text: "Zadig"
-        contentQML: "contentUI/StagesObserverUI.qml"
-        enabled: installerui_root.licenceAccepted
-        model: [{
-                title: text,
-                showAgain: true,
-                imagesURLList: [
-                    "../slides/zadig/jlink.png",
-                    "../slides/zadig/1.png",
-                    "../slides/zadig/2.png",
-                    "../slides/zadig/3.png",
-                    "../slides/zadig/4.png"
-                ],
-                hintList: [
-                    "Подключите JLink-совместимый программатор к компьютеру",
-                    "Нажмите \"Options\".",
-                    "Нажмите \"List All Devices\".",
-                    "Выберите устройство \"BULK interface\" и драйвер \"WinUSB\", нажмите \"Replace Driver\".",
-                    "Процесс замены драйвера может занять занять нескольтко минут."
-                ],
-                installFunction: function(){
-                    installerVM.runZadig()
-                }
-            }]
-    }
-
-    TabUI{
-        id: tab5
-        visible: false
-        onCheckedChanged: if (checked) {tabbar_root.tabChecked(position)}
-        position: 5
-        text: "Python 2.7"
-        contentQML: "contentUI/StagesObserverUI.qml"
-        enabled: installerui_root.licenceAccepted
-        model: [{
-                title: text,
-                showAgain: true,
-                imagesURLList: [
-                    "../slides/python27/1.png",
-                    "../slides/python27/2.png",
-                    "../slides/python27/3.png",
-                    "../slides/python27/4.png"
-                ],
-                hintList: [
-                    "Нажмите \"Next\".",
-                    "Нажмите \"Next\".",
-                    "Нажмите \"Next\".",
-                    "Нажмите \"Finish\"."
-                ],
-                installFunction: function(){
-                    installerVM.installPython()
-                }
-            }]
-    }
-
-
-    TabUI{
-        id: tab6
-        visible: false
-        onCheckedChanged: if (checked) {tabbar_root.tabChecked(position)}
-        position: 6
         text: "Инструментарий"
         contentQML: "contentUI/StagesObserverUI.qml"
         enabled: installerui_root.licenceAccepted
@@ -293,11 +302,12 @@ ColumnLayout{
             }]
     }
 
-    TabUI{
-        id: tab7
+
+    PackagesInstallTab{
+        id: tab_qtcreator_manual
         visible: false
         onCheckedChanged: if (checked) {tabbar_root.tabChecked(position)}
-        position: 7
+        position: 5
         text: "Руководство"
         contentQML: "contentUI/StagesObserverUI.qml"
         enabled: installerui_root.licenceAccepted

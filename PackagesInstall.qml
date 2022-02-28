@@ -33,7 +33,7 @@ RowLayout  {
     }
 
 
-    TabBarUI {
+    PackagesInstallTabBar {
         id: installerui_tabbar
         Layout.fillHeight: true
         Layout.fillWidth: false

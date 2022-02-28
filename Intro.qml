@@ -13,8 +13,6 @@ ColumnLayout{
 
     signal buttonNext
 
-    property bool withJLink: false
-
     Text {
         color: "#e35b00"
         Layout.fillWidth: true
@@ -108,7 +106,6 @@ ColumnLayout{
                     text: "Далее"
                     enabled: radio1.checked || radio2.checked
                     onPressed: {
-                        withJLink = radio1.checked
                         intro_root.buttonNext()
                     }
                 }

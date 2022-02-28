@@ -21,14 +21,22 @@ public:
 private:
     Q_GADGET
     Q_PROPERTY(QString id MEMBER id)
-    //ДОБАВИТЬ name, взять из метаинформации яндекс диска
+    //тип пакета: приложение, установщик, архив, shell скрипт
     Q_PROPERTY(QString type MEMBER type)
+    //описание
     Q_PROPERTY(QString description MEMBER description)
+    //ссылка для скачивания
     Q_PROPERTY(QString url MEMBER url)
+    //папка, куда будет перемещен пакет
     Q_PROPERTY(QString destination MEMBER destination)
+    //содержимое пакета
     Q_PROPERTY(QList<QString> contents MEMBER contents)
+    //прогресс получения содержимого пакета
     Q_PROPERTY(int percentage MEMBER percentage)
+    //пакет готов
     Q_PROPERTY(bool completed MEMBER completed)
+    //ошибка
+    Q_PROPERTY(bool error MEMBER error)
 public:
        QString id;
        QString type;
@@ -38,6 +46,7 @@ public:
        QList<QString> contents;
        int percentage;
        bool completed;
+       bool error;
 };
 
 
@@ -97,6 +106,8 @@ signals:
     void errorFetching(QString description);
 
     void packageDownloadFinished(const PackageDescriptor &descriptor);
+
+    void packageDownloadError(const PackageDescriptor &descriptor, QString description);
 
     void packageDownloadChanged(const PackageDescriptor &descriptor);
 

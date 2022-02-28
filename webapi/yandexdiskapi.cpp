@@ -35,7 +35,7 @@ WebAPI_Task* YandexDiskAPI::downloadPublicResource(QString resourceURL)
         QJsonObject metadata = reply_Json.object();
 
         QString resourceKey = metadata["public_key"].toString();
-        task->name = metadata["name"].toString();
+        task->fileName = metadata["name"].toString();
 
         QNetworkReply* downloadInfoReply = publicResourceDownloadInfo(resourceKey);
         connect(downloadInfoReply, &QNetworkReply::finished, this, [=]() {

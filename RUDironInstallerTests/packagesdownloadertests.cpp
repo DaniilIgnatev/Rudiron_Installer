@@ -10,7 +10,7 @@ void PackagesDownloaderTests::fetchSources()
 {
     QSignalSpy spy(packagerDownloader, &PackagesDownloader::sourceFetched);
     packagerDownloader->fetchSource();
-    spy.wait(999);
+    spy.wait();
 
     QString sourceURL = packagerDownloader->getSources_url();
     QVERIFY(sourceURL != "");
@@ -24,7 +24,7 @@ void PackagesDownloaderTests::testFetchPackages()
     fetchSources();
     QSignalSpy spy(packagerDownloader, &PackagesDownloader::packagesFetched);
     packagerDownloader->fetchPackages();
-    spy.wait(999);
+    spy.wait();
 
     const QList<PackageDescriptor> *packages = packagerDownloader->getPackages();
     for(const PackageDescriptor &package:*packages){
@@ -55,4 +55,5 @@ void PackagesDownloaderTests::testDownloadPackage()
 
     QSignalSpy spy(packagerDownloader, &PackagesDownloader::packageDownloadFinished);
     packagerDownloader->downloadPackage(descriptor);
+    spy.wait(100000);
 }

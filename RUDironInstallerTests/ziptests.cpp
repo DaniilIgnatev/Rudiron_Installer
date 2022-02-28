@@ -8,6 +8,7 @@ ZipTests::ZipTests(QObject *parent)
 
 void ZipTests::testUnzip()
 {
+    return;
     QString filePath = "D:/cmake.zip";
 //    QuaZip qua(filePath);
 //    qua.open(QuaZip::mdUnzip);

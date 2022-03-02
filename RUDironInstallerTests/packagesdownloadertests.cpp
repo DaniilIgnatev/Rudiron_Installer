@@ -28,14 +28,14 @@ void PackagesDownloaderTests::testFetchPackages()
 
     const QList<PackageDescriptor> *packages = packagerDownloader->getPackages();
     for(const PackageDescriptor &package:*packages){
-        QVERIFY(package.id != "");
-        QVERIFY(package.type != "");
-        QVERIFY(package.description != "");
-        QVERIFY(package.url != "");
-        QVERIFY(package.destination != "");
-        QVERIFY(!package.contents.empty());
-        QVERIFY(package.percentage == 0);
-        QVERIFY(package.completed == false);
+        QVERIFY(package.ID != "");
+        QVERIFY(package.Type != "");
+        QVERIFY(package.Description != "");
+        QVERIFY(package.URL != "");
+        QVERIFY(package.Destination != "");
+        QVERIFY(!package.Contents.empty());
+        QVERIFY(package.Percentage == 0);
+        QVERIFY(package.Completed == false);
     }
 }
 

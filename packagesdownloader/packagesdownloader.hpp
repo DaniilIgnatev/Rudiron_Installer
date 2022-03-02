@@ -7,11 +7,11 @@
 #include "../webapi/webapi.hpp"
 #include "../distributive.h"
 #include "quazip.h"
-#include "packagedescriptor.hpp"
+#include "packagedescriptormodel.hpp"
+
 
 class QQmlEngine;
 class QJSEngine;
-
 
 
 class PackagesDownloader : public QObject
@@ -32,7 +32,7 @@ private:
     QString sources_platform;
     QString sources_url;
 
-public:
+public slots:
     void fetchSource();
 
 private:
@@ -41,23 +41,23 @@ private:
 private:
     int packages_cursor = 0;
 
-    QList<PackageDescriptor*> *packages = new QList<PackageDescriptor*>();
+    QList<PackageDescriptor*> packages;
 
-public:
-    QList<PackageDescriptor*> *getPackages() const;
+public slots:
+    PackageDescriptorModel* getPackages();
 
-public:
-    const QString &getSources_platform() const;
+public slots:
+    const QString getSources_platform();
 
-    const QString &getSources_url() const;
+    const QString getSources_url();
 
 private:
     void parsePackages(QString json_string);
 
-public:
+public slots:
     void fetchPackages();
 
-public:
+public slots:
     void downloadPackage(PackageDescriptor &descriptor);
 
 public slots:

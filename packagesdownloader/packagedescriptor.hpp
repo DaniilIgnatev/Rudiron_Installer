@@ -12,6 +12,9 @@ public:
     static const QString type_archive;
     static const QString type_script;
 
+    explicit PackageDescriptor(QObject *parent = nullptr);
+
+
     explicit PackageDescriptor(QString id,
                                QString type,
                                QString description,
@@ -20,43 +23,55 @@ public:
                                QList<QString> contents,
                                QObject *parent = nullptr);
 
-    Q_PROPERTY(QString id MEMBER id)
-    QString id;
+private:
+    QString _ID;
 
+public:
+    Q_PROPERTY(QString ID READ ID WRITE setID NOTIFY IDChanged)
+    QString ID();
+    void setID(QString newValue);
+
+private:
+    QString _Type;
+
+public:
     //тип пакета: приложение, установщик, архив, shell скрипт
-    Q_PROPERTY(QString type MEMBER type)
-    QString type;
+    Q_PROPERTY(QString Type READ Type WRITE setType NOTIFY TypeChanged)
+    QString Type();
+    void setType(QString newValue);
 
     //описание
-    Q_PROPERTY(QString description MEMBER description)
-    QString description;
+    Q_PROPERTY(QString Description MEMBER Description)
+    QString Description;
 
     //ссылка для скачивания
-    Q_PROPERTY(QString url MEMBER url)
-    QString url;
+    Q_PROPERTY(QString URL MEMBER URL)
+    QString URL;
 
     //папка, куда будет перемещен пакет
-    Q_PROPERTY(QString destination MEMBER destination)
-    QString destination;
+    Q_PROPERTY(QString Destination MEMBER Destination)
+    QString Destination;
 
     //содержимое пакета
-    Q_PROPERTY(QList<QString> contents MEMBER contents)
-    QList<QString> contents;
+    Q_PROPERTY(QList<QString> Contents MEMBER Contents)
+    QList<QString> Contents;
 
     //прогресс получения содержимого пакета
-    Q_PROPERTY(int percentage MEMBER percentage)
-    int percentage;
+    Q_PROPERTY(int Percentage MEMBER Percentage)
+    int Percentage;
 
     //пакет готов
-    Q_PROPERTY(bool completed MEMBER completed)
-    bool completed;
+    Q_PROPERTY(bool Completed MEMBER Completed)
+    bool Completed;
 
     //ошибка
-    Q_PROPERTY(bool error MEMBER error)
-    bool error;
+    Q_PROPERTY(bool Error MEMBER Error)
+    bool Error;
 
 signals:
+    void IDChanged();
 
+    void TypeChanged();
 };
 
 #endif // PACKAGEDESCRIPTOR_HPP

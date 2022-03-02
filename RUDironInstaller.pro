@@ -27,6 +27,7 @@ SOURCES += \
         installermenuvm.cpp \
         main.cpp \
         packagesdownloader/packagedescriptor.cpp \
+        packagesdownloader/packagedescriptormodel.cpp \
         packagesdownloader/packagesdownloader.cpp \
         pugixml-master/src/pugixml.cpp \
         qtcreatorconfig.cpp \
@@ -82,6 +83,7 @@ HEADERS += \
     installermenuvm.h \
     installstatus.h \
     packagesdownloader/packagedescriptor.hpp \
+    packagesdownloader/packagedescriptormodel.hpp \
     packagesdownloader/packagesdownloader.hpp \
     pugixml-master/src/pugiconfig.hpp \
     pugixml-master/src/pugixml.hpp \

@@ -15,7 +15,7 @@ PackagesDownloader::PackagesDownloader(QObject *parent)
 
 PackagesDownloader::~PackagesDownloader()
 {
-    delete this->packages;
+
 }
 
 PackagesDownloader *PackagesDownloader::instance()
@@ -77,12 +77,12 @@ void PackagesDownloader::parseSources(QString json_string)
     this->sources_url = sourceURL;
 }
 
-const QString &PackagesDownloader::getSources_url() const
+const QString PackagesDownloader::getSources_url()
 {
     return sources_url;
 }
 
-const QString &PackagesDownloader::getSources_platform() const
+const QString PackagesDownloader::getSources_platform()
 {
     return sources_platform;
 }
@@ -115,7 +115,7 @@ void PackagesDownloader::parsePackages(QString json_string)
     }
 
     const QJsonArray packagesArray = packagesObject["packages"].toArray();
-    this->packages->clear();
+    this->packages.clear();
 
     for(const auto &package:packagesArray){
         auto package_object = package.toObject();
@@ -134,34 +134,34 @@ void PackagesDownloader::parsePackages(QString json_string)
                     contents,
                     this
         );
-        this->packages->append(descriptor);
+        this->packages.append(descriptor);
     }
 }
 
 
-QList<PackageDescriptor*> *PackagesDownloader::getPackages() const
+PackageDescriptorModel* PackagesDownloader::getPackages()
 {
-    return packages;
+    return new PackageDescriptorModel(packages, this);
 }
 
 void PackagesDownloader::downloadPackage(PackageDescriptor &descriptor)
 {    
-    if (descriptor.type == PackageDescriptor::type_script){
-        descriptor.completed = true;
-        descriptor.percentage = 100;
+    if (descriptor.Type() == PackageDescriptor::type_script){
+        descriptor.Completed = true;
+        descriptor.Percentage = 100;
         emit packageDownloadFinished(descriptor);
     }
     else{
-        WebAPI_Task* task = yandexapi->downloadPublicResource(descriptor.url);
+        WebAPI_Task* task = yandexapi->downloadPublicResource(descriptor.URL);
         connect(task, &WebAPI_Task::reply_changed, this, [=,&descriptor](QNetworkReply &reply){
             QString destination_folder;
             QString destination_path;//путь сохранения файла
-            if (descriptor.type != PackageDescriptor::type_application){
-                destination_folder = Distributive::absoluteComponentPath(descriptor.destination);
+            if (descriptor.Type() != PackageDescriptor::type_application){
+                destination_folder = Distributive::absoluteComponentPath(descriptor.Destination);
                 destination_path = destination_folder + task->fileName;
             }
             else{
-                destination_folder = descriptor.destination;
+                destination_folder = descriptor.Destination;
                 destination_path = destination_folder + task->fileName;
             }
             qDebug() << "destination_folder: " << destination_folder;
@@ -180,8 +180,8 @@ void PackagesDownloader::downloadPackage(PackageDescriptor &descriptor)
                 //             });
                 connect(&reply, &QNetworkReply::downloadProgress, this, [=,&descriptor](quint64 bytesReceived, quint64 bytesTotal){
                     int percentage = bytesReceived / bytesTotal;
-                    qDebug() << "Download " + descriptor.id + " progress: " << bytesReceived << "bytes of " << bytesTotal << " bytes";
-                    descriptor.percentage = percentage;
+                    qDebug() << "Download " + descriptor.ID() + " progress: " << bytesReceived << "bytes of " << bytesTotal << " bytes";
+                    descriptor.Percentage = percentage;
                 });
                 connect(&reply, &QNetworkReply::finished, this, [=,&reply,&descriptor]{
                     QByteArray data = reply.readAll();
@@ -191,15 +191,15 @@ void PackagesDownloader::downloadPackage(PackageDescriptor &descriptor)
                     file.write(data);
                     file.close();
 
-                    if (descriptor.type == PackageDescriptor::type_archive){
+                    if (descriptor.Type() == PackageDescriptor::type_archive){
                         QuaZip qua(destination_path);
                         qua.open(QuaZip::mdUnzip);
                         qua.close();
                         //удалить архив
                     }
 
-                    descriptor.completed = true;
-                    descriptor.percentage = 100;
+                    descriptor.Completed = true;
+                    descriptor.Percentage = 100;
                     emit packageDownloadFinished(descriptor);
                     task->deleteLater();
                 });

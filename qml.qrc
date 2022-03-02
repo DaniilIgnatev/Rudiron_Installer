@@ -72,5 +72,6 @@
         <file>Licence.qml</file>
         <file>PackagesOptions.qml</file>
         <file>PackagesDownload.qml</file>
+        <file>PackagesDownload_descriptor.qml</file>
     </qresource>
 </RCC>

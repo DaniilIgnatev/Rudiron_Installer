@@ -7,47 +7,11 @@
 #include "../webapi/webapi.hpp"
 #include "../distributive.h"
 #include "quazip.h"
+#include "packagedescriptor.hpp"
 
 class QQmlEngine;
 class QJSEngine;
 
-
-struct PackageDescriptor {
-public:
-    static const QString type_application;
-    static const QString type_installer;
-    static const QString type_archive;
-    static const QString type_script;
-private:
-    Q_GADGET
-    Q_PROPERTY(QString id MEMBER id)
-    //тип пакета: приложение, установщик, архив, shell скрипт
-    Q_PROPERTY(QString type MEMBER type)
-    //описание
-    Q_PROPERTY(QString description MEMBER description)
-    //ссылка для скачивания
-    Q_PROPERTY(QString url MEMBER url)
-    //папка, куда будет перемещен пакет
-    Q_PROPERTY(QString destination MEMBER destination)
-    //содержимое пакета
-    Q_PROPERTY(QList<QString> contents MEMBER contents)
-    //прогресс получения содержимого пакета
-    Q_PROPERTY(int percentage MEMBER percentage)
-    //пакет готов
-    Q_PROPERTY(bool completed MEMBER completed)
-    //ошибка
-    Q_PROPERTY(bool error MEMBER error)
-public:
-       QString id;
-       QString type;
-       QString description;
-       QString url;
-       QString destination;
-       QList<QString> contents;
-       int percentage;
-       bool completed;
-       bool error;
-};
 
 
 class PackagesDownloader : public QObject
@@ -77,10 +41,10 @@ private:
 private:
     int packages_cursor = 0;
 
-    QList<PackageDescriptor> *packages = new QList<PackageDescriptor>();
+    QList<PackageDescriptor*> *packages = new QList<PackageDescriptor*>();
 
 public:
-    QList<PackageDescriptor> *getPackages() const;
+    QList<PackageDescriptor*> *getPackages() const;
 
 public:
     const QString &getSources_platform() const;

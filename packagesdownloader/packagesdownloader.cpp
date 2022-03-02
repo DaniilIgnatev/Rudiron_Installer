@@ -125,23 +125,21 @@ void PackagesDownloader::parsePackages(QString json_string)
             contents.append(c.toString());
         }
 
-        PackageDescriptor descriptor{
+        PackageDescriptor* descriptor = new PackageDescriptor(
             package_object["id"].toString(),
                     package_object["type"].toString(),
                     package_object["description"].toString(),
                     package_object["url"].toString(),
                     package_object["destination"].toString(),
                     contents,
-                    0,
-                    false,
-                    false
-        };
+                    this
+        );
         this->packages->append(descriptor);
     }
 }
 
 
-QList<PackageDescriptor> *PackagesDownloader::getPackages() const
+QList<PackageDescriptor*> *PackagesDownloader::getPackages() const
 {
     return packages;
 }

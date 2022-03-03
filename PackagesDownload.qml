@@ -13,6 +13,8 @@ import com.PackagesDownloader 1.0
 ColumnLayout{
     id: root
 
+    property var excludePackageIDs: []
+
     Component.onCompleted: {
         PackagesDownloader.fetchSource()
     }
@@ -26,7 +28,7 @@ ColumnLayout{
             console.log("sources_platform: " + sources_platform)
             console.log("sources_url: " + sources_url)
 
-            PackagesDownloader.fetchPackages()
+            PackagesDownloader.fetchPackages(root.excludePackageIDs)
         }
         onPackagesFetched: {
             var descriptors = PackagesDownloader.getPackages()
@@ -64,9 +66,25 @@ ColumnLayout{
 
             spacing: 0
 
+            width: parent.width - 20
+
+            Component.onCompleted: {
+                dataObject.percentageChanged.connect((newValue) => {
+                                                         console.log("percentageChanged " + newValue)
+                                                     })
+                dataObject.completedChanged.connect((newValue) => {
+                                                         console.log("completedChanged " + newValue)
+                                                     })
+                dataObject.errorChanged.connect((newValue) => {
+                                                         console.log("errorChanged " + newValue)
+                                                     })
+                dataObject.errorDescriptionChanged.connect((newValue) => {
+                                                         console.log("errorDescriptionChanged " + newValue)                                 })
+            }
+
             Label {
                 id: label_description
-                text: dataObject.ID
+                text: dataObject.description
                 horizontalAlignment: Text.AlignHCenter
                 Layout.topMargin: 5
                 font.pointSize: 12
@@ -75,42 +93,54 @@ ColumnLayout{
 
             RowLayout {
                 id: rowLayout
-                width: 100
-                height: 100
-                Layout.fillHeight: true
+                Layout.fillWidth: true
 
                 BusyIndicator {
                     id: busyIndicator
-                    Layout.fillHeight: true
+                    Layout.fillHeight: false
+                    running: !dataObject.completed
                 }
 
-                ProgressBar {
-                    id: progressBar
-                    Layout.fillWidth: true
-                    value: 0.5
-                }
+                ColumnLayout{
+                    Label {
+                        id: label_status
+                        text: qsTr("Выполняется загрузка...")
+                        horizontalAlignment: Text.AlignHCenter
+                        Layout.minimumWidth: 150
+                        Layout.fillWidth: true
+                    }
 
-                Label {
-                    id: label_status
-                    text: qsTr("Выполняется загрузка...")
-                    horizontalAlignment: Text.AlignHCenter
-                    Layout.minimumWidth: 150
-                    Layout.fillWidth: false
+                    ProgressBar {
+                        id: progressBar
+                        Layout.fillWidth: true
+                        from: 0.0
+                        value: dataObject.percentage
+                        to: 100.0
+                    }
                 }
             }
         }
     }
 
-
     ListView{
         id: descriptors_ui
+        pixelAligned: false
+        boundsBehavior: Flickable.StopAtBounds
+        interactive: false
+        Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+
         delegate: packageDelegate
 
+        Layout.preferredWidth: parent.width
         Layout.fillHeight: true
-        Layout.fillWidth: true
 
         orientation: ListView.Vertical
         spacing: 0
+    }
+
+    Item {
+        Layout.fillHeight: false
+        Layout.fillWidth: true
     }
 
     RowLayout {
@@ -136,6 +166,7 @@ ColumnLayout{
 
 /*##^##
 Designer {
-    D{i:0;autoSize:true;height:480;width:640}D{i:1}D{i:2}D{i:4}D{i:5}D{i:3}
+    D{i:0;autoSize:true;height:480;width:640}D{i:1}D{i:2}D{i:3}D{i:11}D{i:12}D{i:14}D{i:15}
+D{i:13}
 }
 ##^##*/

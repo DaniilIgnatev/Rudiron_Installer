@@ -13,9 +13,15 @@ ColumnLayout{
 
     signal buttonNext
 
-    property bool withJLink: radio2.checked
+    property var excludePackageIDs: []
 
-    property bool withVSCode: radio3.checked
+    function setExcludePackageIDs(){
+        //доделать
+    }
+
+    property alias withJLink: radio2.checked
+
+    property alias withVSCode: radio3.checked
 
     spacing: 5
 

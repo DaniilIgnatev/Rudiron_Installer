@@ -28,10 +28,10 @@ void PackagesDownloaderTests::testFetchPackages()
 
     const QList<PackageDescriptor> *packages = packagerDownloader->getPackages();
     for(const PackageDescriptor &package:*packages){
-        QVERIFY(package.ID != "");
-        QVERIFY(package.Type != "");
-        QVERIFY(package.Description != "");
-        QVERIFY(package.URL != "");
+        QVERIFY(package.getID != "");
+        QVERIFY(package.getType != "");
+        QVERIFY(package.getDescription != "");
+        QVERIFY(package.getURL != "");
         QVERIFY(package.Destination != "");
         QVERIFY(!package.Contents.empty());
         QVERIFY(package.Percentage == 0);

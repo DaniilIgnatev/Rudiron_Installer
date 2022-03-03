@@ -44,7 +44,7 @@ private:
     QList<PackageDescriptor*> packages;
 
 public slots:
-    PackageDescriptorModel* getPackages();
+    PackageDescriptorModel* getPackages(QStringList excludeID);
 
 public slots:
     const QString getSources_platform();

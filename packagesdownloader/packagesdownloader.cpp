@@ -1,12 +1,6 @@
 #include "packagesdownloader.hpp"
 
 
-const QString PackageDescriptor::type_application = "application";
-const QString PackageDescriptor::type_installer = "installer";
-const QString PackageDescriptor::type_archive = "archive";
-const QString PackageDescriptor::type_script = "script";
-
-
 PackagesDownloader::PackagesDownloader(QObject *parent)
     : QObject{parent}
 {
@@ -139,16 +133,24 @@ void PackagesDownloader::parsePackages(QString json_string)
 }
 
 
-PackageDescriptorModel* PackagesDownloader::getPackages()
+PackageDescriptorModel* PackagesDownloader::getPackages(QStringList excludeID)
 {
-    return new PackageDescriptorModel(packages, this);
+    QList<PackageDescriptor*> filtredPackages;
+
+    for (int i = 0; i < packages.count();i++){
+        if (!excludeID.contains(packages[i]->getID())){
+            filtredPackages.append(packages[i]);
+        }
+    }
+
+    return new PackageDescriptorModel(filtredPackages, this);
 }
 
 void PackagesDownloader::downloadPackage(PackageDescriptor &descriptor)
 {    
-    if (descriptor.Type() == PackageDescriptor::type_script){
-        descriptor.Completed = true;
-        descriptor.Percentage = 100;
+    if (descriptor.getType() == PackageDescriptor::type_script){
+        descriptor.setCompleted(true);
+        descriptor.setPercentage(100);
         emit packageDownloadFinished(descriptor);
     }
     else{
@@ -156,7 +158,7 @@ void PackagesDownloader::downloadPackage(PackageDescriptor &descriptor)
         connect(task, &WebAPI_Task::reply_changed, this, [=,&descriptor](QNetworkReply &reply){
             QString destination_folder;
             QString destination_path;//путь сохранения файла
-            if (descriptor.Type() != PackageDescriptor::type_application){
+            if (descriptor.getType() != PackageDescriptor::type_application){
                 destination_folder = Distributive::absoluteComponentPath(descriptor.Destination);
                 destination_path = destination_folder + task->fileName;
             }
@@ -180,8 +182,8 @@ void PackagesDownloader::downloadPackage(PackageDescriptor &descriptor)
                 //             });
                 connect(&reply, &QNetworkReply::downloadProgress, this, [=,&descriptor](quint64 bytesReceived, quint64 bytesTotal){
                     int percentage = bytesReceived / bytesTotal;
-                    qDebug() << "Download " + descriptor.ID() + " progress: " << bytesReceived << "bytes of " << bytesTotal << " bytes";
-                    descriptor.Percentage = percentage;
+                    qDebug() << "Download " + descriptor.getID() + " progress: " << bytesReceived << "bytes of " << bytesTotal << " bytes";
+                    descriptor.setPercentage(percentage);
                 });
                 connect(&reply, &QNetworkReply::finished, this, [=,&reply,&descriptor]{
                     QByteArray data = reply.readAll();
@@ -191,15 +193,15 @@ void PackagesDownloader::downloadPackage(PackageDescriptor &descriptor)
                     file.write(data);
                     file.close();
 
-                    if (descriptor.Type() == PackageDescriptor::type_archive){
+                    if (descriptor.getType() == PackageDescriptor::type_archive){
                         QuaZip qua(destination_path);
                         qua.open(QuaZip::mdUnzip);
                         qua.close();
                         //удалить архив
                     }
 
-                    descriptor.Completed = true;
-                    descriptor.Percentage = 100;
+                    descriptor.setCompleted(true);
+                    descriptor.setPercentage(100);
                     emit packageDownloadFinished(descriptor);
                     task->deleteLater();
                 });

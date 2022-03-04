@@ -70,45 +70,31 @@ ColumnLayout{
                 fontSizeMode: Text.Fit
                 textFormat: Text.RichText
             }
+        }
+    }
 
-            RowLayout{
-                Layout.preferredWidth: scrollableBox.width - 50
+    Item{
+        Layout.fillWidth: true
+        Layout.fillHeight: true
+    }
 
-                Layout.bottomMargin: 15
-                Layout.topMargin: 0
-                Layout.leftMargin: 15
-                Layout.rightMargin: 15
+    RowLayout{
+        Layout.preferredWidth: scrollableBox.width - 50
 
+        Layout.bottomMargin: 27
+        Layout.topMargin: 0
+        Layout.leftMargin: 0
+        Layout.rightMargin: 15
 
-                ColumnLayout{
+        Item{
+            Layout.fillWidth: true
+        }
 
-                    RadioButton{
-                        id: radio1
-                        text: "Имеется JLink-совместимый программатор"
-                        Layout.topMargin: 0
-                        font.family: "Arial"
-                        checked: false
-                    }
-                    RadioButton{
-                        id: radio2
-                        text: "Отсутствует JLink-совместимый программатор"
-                        Layout.topMargin: 5
-                        font.family: "Arial"
-                        checked: false
-                    }
-                }
-
-                Item{
-                    Layout.fillWidth: true
-                }
-
-                ButtonStyled{
-                    text: "Далее"
-                    enabled: radio1.checked || radio2.checked
-                    onPressed: {
-                        intro_root.buttonNext()
-                    }
-                }
+        ButtonStyled{
+            text: "Далее"
+            enabled: true
+            onPressed: {
+                intro_root.buttonNext()
             }
         }
     }
@@ -117,6 +103,7 @@ ColumnLayout{
 
 /*##^##
 Designer {
-    D{i:0;autoSize:true;height:480;width:640}D{i:1}D{i:3}D{i:5}D{i:6}D{i:4}D{i:2}
+    D{i:0;autoSize:true;height:480;width:640}D{i:1}D{i:3}D{i:5}D{i:4}D{i:2}D{i:6}D{i:8}
+D{i:9}D{i:7}
 }
 ##^##*/

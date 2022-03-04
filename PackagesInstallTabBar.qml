@@ -29,14 +29,13 @@ ColumnLayout{
     id: tabbar_root
 
 
-    property bool withJLink: false
+    property var excludeIDs: []
 
 
-    property bool withVSCode: false
-
-
-    onWithJLinkChanged: {
-        buildTabs()
+    onVisibleChanged: {
+        if (tabbar_root.visible){
+             buildTabs()
+        }
     }
 
 
@@ -72,6 +71,7 @@ ColumnLayout{
 
 
     function buildTabs(){
+        ДОДЕЛАТЬ!!!excludeIDs
         tabs = getFiltredTabs()
         updateTabsVisibility()
         updateTabsPosition()
@@ -103,26 +103,6 @@ ColumnLayout{
         })
     }
 
-
-    Text {
-        color: "#e35b00"
-        Layout.fillWidth: true
-        Layout.topMargin: 10
-
-        text: "<h2>Установка</h2"
-        horizontalAlignment: Text.AlignHCenter
-        verticalAlignment: Text.AlignVCenter
-        font.family: "Arial"
-
-        renderType: Text.QtRendering
-        font.pointSize: 14
-
-        wrapMode: Text.Wrap
-        fontSizeMode: Text.Fit
-        textFormat: Text.RichText
-    }
-
-
     PackagesInstallTab{
         id: tab_jlink
         visible: false
@@ -130,7 +110,7 @@ ColumnLayout{
         position: 0
         text: "JLink"
         contentQML: "contentUI/StagesObserverUI.qml"
-        enabled: installerui_root.licenceAccepted
+        enabled: true
         model: [{
                 title: text,
                 showAgain: true,
@@ -162,7 +142,7 @@ ColumnLayout{
         position: 1
         text: "Zadig"
         contentQML: "contentUI/StagesObserverUI.qml"
-        enabled: installerui_root.licenceAccepted
+        enabled: true
         model: [{
                 title: text,
                 showAgain: true,
@@ -194,7 +174,7 @@ ColumnLayout{
         position: 2
         text: "Python 2.7"
         contentQML: "contentUI/StagesObserverUI.qml"
-        enabled: installerui_root.licenceAccepted
+        enabled: true
         model: [{
                 title: text,
                 showAgain: true,
@@ -224,7 +204,7 @@ ColumnLayout{
         position: 3
         text: "Qt Creator"
         contentQML: "contentUI/StagesObserverUI.qml"
-        enabled: installerui_root.licenceAccepted
+        enabled: true
         model: [{
                 title: text,
                 showAgain: true,
@@ -264,7 +244,7 @@ ColumnLayout{
         position: 4
         text: "Инструментарий"
         contentQML: "contentUI/StagesObserverUI.qml"
-        enabled: installerui_root.licenceAccepted
+        enabled: true
         model: [{
                 title: text,
                 showAgain: false,
@@ -310,7 +290,7 @@ ColumnLayout{
         position: 5
         text: "Руководство"
         contentQML: "contentUI/StagesObserverUI.qml"
-        enabled: installerui_root.licenceAccepted
+        enabled: true
         model: [{
                 title: text,
                 showAgain: false,

@@ -12,17 +12,13 @@ RowLayout  {
     spacing: 20
     anchors.fill: parent
 
-
     property bool licenceAccepted: false
 
-
     property alias withJLink: installerui_tabbar.withJLink
-
 
     InstallerMenuVM{
         id: installerVM
     }
-
 
     onLicenceAcceptedChanged: {
         if (licenceAccepted){
@@ -32,7 +28,6 @@ RowLayout  {
         }
     }
 
-
     PackagesInstallTabBar {
         id: installerui_tabbar
         Layout.fillHeight: true
@@ -41,11 +36,10 @@ RowLayout  {
         Layout.leftMargin: 10
     }
 
-
     Item{
         id: installerui_content
-        Layout.bottomMargin: 10
         Layout.topMargin: 10
+        Layout.bottomMargin: 10
         Layout.fillWidth: true
         Layout.fillHeight: true
 
@@ -98,7 +92,3 @@ RowLayout  {
         }
     }
 }
-
-
-
-

@@ -42,7 +42,7 @@ Window {
     maximumWidth: minimumWidth
     maximumHeight: minimumHeight
 
-    property int currentIndex: 3
+    property int currentIndex: 4
 
     Intro {
         id: intro

@@ -98,7 +98,6 @@ ColumnLayout{
         Layout.fillHeight: false
     }
 
-
     Image {
         id: image
 

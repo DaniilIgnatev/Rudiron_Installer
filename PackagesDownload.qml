@@ -15,8 +15,10 @@ ColumnLayout{
 
     property var excludePackageIDs: []
 
-    Component.onCompleted: {
-        PackagesDownloader.fetchSource()
+    onVisibleChanged: {
+        if (root.visible){
+            PackagesDownloader.fetchSource()
+        }
     }
 
     property int packagesToDownload: -1
@@ -33,6 +35,7 @@ ColumnLayout{
             PackagesDownloader.fetchPackages()
         }
         onPackagesFetched: {
+            console.log("Exclude packages: ", root.excludePackageIDs)
             var descriptors = PackagesDownloader.getPackages(root.excludePackageIDs)
             packagesToDownload = descriptors.count()
             descriptors_ui.model = descriptors
@@ -122,7 +125,6 @@ ColumnLayout{
                         Item{
                             Layout.fillWidth: true
                         }
-
                     }
 
                     ProgressBar {
@@ -146,6 +148,7 @@ ColumnLayout{
 
         delegate: packageDelegate
 
+        Layout.topMargin: 15
         Layout.preferredWidth: parent.width
         Layout.fillHeight: true
 
@@ -154,7 +157,7 @@ ColumnLayout{
     }
 
     Item {
-        Layout.fillHeight: false
+        Layout.fillHeight: true
         Layout.fillWidth: true
     }
 

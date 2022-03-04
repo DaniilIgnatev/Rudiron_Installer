@@ -19,13 +19,13 @@ ColumnLayout{
     function setExcludePackageIDs(){
         excludePackageIDs = []
         if (!withJLink){
-            excludePackageIDs.append("jlink")
+            excludePackageIDs.push("jlink")//ОШИБКА append
         }
         if (withVSCode){
-            excludePackageIDs.append("qt")
+            excludePackageIDs.push("qt")
         }
         else{
-            excludePackageIDs.append("vscode")
+            excludePackageIDs.push("vscode")
         }
     }
 
@@ -176,7 +176,7 @@ ColumnLayout{
     RowLayout {
         Layout.fillWidth: true
         Layout.rightMargin: 15
-        Layout.bottomMargin: 27
+        Layout.bottomMargin: 13
 
         Item {
             Layout.fillHeight: false

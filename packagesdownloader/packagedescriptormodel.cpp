@@ -28,3 +28,8 @@ QHash<int, QByteArray> PackageDescriptorModel::roleNames() const
     }
     return *pHash;
 }
+
+int PackageDescriptorModel::count()
+{
+    return this->descriptors.count();
+}

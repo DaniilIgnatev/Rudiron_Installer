@@ -67,13 +67,13 @@ public:
     QList<QString> Contents;
 
 private:
-    int _percentage;
+    double _percentage;
 
 public:
     ///прогресс получения содержимого пакета
-    Q_PROPERTY(int percentage READ getPercentage WRITE setPercentage NOTIFY percentageChanged)
-    bool getPercentage();
-    void setPercentage(int newValue);
+    Q_PROPERTY(double percentage READ getPercentage WRITE setPercentage NOTIFY percentageChanged)
+    double getPercentage();
+    void setPercentage(double newValue);
 
 private:
     bool _completed;
@@ -109,7 +109,7 @@ signals:
 
     void descriptionChanged();
 
-    void percentageChanged(int value);
+    void percentageChanged(double value);
 
     void completedChanged(bool value);
 

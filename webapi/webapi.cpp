@@ -21,7 +21,7 @@ QNetworkReply *WebAPI::request(const QUrl &uri)
     return downloadReply;
 }
 
-YandexDiskAPI *WebAPI::getYandexDisk() const
+YandexDiskAPI* WebAPI::getYandexDiskClient() const
 {
     return yandexDisk;
 }

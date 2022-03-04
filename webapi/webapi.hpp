@@ -7,11 +7,8 @@
 
 #include "yandexdiskapi.hpp"
 
-
 class QQmlEngine;
 class QJSEngine;
-
-
 
 class WebAPI : public QObject
 {
@@ -30,7 +27,7 @@ public:
 
     QNetworkReply* request(const QUrl &uri);
 
-    YandexDiskAPI *getYandexDisk() const;
+    YandexDiskAPI* getYandexDiskClient() const;
 
 public slots:
 

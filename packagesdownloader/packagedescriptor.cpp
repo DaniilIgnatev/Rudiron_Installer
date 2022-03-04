@@ -77,12 +77,12 @@ void PackageDescriptor::setDescription(QString newValue)
     emit descriptionChanged();
 }
 
-bool PackageDescriptor::getPercentage()
+double PackageDescriptor::getPercentage()
 {
     return _percentage;
 }
 
-void PackageDescriptor::setPercentage(int newValue)
+void PackageDescriptor::setPercentage(double newValue)
 {
     _percentage = newValue;
     emit percentageChanged(newValue);

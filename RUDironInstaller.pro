@@ -3,12 +3,14 @@ QT += quickcontrols2
 QT += network
 
 DEFINES += QUAZIP_STATIC
+DEFINES += QTAWS_STATIC
 
 RC_ICONS = icon.ico
 CONFIG += c++11
 
 INCLUDEPATH += "zlib-1.2.11"
 INCLUDEPATH += "quazip-0.7.3"
+INCLUDEPATH += "AWS"
 
 # The following define makes your compiler emit warnings if you use
 # any Qt feature that has been marked deprecated (the exact warnings
@@ -118,5 +120,4 @@ HEADERS += \
     zlib-1.2.11/zconf.h \
     zlib-1.2.11/zlib.h \
     zlib-1.2.11/zutil.h
-
 

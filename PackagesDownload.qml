@@ -19,6 +19,8 @@ ColumnLayout{
         PackagesDownloader.fetchSource()
     }
 
+    property int packagesToDownload: -1
+
     Connections{
         target: PackagesDownloader
         onSourceFetched: {
@@ -28,10 +30,11 @@ ColumnLayout{
             console.log("sources_platform: " + sources_platform)
             console.log("sources_url: " + sources_url)
 
-            PackagesDownloader.fetchPackages(root.excludePackageIDs)
+            PackagesDownloader.fetchPackages()
         }
         onPackagesFetched: {
-            var descriptors = PackagesDownloader.getPackages()
+            var descriptors = PackagesDownloader.getPackages(root.excludePackageIDs)
+            packagesToDownload = descriptors.count()
             descriptors_ui.model = descriptors
         }
     }
@@ -69,26 +72,12 @@ ColumnLayout{
             width: parent.width - 20
 
             Component.onCompleted: {
-                dataObject.percentageChanged.connect((newValue) => {
-                                                         console.log("percentageChanged " + newValue)
-                                                     })
                 dataObject.completedChanged.connect((newValue) => {
-                                                         console.log("completedChanged " + newValue)
-                                                     })
-                dataObject.errorChanged.connect((newValue) => {
-                                                         console.log("errorChanged " + newValue)
-                                                     })
-                dataObject.errorDescriptionChanged.connect((newValue) => {
-                                                         console.log("errorDescriptionChanged " + newValue)                                 })
-            }
-
-            Label {
-                id: label_description
-                text: dataObject.description
-                horizontalAlignment: Text.AlignHCenter
-                Layout.topMargin: 5
-                font.pointSize: 12
-                Layout.fillWidth: true
+                                                        if (newValue){
+                                                            packagesToDownload = packagesToDownload - 1;
+                                                        }
+                                                    })
+                PackagesDownloader.downloadPackage(dataObject)
             }
 
             RowLayout {
@@ -98,16 +87,42 @@ ColumnLayout{
                 BusyIndicator {
                     id: busyIndicator
                     Layout.fillHeight: false
-                    running: !dataObject.completed
+                    running: !dataObject.completed && !dataObject.error
                 }
 
                 ColumnLayout{
-                    Label {
-                        id: label_status
-                        text: qsTr("Выполняется загрузка...")
-                        horizontalAlignment: Text.AlignHCenter
-                        Layout.minimumWidth: 150
+                    RowLayout {
                         Layout.fillWidth: true
+
+                        Item{
+                            Layout.fillWidth: true
+                        }
+
+                        Label {
+                            id: label_status
+                            text: dataObject.completed ? qsTr("Загрузка завершена: ") : qsTr("Выполняется загрузка: ")
+                            horizontalAlignment: Text.AlignHCenter
+                            visible: !dataObject.error
+                        }
+                        Label {
+                            id: label_error
+                            text: qsTr("Возникла ошибка: ") + dataObject.errorDescription
+                            horizontalAlignment: Text.AlignHCenter
+                            visible: dataObject.error
+                        }
+                        Label {
+                            id: label_description
+                            text: dataObject.description
+                            horizontalAlignment: Text.AlignHCenter
+                            font.italic: true
+                            font.pointSize: 9
+                            font.bold: false
+                        }
+
+                        Item{
+                            Layout.fillWidth: true
+                        }
+
                     }
 
                     ProgressBar {
@@ -155,7 +170,7 @@ ColumnLayout{
 
         ButtonStyled {
             text: "Далее"
-            enabled: true
+            enabled: root.packagesToDownload === 0
             onPressed: {
                 root.buttonNext()
             }
@@ -166,7 +181,7 @@ ColumnLayout{
 
 /*##^##
 Designer {
-    D{i:0;autoSize:true;height:480;width:640}D{i:1}D{i:2}D{i:3}D{i:11}D{i:12}D{i:14}D{i:15}
-D{i:13}
+    D{i:0;autoSize:true;height:480;width:640}D{i:1}D{i:2}D{i:3}D{i:14}D{i:15}D{i:17}D{i:18}
+D{i:16}
 }
 ##^##*/

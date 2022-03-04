@@ -78,6 +78,7 @@ Window {
         onButtonNext: {
             app.currentIndex = 4
         }
+        excludePackageIDs: packagesOptions.excludePackageIDs
     }
 
     PackagesInstall {

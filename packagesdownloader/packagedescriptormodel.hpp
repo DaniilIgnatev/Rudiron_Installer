@@ -8,6 +8,7 @@
 
 class PackageDescriptorModel : public QAbstractListModel
 {
+    Q_OBJECT
 public:
     explicit PackageDescriptorModel(QList<PackageDescriptor*> newDescriptors, QObject *parent = nullptr);
 
@@ -17,6 +18,9 @@ public:
 
 private:
     QList<PackageDescriptor*> descriptors;
+
+public slots:
+    int count();
 };
 
 #endif // PACKAGEDESCRIPTORMODEL_HPP

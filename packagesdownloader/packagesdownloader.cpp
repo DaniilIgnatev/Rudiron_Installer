@@ -4,7 +4,7 @@
 PackagesDownloader::PackagesDownloader(QObject *parent)
     : QObject{parent}
 {
-    this->yandexapi = WebAPI::instance()->getYandexDisk();
+    this->yandexapi = WebAPI::instance()->getYandexDiskClient();
 }
 
 PackagesDownloader::~PackagesDownloader()
@@ -28,15 +28,22 @@ QObject *PackagesDownloader::qmlInstance(QQmlEngine *engine, QJSEngine *scriptEn
 
 void PackagesDownloader::fetchSource()
 {
-    WebAPI_Task* task = yandexapi->downloadPublicResource("https://disk.yandex.ru/d/nh4bE3Rcb59D9w");
-    connect(task, &WebAPI_Task::reply_changed, this, [=](QNetworkReply &reply){
-        connect(&reply, &QNetworkReply::finished, this, [=,&reply]{
-            QString json_string = reply.readAll();
-            parseSources(json_string);
-            emit sourceFetched();
-            task->deleteLater();
-        });
+    QNetworkReply* reply = WebAPI::instance()->request(QUrl("http://84.201.129.171:25564/sources.json"));
+    connect(reply, &QNetworkReply::finished, this, [=]{
+        QString json_string = reply->readAll();
+        parseSources(json_string);
+        emit sourceFetched();
     });
+
+    //    WebAPI_Task* task = yandexapi->downloadPublicResource("https://disk.yandex.ru/d/nh4bE3Rcb59D9w");
+    //    connect(task, &WebAPI_Task::reply_changed, this, [=](QNetworkReply &reply){
+    //        connect(&reply, &QNetworkReply::finished, this, [=,&reply]{
+    //            QString json_string = reply.readAll();
+    //            parseSources(json_string);
+    //            emit sourceFetched();
+    //            task->deleteLater();
+    //        });
+    //    });
 }
 
 void PackagesDownloader::parseSources(QString json_string)
@@ -83,15 +90,22 @@ const QString PackagesDownloader::getSources_platform()
 
 void PackagesDownloader::fetchPackages()
 {
-    WebAPI_Task* task = yandexapi->downloadPublicResource(this->sources_url);
-    connect(task, &WebAPI_Task::reply_changed, this, [=](QNetworkReply &reply){
-        connect(&reply, &QNetworkReply::finished, this, [=,&reply]{
-            QString json_string = reply.readAll();
-            parsePackages(json_string);
-            emit packagesFetched();
-            task->deleteLater();
-        });
+    QNetworkReply* reply = WebAPI::instance()->request(QUrl(this->sources_url));
+    connect(reply, &QNetworkReply::finished, this, [=]{
+        QString json_string = reply->readAll();
+        parsePackages(json_string);
+        emit packagesFetched();
     });
+
+    //    WebAPI_Task* task = yandexapi->downloadPublicResource(this->sources_url);
+    //    connect(task, &WebAPI_Task::reply_changed, this, [=](QNetworkReply &reply){
+    //        connect(&reply, &QNetworkReply::finished, this, [=,&reply]{
+    //            QString json_string = reply.readAll();
+    //            parsePackages(json_string);
+    //            emit packagesFetched();
+    //            task->deleteLater();
+    //        });
+    //    });
 }
 
 void PackagesDownloader::parsePackages(QString json_string)
@@ -120,14 +134,14 @@ void PackagesDownloader::parsePackages(QString json_string)
         }
 
         PackageDescriptor* descriptor = new PackageDescriptor(
-            package_object["id"].toString(),
-                    package_object["type"].toString(),
-                    package_object["description"].toString(),
-                    package_object["url"].toString(),
-                    package_object["destination"].toString(),
-                    contents,
-                    this
-        );
+                    package_object["id"].toString(),
+                package_object["type"].toString(),
+                package_object["description"].toString(),
+                package_object["url"].toString(),
+                package_object["destination"].toString(),
+                contents,
+                this
+                );
         this->packages.append(descriptor);
     }
 }
@@ -146,67 +160,86 @@ PackageDescriptorModel* PackagesDownloader::getPackages(QStringList excludeID)
     return new PackageDescriptorModel(filtredPackages, this);
 }
 
-void PackagesDownloader::downloadPackage(PackageDescriptor &descriptor)
+void PackagesDownloader::packageError(PackageDescriptor *descriptor, QString description)
+{
+    descriptor->setErrorDescription(description);
+    descriptor->setError(true);
+    emit packageDownloadError(descriptor, description);
+}
+
+void PackagesDownloader::downloadPackage(PackageDescriptor* descriptor)
 {    
-    if (descriptor.getType() == PackageDescriptor::type_script){
-        descriptor.setCompleted(true);
-        descriptor.setPercentage(100);
+    if (descriptor->getType() == PackageDescriptor::type_script){
+        descriptor->setCompleted(true);
+        descriptor->setPercentage(100);
         emit packageDownloadFinished(descriptor);
     }
     else{
-        WebAPI_Task* task = yandexapi->downloadPublicResource(descriptor.URL);
-        connect(task, &WebAPI_Task::reply_changed, this, [=,&descriptor](QNetworkReply &reply){
-            QString destination_folder;
-            QString destination_path;//путь сохранения файла
-            if (descriptor.getType() != PackageDescriptor::type_application){
-                destination_folder = Distributive::absoluteComponentPath(descriptor.Destination);
-                destination_path = destination_folder + task->fileName;
-            }
-            else{
-                destination_folder = descriptor.Destination;
-                destination_path = destination_folder + task->fileName;
-            }
-            qDebug() << "destination_folder: " << destination_folder;
-            qDebug() << "destination_path: " << destination_path;
+        QString resourceName = descriptor->URL.split("/").last();
+        QString destination_folder;
+        QString destination_path;//путь сохранения файла
+        if (descriptor->getType() != PackageDescriptor::type_application){
+            destination_folder = Distributive::absoluteComponentPath(descriptor->Destination);
+            destination_path = destination_folder  + "/" + resourceName;//добавить имя файла в дескрипторе
+        }
+        else{
+            destination_folder = descriptor->Destination;
+            destination_path = destination_folder + "/" + resourceName;
+        }
 
-            bool folder_exists = QFile::exists(destination_folder);
-            if (!folder_exists){
-                qDebug() << "Error destination_folder doesn't exist. Download canceled!";
-                QString error_description = "Destination folder '" + destination_folder + "' doesn't exist";
-                emit packageDownloadError(descriptor, error_description);
+        destination_path = QDir::toNativeSeparators(destination_path);
+        destination_folder = QDir::toNativeSeparators(destination_folder);
+
+        qDebug() << "destination_folder: " << destination_folder;
+        qDebug() << "destination_path: " << destination_path;
+
+        bool folder_exists = QFile::exists(destination_folder);
+        if (!folder_exists){
+            packageError(descriptor, "Destination folder '" + destination_folder + "' doesn't exist");
+        }
+        else{
+            bool contents_exist = true;
+            for (const QString& content : qAsConst(descriptor->Contents)){
+                QString content_path = destination_folder + "/" + content;
+                contents_exist = contents_exist && QFile::exists(content_path);
+            }
+
+            if (contents_exist){
+                descriptor->setCompleted(true);
+                descriptor->setPercentage(100);
+                emit packageDownloadFinished(descriptor);
             }
             else{
+                QNetworkReply* reply = WebAPI::instance()->request(descriptor->URL);
                 //            connect(&reply, &QNetworkReply::readyRead, this, [=,&reply,&descriptor]{
                 //                 //qDebug("Ready read");
                 //                 //создать файл
                 //             });
-                connect(&reply, &QNetworkReply::downloadProgress, this, [=,&descriptor](quint64 bytesReceived, quint64 bytesTotal){
-                    int percentage = bytesReceived / bytesTotal;
-                    qDebug() << "Download " + descriptor.getID() + " progress: " << bytesReceived << "bytes of " << bytesTotal << " bytes";
-                    descriptor.setPercentage(percentage);
+                connect(reply, &QNetworkReply::downloadProgress, this, [=](quint64 bytesReceived, quint64 bytesTotal){
+                    double percentage = (double)bytesReceived / (double)bytesTotal * 100.0;
+                    qDebug() << "Download " + descriptor->getID() + " progress: " << bytesReceived << "bytes of " << bytesTotal << " bytes";
+                    descriptor->setPercentage(percentage);
                 });
-                connect(&reply, &QNetworkReply::finished, this, [=,&reply,&descriptor]{
-                    QByteArray data = reply.readAll();
+                connect(reply, &QNetworkReply::finished, this, [=]{
+                    QByteArray data = reply->readAll();
 
                     QFile file(destination_path);
                     file.open(QIODevice::WriteOnly);
                     file.write(data);
                     file.close();
 
-                    if (descriptor.getType() == PackageDescriptor::type_archive){
-                        QuaZip qua(destination_path);
-                        qua.open(QuaZip::mdUnzip);
-                        qua.close();
-                        //удалить архив
+                    if (descriptor->getType() == PackageDescriptor::type_archive){
+                        JlCompress::extractDir(destination_path, destination_folder);
+                        QFile::remove(destination_path);
                     }
 
-                    descriptor.setCompleted(true);
-                    descriptor.setPercentage(100);
+                    descriptor->setCompleted(true);
+                    descriptor->setPercentage(100);
                     emit packageDownloadFinished(descriptor);
-                    task->deleteLater();
+                    reply->deleteLater();
                 });
             }
-        });
+        }
     }
 }
 

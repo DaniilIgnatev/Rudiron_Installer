@@ -5,6 +5,7 @@ import QtQuick.Layouts 1.12
 
 import com.dibot 1.0
 import com.FileSystemAPI 1.0
+import com.PackageDescriptor 1.0
 import "contentUI"
 
 
@@ -13,10 +14,19 @@ ColumnLayout{
 
     signal buttonNext
 
-    property var excludePackageIDs: []
+    property var excludePackageIDs: ["jlink", "qt"]
 
     function setExcludePackageIDs(){
-        //доделать
+        excludePackageIDs = []
+        if (!withJLink){
+            excludePackageIDs.append("jlink")
+        }
+        if (withVSCode){
+            excludePackageIDs.append("qt")
+        }
+        else{
+            excludePackageIDs.append("vscode")
+        }
     }
 
     property alias withJLink: radio2.checked
@@ -177,8 +187,9 @@ ColumnLayout{
             text: "Далее"
             enabled: true
             onPressed: {
-                            root.buttonNext()
-                        }
+                setExcludePackageIDs()
+                root.buttonNext()
+            }
         }
     }
 }

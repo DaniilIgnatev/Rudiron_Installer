@@ -4,10 +4,16 @@
 #include <QObject>
 #include <QList>
 #include <QFile>
+
 #include "../webapi/webapi.hpp"
 #include "../distributive.h"
+
+//#include "AWS/s3/listobjectsrequest.h"
+//#include "AWS/s3/listobjectsresponse.h"
+
 #include "quazip.h"
 #include "packagedescriptormodel.hpp"
+#include "JlCompress.h"
 
 
 class QQmlEngine;
@@ -57,8 +63,11 @@ private:
 public slots:
     void fetchPackages();
 
+private:
+    void packageError(PackageDescriptor* descriptor, QString description);
+
 public slots:
-    void downloadPackage(PackageDescriptor &descriptor);
+    void downloadPackage(PackageDescriptor* descriptor);
 
 public slots:
 
@@ -69,11 +78,11 @@ signals:
 
     void errorFetching(QString description);
 
-    void packageDownloadFinished(const PackageDescriptor &descriptor);
+    void packageDownloadFinished(const PackageDescriptor* descriptor);
 
-    void packageDownloadError(const PackageDescriptor &descriptor, QString description);
+    void packageDownloadError(const PackageDescriptor* descriptor, QString description);
 
-    void packageDownloadChanged(const PackageDescriptor &descriptor);
+    void packageDownloadChanged(const PackageDescriptor* descriptor);
 
 };
 

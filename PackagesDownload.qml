@@ -72,12 +72,6 @@ ColumnLayout{
         ColumnLayout{
             id: root
 
-            signal buttonNext
-
-            spacing: 0
-
-            width: parent.width - 20
-
             Component.onCompleted: {
                 dataObject.completedChanged.connect((newValue) => {
                                                         if (newValue){
@@ -87,14 +81,26 @@ ColumnLayout{
                 PackagesDownloader.downloadPackage(dataObject)
             }
 
+            signal buttonNext
+
+            spacing: 0
+
+            width: parent.width
+
             RowLayout {
                 id: rowLayout
+
+                Layout.preferredHeight: 50
                 Layout.fillWidth: true
+                Layout.leftMargin: 10
+                Layout.rightMargin: 10
 
                 BusyIndicator {
                     id: busyIndicator
                     Layout.fillHeight: false
+                    Layout.preferredWidth: 50
                     running: !dataObject.completed && !dataObject.error
+                    visible: running
                 }
 
                 ColumnLayout{

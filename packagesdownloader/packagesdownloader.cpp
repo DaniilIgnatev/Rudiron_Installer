@@ -160,6 +160,19 @@ PackageDescriptorModel* PackagesDownloader::getPackages(QStringList excludeID)
     return new PackageDescriptorModel(filtredPackages, this);
 }
 
+QStringList PackagesDownloader::getFiltredPackagesIDs(QStringList excludeID)
+{
+    QStringList filtredPackageIDs;
+
+    for (int i = 0; i < packages.count();i++){
+        if (!excludeID.contains(packages[i]->getID())){
+            filtredPackageIDs.append(packages[i]->getID());
+        }
+    }
+
+    return filtredPackageIDs;
+}
+
 void PackagesDownloader::packageError(PackageDescriptor *descriptor, QString description)
 {
     descriptor->setErrorDescription(description);

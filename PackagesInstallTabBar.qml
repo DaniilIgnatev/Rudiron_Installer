@@ -29,20 +29,15 @@ ColumnLayout{
     id: tabbar_root
 
 
-    property var excludeIDs: []
+    property var filtredPackageIDs: []
 
 
     onVisibleChanged: {
         if (tabbar_root.visible){
-             buildTabs()
+            buildTabs()
+            tabs[0].checked = true
+            updateContent()
         }
-    }
-
-
-    Component.onCompleted: {
-        buildTabs()
-        tabs[0].checked = true
-        updateContent()
     }
 
 
@@ -56,7 +51,6 @@ ColumnLayout{
 
     property var tabs: []
 
-
     function tabChecked(pos){
         console.log("tab" + pos + " checked")
         selectedPos = pos
@@ -69,31 +63,42 @@ ColumnLayout{
         }
     }
 
-
     function buildTabs(){
-        ДОДЕЛАТЬ!!!excludeIDs
         tabs = getFiltredTabs()
         updateTabsVisibility()
         updateTabsPosition()
     }
 
-
     function getFiltredTabs(){
-        if (withJLink){
-            return [tab_qtcreator, tab_jlink, tab_zadig, tab_python27, tab_qtcreator_toolchain, tab_qtcreator_manual]
+        var filtred_tabs = []
+        var isWindows = (Qt.platform.os === "windows")
+
+        if (filtredPackageIDs.includes("python") && isWindows){
+            filtred_tabs.push(tab_python27)
         }
-        else{
-            return [tab_qtcreator, tab_python27, tab_qtcreator_toolchain, tab_qtcreator_manual]
+        if (filtredPackageIDs.includes("jlink")){
+            filtred_tabs.push(tab_jlink)
+            if (isWindows){
+                filtred_tabs.push(tab_zadig)
+            }
+        }
+        if (filtredPackageIDs.includes("qt")){
+            filtred_tabs.push(tab_qtcreator)
+            filtred_tabs.push(tab_qtcreator_toolchain)
+            filtred_tabs.push(tab_qtcreator_manual)
+        }
+        if (filtredPackageIDs.includes("vscode")){
+            filtred_tabs.push(tab_qtcreator)
+            filtred_tabs.push(tab_qtcreator_toolchain)
+            filtred_tabs.push(tab_qtcreator_manual)
         }
     }
-
 
     function updateTabsVisibility(){
         tabs.forEach(e => {
             e.visible = true
         })
     }
-
 
     function updateTabsPosition(){
         var i = 0
@@ -102,6 +107,7 @@ ColumnLayout{
             i++
         })
     }
+
 
     PackagesInstallTab{
         id: tab_jlink

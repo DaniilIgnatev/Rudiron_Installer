@@ -8,20 +8,21 @@ import com.dibot 1.0
 
 
 RowLayout  {
-    id: installerui_root
+    id: root
     spacing: 20
     anchors.fill: parent
-
-    property bool licenceAccepted: false
-
-    property alias withJLink: installerui_tabbar.withJLink
 
     InstallerMenuVM{
         id: installerVM
     }
 
-    onLicenceAcceptedChanged: {
-        if (licenceAccepted){
+    property var excludePackageIDs: []
+
+    property var filtredPackageIDs: []
+
+    onVisibleChanged: {
+        if (root.visible){
+            filtredPackageIDs =
             installerVM.addPATH()
             installerVM.addCompilerVariables()
             installerui_tabbar.licenceAccepted()
@@ -30,6 +31,7 @@ RowLayout  {
 
     PackagesInstallTabBar {
         id: installerui_tabbar
+        filtredPackageIDs: root.filtredPackageIDs
         Layout.fillHeight: true
         Layout.fillWidth: false
         width: 120
@@ -75,9 +77,9 @@ RowLayout  {
                         if (Qt.platform.os == "linux"){
                             view.anchors.fill = this
                         }
-                        view.licenceAccepted = installerui_root.licenceAccepted
+                        view.licenceAccepted = root.licenceAccepted
                         view.licenceAcceptedSignal.connect((newValue) => {
-                                                               installerui_root.licenceAccepted = newValue
+                                                               root.licenceAccepted = newValue
                                                            })
                         break
                     default:

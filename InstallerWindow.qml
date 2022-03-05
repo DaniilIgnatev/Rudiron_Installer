@@ -42,7 +42,7 @@ Window {
     maximumWidth: minimumWidth
     maximumHeight: minimumHeight
 
-    property int currentIndex: 4
+    property int currentIndex: 0
 
     Intro {
         id: intro
@@ -85,6 +85,7 @@ Window {
         id: installerbody
         anchors.fill: parent
         visible: currentIndex == 4
+        filtredPackageIDs: packagesDownload.filtredPackageIDs
     }
 }
 

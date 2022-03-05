@@ -52,6 +52,8 @@ private:
 public slots:
     PackageDescriptorModel* getPackages(QStringList excludeID);
 
+    QStringList getFiltredPackagesIDs(QStringList excludeID);
+
 public slots:
     const QString getSources_platform();
 
@@ -68,8 +70,6 @@ private:
 
 public slots:
     void downloadPackage(PackageDescriptor* descriptor);
-
-public slots:
 
 signals:
     void sourceFetched();

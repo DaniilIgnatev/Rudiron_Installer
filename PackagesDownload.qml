@@ -15,6 +15,8 @@ ColumnLayout{
 
     property var excludePackageIDs: []
 
+    property var filtredPackageIDs: []
+
     onVisibleChanged: {
         if (root.visible){
             PackagesDownloader.fetchSource()
@@ -36,6 +38,8 @@ ColumnLayout{
         }
         onPackagesFetched: {
             console.log("Exclude packages: ", root.excludePackageIDs)
+            root.filtredPackageIDs = PackagesDownloader.getFiltredPackagesIDs(root.excludePackageIDs)
+            console.log("Filtred packages: ", root.filtredPackageIDs)
             var descriptors = PackagesDownloader.getPackages(root.excludePackageIDs)
             packagesToDownload = descriptors.count()
             descriptors_ui.model = descriptors

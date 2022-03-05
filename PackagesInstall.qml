@@ -22,10 +22,8 @@ RowLayout  {
 
     onVisibleChanged: {
         if (root.visible){
-            filtredPackageIDs =
             installerVM.addPATH()
             installerVM.addCompilerVariables()
-            installerui_tabbar.licenceAccepted()
         }
     }
 

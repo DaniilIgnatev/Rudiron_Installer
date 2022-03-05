@@ -11,6 +11,8 @@
 #include <QDesktopServices>
 #include <QSysInfo>
 
+#include <QtConcurrent/QtConcurrent>
+
 #include "qqml.h"
 #include "distributive.h"
 #include "qtcreatorconfig.h"

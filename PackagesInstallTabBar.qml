@@ -26,23 +26,19 @@ import com.dibot 1.0
 
 
 ColumnLayout{
-    id: tabbar_root
+    id: root
 
 
     property var filtredPackageIDs: []
 
 
     onVisibleChanged: {
-        if (tabbar_root.visible){
+        if (root.visible){
             buildTabs()
-            tabs[0].checked = true
+            root.tabs[0].checked = true
             updateContent()
         }
     }
-
-
-    spacing: 70 / tabs.length
-
 
     InstallerMenuVM{
         id: installerVM
@@ -55,8 +51,8 @@ ColumnLayout{
         console.log("tab" + pos + " checked")
         selectedPos = pos
 
-        for (var i = 0; i < tabs.length; i++){
-            var tab = tabs[i];
+        for (var i = 0; i < root.tabs.length; i++){
+            var tab = root.tabs[i];
             if (tab.position !== pos){
                 tab.checked = false
             }
@@ -64,7 +60,8 @@ ColumnLayout{
     }
 
     function buildTabs(){
-        tabs = getFiltredTabs()
+        root.tabs = getFiltredTabs()
+        root.spacing = 70 / root.tabs.length
         updateTabsVisibility()
         updateTabsPosition()
     }
@@ -92,17 +89,19 @@ ColumnLayout{
             filtred_tabs.push(tab_qtcreator_toolchain)
             filtred_tabs.push(tab_qtcreator_manual)
         }
+
+        return filtred_tabs
     }
 
     function updateTabsVisibility(){
-        tabs.forEach(e => {
+        root.tabs.forEach(e => {
             e.visible = true
         })
     }
 
     function updateTabsPosition(){
         var i = 0
-        tabs.forEach(e => {
+        root.tabs.forEach(e => {
             e.position = i
             i++
         })
@@ -112,7 +111,7 @@ ColumnLayout{
     PackagesInstallTab{
         id: tab_jlink
         visible: false
-        onCheckedChanged: if (checked) {tabbar_root.tabChecked(position)}
+        onCheckedChanged: if (checked) {root.tabChecked(position)}
         position: 0
         text: "JLink"
         contentQML: "contentUI/StagesObserverUI.qml"
@@ -144,7 +143,7 @@ ColumnLayout{
     PackagesInstallTab{
         id: tab_zadig
         visible: false
-        onCheckedChanged: if (checked) {tabbar_root.tabChecked(position)}
+        onCheckedChanged: if (checked) {root.tabChecked(position)}
         position: 1
         text: "Zadig"
         contentQML: "contentUI/StagesObserverUI.qml"
@@ -176,7 +175,7 @@ ColumnLayout{
     PackagesInstallTab{
         id: tab_python27
         visible: false
-        onCheckedChanged: if (checked) {tabbar_root.tabChecked(position)}
+        onCheckedChanged: if (checked) {root.tabChecked(position)}
         position: 2
         text: "Python 2.7"
         contentQML: "contentUI/StagesObserverUI.qml"
@@ -206,7 +205,7 @@ ColumnLayout{
     PackagesInstallTab{
         id: tab_qtcreator
         visible: false
-        onCheckedChanged: if (checked) {tabbar_root.tabChecked(position)}
+        onCheckedChanged: if (checked) {root.tabChecked(position)}
         position: 3
         text: "Qt Creator"
         contentQML: "contentUI/StagesObserverUI.qml"
@@ -246,7 +245,7 @@ ColumnLayout{
     PackagesInstallTab{
         id: tab_qtcreator_toolchain
         visible: false
-        onCheckedChanged: if (checked) {tabbar_root.tabChecked(position)}
+        onCheckedChanged: if (checked) {root.tabChecked(position)}
         position: 4
         text: "Инструментарий"
         contentQML: "contentUI/StagesObserverUI.qml"
@@ -292,7 +291,7 @@ ColumnLayout{
     PackagesInstallTab{
         id: tab_qtcreator_manual
         visible: false
-        onCheckedChanged: if (checked) {tabbar_root.tabChecked(position)}
+        onCheckedChanged: if (checked) {root.tabChecked(position)}
         position: 5
         text: "Руководство"
         contentQML: "contentUI/StagesObserverUI.qml"
@@ -358,9 +357,9 @@ ColumnLayout{
 
 
     function updateContent(){
-        var qmlStr = tabs[selectedPos].contentQML
+        var qmlStr = root.tabs[selectedPos].contentQML
         if (qmlStr === "contentUI/StagesObserverUI.qml"){
-            var selectedTab = tabs[selectedPos]
+            var selectedTab = root.tabs[selectedPos]
             var model = selectedTab.model[0]
             installerui_content.updateContent(qmlStr, model)
         }

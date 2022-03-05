@@ -94,11 +94,13 @@ QString InstallerMenuVM::printPathes()
 
 void InstallerMenuVM::addPATH()
 {
-    #ifdef _WIN32
+    QtConcurrent::run(QThreadPool::globalInstance(), [=](){
+#ifdef _WIN32
         addPATH_Windows();
-    #elif __linux__
+#elif __linux__
         addPATH_Linux();
-    #endif
+#endif
+    });
 }
 
 
@@ -196,11 +198,13 @@ void InstallerMenuVM::addPATH_Linux(){
 
 void InstallerMenuVM::addCompilerVariables()
 {
-    #ifdef _WIN32
+    QtConcurrent::run(QThreadPool::globalInstance(), [=](){
+#ifdef _WIN32
         addCombilerVariables_Windows();
-    #elif __linux__
+#elif __linux__
         addCombilerVariables_Linux();
-    #endif
+#endif
+    });
 }
 
 

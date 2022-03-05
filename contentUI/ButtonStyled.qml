@@ -18,10 +18,10 @@ Button{
     Layout.preferredWidth: 90
 
     text: "Button"
-    font.letterSpacing: 1
+    //font.letterSpacing: 1
     font.hintingPreference: Font.PreferDefaultHinting
     font.weight: Font.Normal
-    font.pointSize: 8
+    font.pointSize: 10
     font.family: "Arial"
     font.bold: true
 

@@ -183,6 +183,7 @@ ColumnLayout{
         ButtonStyled{
             id: buttonBack
             text: stagesObserver.position > 0 ? "Предыдущий" : "Начало"
+            font.pointSize: 8
 
             Layout.leftMargin: width / 4
             enabled: stagesObserver.position > 0
@@ -240,6 +241,7 @@ ColumnLayout{
         ButtonStyled{
             id: buttonForward
             text: (stagesObserver.position !== length() - 1) ? "Следующий" : "Конец"
+            font.pointSize: 8
 
             Layout.rightMargin: width / 4
             enabled: stagesObserver.position + 1 < stagesObserver.imagesURLList.length

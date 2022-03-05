@@ -179,7 +179,7 @@ ColumnLayout{
     RowLayout {
         Layout.fillWidth: true
         Layout.rightMargin: 15
-        Layout.bottomMargin: 13
+        Layout.bottomMargin: 15
 
         Item {
             Layout.fillHeight: false

@@ -81,7 +81,7 @@ ColumnLayout{
     RowLayout{
         Layout.preferredWidth: scrollableBox.width - 50
 
-        Layout.bottomMargin: 27
+        Layout.bottomMargin: 15
         Layout.topMargin: 0
         Layout.leftMargin: 0
         Layout.rightMargin: 15

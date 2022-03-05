@@ -121,8 +121,10 @@ ColumnLayout{
 
 
     RowLayout{
-        Layout.margins: 5
+        Layout.bottomMargin: 5
         Layout.rightMargin: 15
+        Layout.maximumHeight: 100
+
         ColumnLayout{
             Layout.leftMargin: root.leftMargin
             RadioButton{
@@ -148,11 +150,18 @@ ColumnLayout{
             Layout.fillWidth: true
         }
 
-        ButtonStyled{
-            text: "Далее"
-            enabled: licenceAccepted
-            onPressed: {
-                root.buttonNext()
+        ColumnLayout{
+            Item{
+                Layout.fillHeight: true
+            }
+
+            ButtonStyled{
+                Layout.bottomMargin: 10
+                text: "Далее"
+                enabled: licenceAccepted
+                onPressed: {
+                    root.buttonNext()
+                }
             }
         }
     }

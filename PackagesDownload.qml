@@ -128,7 +128,7 @@ ColumnLayout{
 
                         Label {
                             id: label_error
-                            text: qsTr("Возникла ошибка: ") + dataObject.errorDescription
+                            text: qsTr("Ошибка: ") + dataObject.errorDescription
                             horizontalAlignment: Text.AlignHCenter
                             visible: dataObject.error
                         }

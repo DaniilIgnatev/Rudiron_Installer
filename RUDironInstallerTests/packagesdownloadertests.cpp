@@ -26,11 +26,12 @@ void PackagesDownloaderTests::testFetchPackages()
     packagerDownloader->fetchPackages();
     spy.wait();
 
+    QStringList exclude;
     const QList<PackageDescriptor> *packages = packagerDownloader->getPackages();
     for(const PackageDescriptor &package:*packages){
-        QVERIFY(package.getID != "");
-        QVERIFY(package.getType != "");
-        QVERIFY(package.getDescription != "");
+        QVERIFY(package.getID() != "");
+        QVERIFY(package.getType() != "");
+        QVERIFY(package.getDescription() != "");
         QVERIFY(package.getURL != "");
         QVERIFY(package.Destination != "");
         QVERIFY(!package.Contents.empty());

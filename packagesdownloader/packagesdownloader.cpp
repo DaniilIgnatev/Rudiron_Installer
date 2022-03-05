@@ -199,7 +199,7 @@ void PackagesDownloader::downloadPackage(PackageDescriptor* descriptor)
 
         bool folder_exists = QFile::exists(destination_folder);
         if (!folder_exists){
-            packageError(descriptor, "Целевая директория '" + destination_folder + "' не существует");
+            packageError(descriptor, "Директория '" + destination_folder + "' не существует");
         }
         else{
             bool contents_exist = true;

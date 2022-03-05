@@ -229,9 +229,11 @@ void PackagesDownloader::downloadPackage(PackageDescriptor* descriptor)
                 //                 //создать файл
                 //             });
                 connect(reply, &QNetworkReply::downloadProgress, this, [=](quint64 bytesReceived, quint64 bytesTotal){
-                    double percentage = (double)bytesReceived / (double)bytesTotal * 100.0;
-                    qDebug() << "Download " + descriptor->getID() + " progress: " << bytesReceived << "bytes of " << bytesTotal << " bytes";
+                    int percentage = (double)bytesReceived / (double)bytesTotal * 100.0;
+                    qDebug() << "Download " + descriptor->getID() + " progress: " << percentage << "% " << bytesReceived << " of " << bytesTotal << " bytes";
                     descriptor->setPercentage(percentage);
+                    descriptor->setBytesReceived(bytesReceived / 1024 / 1024);
+                    descriptor->setBytesTotal(bytesTotal / 1024 / 1024);
                 });
                 connect(reply, &QNetworkReply::finished, this, [=]{
                     QByteArray data = reply->readAll();

@@ -90,15 +90,16 @@ ColumnLayout{
             RowLayout {
                 id: rowLayout
 
-                Layout.preferredHeight: 50
                 Layout.fillWidth: true
-                Layout.leftMargin: 10
-                Layout.rightMargin: 10
+                Layout.leftMargin: 15
+                Layout.rightMargin: 15
+                Layout.preferredHeight: 50
 
                 BusyIndicator {
                     id: busyIndicator
                     Layout.fillHeight: false
                     Layout.preferredWidth: 50
+                    Layout.topMargin: 13
                     running: !dataObject.completed && !dataObject.error
                     visible: running
                 }
@@ -113,23 +114,39 @@ ColumnLayout{
 
                         Label {
                             id: label_status
-                            text: dataObject.completed ? qsTr("Загрузка завершена: ") : qsTr("Выполняется загрузка: ")
+                            text: dataObject.completed ? qsTr("Загрузка ") : qsTr("Выполняется загрузка ")
                             horizontalAlignment: Text.AlignHCenter
                             visible: !dataObject.error
                         }
+
+                        Label {
+                            id: label_progress
+                            text: "(" + dataObject.percentage.toString() + "%: " + dataObject.bytesReceived.toString() + " МБайт из " + dataObject.bytesTotal.toString() + " МБайт)"
+                            horizontalAlignment: Text.AlignHCenter
+                            visible: !dataObject.completed && !dataObject.error
+                        }
+
                         Label {
                             id: label_error
                             text: qsTr("Возникла ошибка: ") + dataObject.errorDescription
                             horizontalAlignment: Text.AlignHCenter
                             visible: dataObject.error
                         }
+
                         Label {
                             id: label_description
-                            text: dataObject.description
+                            text: "'" + dataObject.description + "'"
                             horizontalAlignment: Text.AlignHCenter
                             font.italic: true
                             font.pointSize: 9
                             font.bold: false
+                        }
+
+                        Label {
+                            id: labelstatus_complete_end
+                            text: qsTr(" завершена")
+                            horizontalAlignment: Text.AlignHCenter
+                            visible: dataObject.completed
                         }
 
                         Item{
@@ -139,6 +156,7 @@ ColumnLayout{
 
                     ProgressBar {
                         id: progressBar
+                        Layout.topMargin: 2
                         Layout.fillWidth: true
                         from: 0.0
                         value: dataObject.percentage

@@ -43,23 +43,13 @@ ColumnLayout{
     }
 
     Text {
-        text: "Пожалуйста, прочтите следующую важную информацию перед тем, как продолжить."
+        text: "Пожалуйста, прочтите следующее Лицензионное Соглашение. Вы должны принять условия этого лицензионного соглашения перед тем, как продолжить."
         font.family: "Arial"
-        wrapMode: Text.Wrap
+        wrapMode: Text.WordWrap
         font.pointSize: 10
         textFormat: Text.PlainText
         Layout.fillWidth: true
-        Layout.leftMargin: 10
-        Layout.rightMargin: 10
-    }
-
-    Text {
-        text: "Любое использование приобретенного Программного продукта, в том числе его установка и запуск, означает согласие с условиями приведенного ниже Лицензионного соглашения."
-        font.family: "Arial"
-        wrapMode: Text.Wrap
-        font.pointSize: 10
-        textFormat: Text.PlainText
-        Layout.fillWidth: true
+        Layout.topMargin: 10
         Layout.leftMargin: 10
         Layout.rightMargin: 10
     }

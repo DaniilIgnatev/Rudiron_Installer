@@ -28,6 +28,9 @@ PackageDescriptor::PackageDescriptor(QObject *parent): QObject(parent)
     this->_percentage = 0;
     this->_error = false;
     this->_errorDescription = "";
+
+    this->_bytesReceived = 0;
+    this->_bytesTotal = 0;
 }
 
 PackageDescriptor::PackageDescriptor(QString id, QString type, QString description, QString url, QString destination, QList<QString> contents, QObject *parent): QObject(parent)
@@ -43,6 +46,9 @@ PackageDescriptor::PackageDescriptor(QString id, QString type, QString descripti
     this->_percentage = 0;
     this->_error = false;
     this->_errorDescription = "";
+
+    this->_bytesReceived = 0;
+    this->_bytesTotal = 0;
 }
 
 
@@ -77,12 +83,12 @@ void PackageDescriptor::setDescription(QString newValue)
     emit descriptionChanged();
 }
 
-double PackageDescriptor::getPercentage()
+int PackageDescriptor::getPercentage()
 {
     return _percentage;
 }
 
-void PackageDescriptor::setPercentage(double newValue)
+void PackageDescriptor::setPercentage(int newValue)
 {
     _percentage = newValue;
     emit percentageChanged(newValue);
@@ -119,4 +125,26 @@ void PackageDescriptor::setErrorDescription(QString newValue)
 {
     _errorDescription = newValue;
     emit errorDescriptionChanged(newValue);
+}
+
+int PackageDescriptor::getBytesReceived()
+{
+    return _bytesReceived;
+}
+
+void PackageDescriptor::setBytesReceived(int newValue)
+{
+    _bytesReceived = newValue;
+    emit bytesReceivedChanged(newValue);
+}
+
+int PackageDescriptor::getBytesTotal()
+{
+    return _bytesTotal;
+}
+
+void PackageDescriptor::setBytesTotal(int newValue)
+{
+    _bytesTotal = newValue;
+    emit bytesTotalChanged(newValue);
 }

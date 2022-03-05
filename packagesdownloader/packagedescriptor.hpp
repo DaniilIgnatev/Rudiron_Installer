@@ -67,13 +67,13 @@ public:
     QList<QString> Contents;
 
 private:
-    double _percentage;
+    int _percentage;
 
 public:
     ///прогресс получения содержимого пакета
-    Q_PROPERTY(double percentage READ getPercentage WRITE setPercentage NOTIFY percentageChanged)
-    double getPercentage();
-    void setPercentage(double newValue);
+    Q_PROPERTY(int percentage READ getPercentage WRITE setPercentage NOTIFY percentageChanged)
+    int getPercentage();
+    void setPercentage(int newValue);
 
 private:
     bool _completed;
@@ -102,6 +102,22 @@ public:
     QString getErrorDescription();
     void setErrorDescription(QString newValue);
 
+private:
+    int _bytesReceived;
+
+public:
+    Q_PROPERTY(int bytesReceived READ getBytesReceived WRITE setBytesReceived NOTIFY bytesReceivedChanged)
+    int getBytesReceived();
+    void setBytesReceived(int newValue);
+
+private:
+    int _bytesTotal;
+
+public:
+    Q_PROPERTY(int bytesTotal READ getBytesTotal WRITE setBytesTotal NOTIFY bytesTotalChanged)
+    int getBytesTotal();
+    void setBytesTotal(int newValue);
+
 signals:
     void IDChanged();
 
@@ -116,6 +132,10 @@ signals:
     void errorChanged(bool value);
 
     void errorDescriptionChanged(QString value);
+
+    void bytesReceivedChanged(int value);
+
+    void bytesTotalChanged(int value);
 };
 
 #endif // PACKAGEDESCRIPTOR_HPP

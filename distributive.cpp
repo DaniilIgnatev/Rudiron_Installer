@@ -73,14 +73,7 @@ QDir Distributive::softDir()
 }
 
 
-#ifdef _WIN32_
-const QString Distributive::qtCreatorInstallerPath = componentsDirPath + "/qt-unified-windows-x86-online.exe";
-#else
-const QString Distributive::qtCreatorInstallerPath = componentsDirPath + "/qt-unified-linux-x64-online.run";
-#endif
-
-
-#ifdef _WIN32_
+#ifdef _WIN32
 const QString Distributive::jlinkBinPath = componentsDirPath + "/JLink.exe";
 #else
 const QString Distributive::jlinkBinPath = componentsDirPath + "/JLink.deb";
@@ -126,7 +119,7 @@ QDir Distributive::openocd_binDir()
 }
 
 
-#ifdef _WIN32_
+#ifdef _WIN32
 const QString Distributive::openocd_binFilePath = openocd_binDirPath + "/openocd.exe";
 #else
 const QString Distributive::openocd_binFilePath = openocd_binDirPath + "/openocd";
@@ -184,7 +177,7 @@ QDir Distributive::cmake_binDir()
 }
 
 
-#ifdef _WIN32_
+#ifdef _WIN32
 const QString Distributive::cmakeAppPath = Distributive::cmake_binDirPath + "/cmake.exe";
 #else
 const QString Distributive::cmakeAppPath = Distributive::cmake_binDirPath + "/cmake";
@@ -197,21 +190,21 @@ const QString Distributive::cmakeQchPath = componentsDirPath + "/cmake/doc/cmake
 const QString Distributive::pythonInstallerPath = componentsDirPath + "/python-2.7.msi";
 
 
-#ifdef _WIN32_
+#ifdef _WIN32
 const QString Distributive::gdbBinPath = gccBinDirPath + "/arm-none-eabi-gdb-py.exe";
 #else
 const QString Distributive::gdbBinPath = gccBinDirPath + "/arm-none-eabi-gdb-py";
 #endif
 
 
-#ifdef _WIN32_
+#ifdef _WIN32
 const QString Distributive::gccBinPath = gccBinDirPath + "/arm-none-eabi-gcc.exe";
 #else
 const QString Distributive::gccBinPath = gccBinDirPath + "/arm-none-eabi-gcc";
 #endif
 
 
-#ifdef _WIN32_
+#ifdef _WIN32
 const QString Distributive::gppBinPath = gccBinDirPath + "/arm-none-eabi-g++.exe";
 #else
 const QString Distributive::gppBinPath = gccBinDirPath + "/arm-none-eabi-g++";

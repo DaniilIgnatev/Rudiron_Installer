@@ -49,13 +49,6 @@ public:
     static QDir softDir();
 
 
-
-    //QT_Creator_installer
-
-    static const QString qtCreatorInstallerPath;
-
-
-
     //DRIVER
 
     static const QString jlinkBinPath;

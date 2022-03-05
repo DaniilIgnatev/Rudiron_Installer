@@ -101,7 +101,7 @@ public slots:
     void addCombilerVariables_Linux();
 
 
-    void installQTCreator();
+    void installQTCreator(QString destination, QString uri);
 
 
     void installJlink();

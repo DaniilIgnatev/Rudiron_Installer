@@ -63,6 +63,10 @@ public:
     ///папка, куда будет перемещен пакет
     QString Destination;
 
+public slots:
+    QString getDestination();
+
+public:
     ///содержимое пакета
     QList<QString> Contents;
 
@@ -74,6 +78,9 @@ public:
     Q_PROPERTY(int percentage READ getPercentage WRITE setPercentage NOTIFY percentageChanged)
     int getPercentage();
     void setPercentage(int newValue);
+
+public slots:
+    QString getURI();
 
 private:
     bool _completed;

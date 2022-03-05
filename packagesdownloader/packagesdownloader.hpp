@@ -8,12 +8,13 @@
 #include "../webapi/webapi.hpp"
 #include "../distributive.h"
 
-//#include "AWS/s3/listobjectsrequest.h"
-//#include "AWS/s3/listobjectsresponse.h"
-
 #include "quazip.h"
 #include "packagedescriptormodel.hpp"
 #include "JlCompress.h"
+
+#include <QFile>
+#include <QIODevice>
+#include <QTemporaryFile>
 
 
 class QQmlEngine;
@@ -51,6 +52,8 @@ private:
 
 public slots:
     PackageDescriptorModel* getPackages(QStringList excludeID);
+
+    PackageDescriptor *getPackage(QString ID);
 
     QStringList getFiltredPackagesIDs(QStringList excludeID);
 

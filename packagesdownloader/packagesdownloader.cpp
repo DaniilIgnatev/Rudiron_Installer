@@ -34,16 +34,6 @@ void PackagesDownloader::fetchSource()
         parseSources(json_string);
         emit sourceFetched();
     });
-
-    //    WebAPI_Task* task = yandexapi->downloadPublicResource("https://disk.yandex.ru/d/nh4bE3Rcb59D9w");
-    //    connect(task, &WebAPI_Task::reply_changed, this, [=](QNetworkReply &reply){
-    //        connect(&reply, &QNetworkReply::finished, this, [=,&reply]{
-    //            QString json_string = reply.readAll();
-    //            parseSources(json_string);
-    //            emit sourceFetched();
-    //            task->deleteLater();
-    //        });
-    //    });
 }
 
 void PackagesDownloader::parseSources(QString json_string)
@@ -96,16 +86,6 @@ void PackagesDownloader::fetchPackages()
         parsePackages(json_string);
         emit packagesFetched();
     });
-
-    //    WebAPI_Task* task = yandexapi->downloadPublicResource(this->sources_url);
-    //    connect(task, &WebAPI_Task::reply_changed, this, [=](QNetworkReply &reply){
-    //        connect(&reply, &QNetworkReply::finished, this, [=,&reply]{
-    //            QString json_string = reply.readAll();
-    //            parsePackages(json_string);
-    //            emit packagesFetched();
-    //            task->deleteLater();
-    //        });
-    //    });
 }
 
 void PackagesDownloader::parsePackages(QString json_string)
@@ -160,6 +140,17 @@ PackageDescriptorModel* PackagesDownloader::getPackages(QStringList excludeID)
     return new PackageDescriptorModel(filtredPackages, this);
 }
 
+PackageDescriptor *PackagesDownloader::getPackage(QString ID)
+{
+    for (int i = 0; i < packages.count();i++){
+        if (packages[i]->getID() == ID){
+            return packages[i];
+        }
+    }
+
+    return nullptr;
+}
+
 QStringList PackagesDownloader::getFiltredPackagesIDs(QStringList excludeID)
 {
     QStringList filtredPackageIDs;
@@ -188,7 +179,7 @@ void PackagesDownloader::downloadPackage(PackageDescriptor* descriptor)
         emit packageDownloadFinished(descriptor);
     }
     else{
-        QString resourceName = descriptor->URL.split("/").last();
+        QString resourceName = descriptor->getURI();
         QString destination_folder;
         QString destination_path;//путь сохранения файла
         if (descriptor->getType() != PackageDescriptor::type_application){
@@ -208,7 +199,7 @@ void PackagesDownloader::downloadPackage(PackageDescriptor* descriptor)
 
         bool folder_exists = QFile::exists(destination_folder);
         if (!folder_exists){
-            packageError(descriptor, "Destination folder '" + destination_folder + "' doesn't exist");
+            packageError(descriptor, "Целевая директория '" + destination_folder + "' не существует");
         }
         else{
             bool contents_exist = true;
@@ -223,11 +214,24 @@ void PackagesDownloader::downloadPackage(PackageDescriptor* descriptor)
                 emit packageDownloadFinished(descriptor);
             }
             else{
+                QTemporaryFile* tempFile = new QTemporaryFile();
+                tempFile->setAutoRemove(true);
+
+                bool tempFileOpened = tempFile->open();
+                if (!tempFileOpened){
+                    packageError(descriptor, "Не удалось создать временный файл");
+                }
+
+                QString tempFileName = tempFile->fileName();
+                QFile* tempFileDescriptor = new QFile(tempFileName);
+                tempFileDescriptor->open(QIODevice::WriteOnly);
+
                 QNetworkReply* reply = WebAPI::instance()->request(descriptor->URL);
-                //            connect(&reply, &QNetworkReply::readyRead, this, [=,&reply,&descriptor]{
-                //                 //qDebug("Ready read");
-                //                 //создать файл
-                //             });
+
+                connect(reply, &QNetworkReply::readyRead, this, [=]{
+                    tempFileDescriptor->write(reply->readAll());
+                 });
+
                 connect(reply, &QNetworkReply::downloadProgress, this, [=](quint64 bytesReceived, quint64 bytesTotal){
                     int percentage = (double)bytesReceived / (double)bytesTotal * 100.0;
                     qDebug() << "Download " + descriptor->getID() + " progress: " << percentage << "% " << bytesReceived << " of " << bytesTotal << " bytes";
@@ -235,13 +239,14 @@ void PackagesDownloader::downloadPackage(PackageDescriptor* descriptor)
                     descriptor->setBytesReceived(bytesReceived / 1024 / 1024);
                     descriptor->setBytesTotal(bytesTotal / 1024 / 1024);
                 });
-                connect(reply, &QNetworkReply::finished, this, [=]{
-                    QByteArray data = reply->readAll();
 
-                    QFile file(destination_path);
-                    file.open(QIODevice::WriteOnly);
-                    file.write(data);
-                    file.close();
+                connect(reply, &QNetworkReply::finished, this, [=]{
+                    tempFile->close();
+                    tempFileDescriptor->close();
+                    qDebug() << "Copy " << tempFileName << " to " << destination_path;
+                    QFile::copy(tempFile->fileName(), destination_path);
+                    tempFile->deleteLater();
+                    tempFileDescriptor->deleteLater();
 
                     if (descriptor->getType() == PackageDescriptor::type_archive){
                         JlCompress::extractDir(destination_path, destination_folder);

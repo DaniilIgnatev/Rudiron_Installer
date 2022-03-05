@@ -83,6 +83,11 @@ void PackageDescriptor::setDescription(QString newValue)
     emit descriptionChanged();
 }
 
+QString PackageDescriptor::getDestination()
+{
+    return this->Destination;
+}
+
 int PackageDescriptor::getPercentage()
 {
     return _percentage;
@@ -92,6 +97,11 @@ void PackageDescriptor::setPercentage(int newValue)
 {
     _percentage = newValue;
     emit percentageChanged(newValue);
+}
+
+QString PackageDescriptor::getURI()
+{
+    return this->URL.split("/").last();
 }
 
 bool PackageDescriptor::getCompleted()

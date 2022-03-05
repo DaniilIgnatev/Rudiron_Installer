@@ -23,6 +23,7 @@ import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
 
 import com.dibot 1.0
+import com.PackagesDownloader 1.0
 
 
 ColumnLayout{
@@ -234,7 +235,10 @@ ColumnLayout{
                     "Нажмите \"Установить\".",
                 ],
                 installFunction: function(){
-                    installerVM.installQTCreator()
+                    var qtpackage = PackagesDownloader.getPackage("qt")
+                    var destination = qtpackage.getDestination()
+                    var uri = qtpackage.getURI();
+                    installerVM.installQTCreator(destination, uri)
                 }
             }]
     }

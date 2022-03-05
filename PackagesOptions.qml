@@ -19,7 +19,7 @@ ColumnLayout{
     function setExcludePackageIDs(){
         excludePackageIDs = []
         if (!withJLink){
-            excludePackageIDs.push("jlink")//ОШИБКА append
+            excludePackageIDs.push("jlink")
         }
         if (withVSCode){
             excludePackageIDs.push("qt")
@@ -33,7 +33,7 @@ ColumnLayout{
 
     property alias withVSCode: radio3.checked
 
-    spacing: 5
+    spacing: 0
 
     Text {
         color: "#e35b00"
@@ -56,121 +56,124 @@ ColumnLayout{
     Item {
         id: filler1
         Layout.fillWidth: true
-        Layout.preferredHeight: 20
+        Layout.minimumHeight: 40
     }
 
-    RowLayout {
-        Layout.fillHeight: false
-        Layout.fillWidth: true
-        Layout.rightMargin: 15
-        Layout.leftMargin: 15
-        Layout.topMargin: 0
-
-        ColumnLayout {
+    ColumnLayout{
+        RowLayout {
+            Layout.fillHeight: false
             Layout.fillWidth: true
-            RadioButton {
-                id: radio1
-                text: "Вариант установки без JLink-совместимого программатора"
+            Layout.rightMargin: 15
+            Layout.leftMargin: 15
+            Layout.topMargin: 0
+
+            ColumnLayout {
                 Layout.fillWidth: true
-                checked: true
-                font.family: "Arial"
-                Layout.topMargin: 5
+                RadioButton {
+                    id: radio1
+                    text: "Вариант установки без JLink-совместимого программатора"
+                    Layout.fillWidth: true
+                    checked: true
+                    font.family: "Arial"
+                    Layout.topMargin: 5
+                }
+
+                RadioButton {
+                    id: radio2
+                    text: "Вариант установки с JLink-совместимым программатором (для продвинутых пользователей)"
+                    Layout.fillWidth: true
+                    checked: false
+                    font.family: "Arial"
+                    Layout.topMargin: 0
+                }
             }
 
-            RadioButton {
-                id: radio2
-                text: "Вариант установки с JLink-совместимым программатором (для продвинутых пользователей)"
+            Item {
                 Layout.fillWidth: true
-                checked: false
-                font.family: "Arial"
-                Layout.topMargin: 0
             }
         }
 
-        Item {
+        Text {
+            property string jlink_description: "Будет доступна прошивка через интерфейс SWD, отладка в реальном времени, просмотр и редактирование значений регистров процессора и периферии"
+            property string com_description: "Будет доступная прошивка через встроенный UART загрузчик"
+
+            Layout.leftMargin: 20
             Layout.fillWidth: true
+
+            id: textbox_jlink
+            font.pointSize: 10
+            text: withJLink ? jlink_description : com_description
+
+            font.family: "Arial"
+            wrapMode: Text.WordWrap
+            Layout.topMargin: 0
+            font.italic: true
+            fontSizeMode: Text.Fit
+            textFormat: Text.RichText
         }
     }
-
-    Text {
-        property string jlink_description: "Будет доступна прошивка через интерфейс SWD, отладка в реальном времени, просмотр и редактирование значений регистров процессора и периферии"
-        property string com_description: "Будет доступная прошивка через встроенный UART загрузчик"
-
-        Layout.leftMargin: 20
-        Layout.fillWidth: true
-
-        id: textbox_jlink
-        font.pointSize: 10
-        text: withJLink ? jlink_description : com_description
-
-        font.family: "Arial"
-        wrapMode: Text.WordWrap
-        Layout.topMargin: 0
-        font.italic: true
-        fontSizeMode: Text.Fit
-        textFormat: Text.RichText
-    }
-
 
     Item {
         Layout.fillWidth: true
-        Layout.preferredHeight: 20
+        Layout.minimumHeight: filler1.height
     }
 
-    RowLayout {
-        Layout.fillWidth: true
-        Layout.rightMargin: 15
-        Layout.leftMargin: 15
-
-        ColumnLayout {
+    ColumnLayout{
+        RowLayout {
             Layout.fillWidth: true
-            RadioButton {
-                id: radio3
-                text: "Вариант установки с IDE Visual Studio Code"
+            Layout.rightMargin: 15
+            Layout.leftMargin: 15
+
+            ColumnLayout {
                 Layout.fillWidth: true
-                checked: true
-                font.family: "Arial"
-                Layout.topMargin: 0
+                RadioButton {
+                    id: radio3
+                    text: "Вариант установки с IDE Visual Studio Code"
+                    Layout.fillWidth: true
+                    checked: true
+                    font.family: "Arial"
+                    Layout.topMargin: 0
+                }
+
+                RadioButton {
+                    id: radio4
+                    text: "Вариант установки с IDE QtCreator (для продвинутых пользователей)"
+                    Layout.fillWidth: true
+                    checked: false
+                    font.family: "Arial"
+                    Layout.topMargin: 5
+                }
             }
 
-            RadioButton {
-                id: radio4
-                text: "Вариант установки с IDE QtCreator (для продвинутых пользователей)"
+            Item {
                 Layout.fillWidth: true
-                checked: false
-                font.family: "Arial"
-                Layout.topMargin: 5
             }
         }
 
-        Item {
+        Text {
+            property string vscode_description: "Будет установлен универсальный редактор исходного кода от Microsoft"
+            property string qtcreator_description: "Будет установлена свободная IDE для разработки на С, C++, JavaScript и QML"
+
+            Layout.leftMargin: 20
             Layout.fillWidth: true
+
+            id: textbox_ide
+            font.pointSize: 10
+            text: withVSCode ? vscode_description : qtcreator_description
+
+            font.family: "Arial"
+            wrapMode: Text.WordWrap
+            Layout.topMargin: 0
+            font.italic: true
+            fontSizeMode: Text.Fit
+            textFormat: Text.RichText
         }
-    }
-
-    Text {
-        property string vscode_description: "Будет установлен универсальный редактор исходного кода от Microsoft"
-        property string qtcreator_description: "Будет установлена свободная IDE для разработки на С, C++, JavaScript и QML"
-
-        Layout.leftMargin: 20
-        Layout.fillWidth: true
-
-        id: textbox_ide
-        font.pointSize: 10
-        text: withVSCode ? vscode_description : qtcreator_description
-
-        font.family: "Arial"
-        wrapMode: Text.WordWrap
-        Layout.topMargin: 0
-        font.italic: true
-        fontSizeMode: Text.Fit
-        textFormat: Text.RichText
     }
 
     Item {
         id: filler2
         Layout.fillWidth: true
-        Layout.preferredHeight: filler1.height
+        Layout.fillHeight: true
     }
 
     RowLayout {
@@ -197,7 +200,7 @@ ColumnLayout{
 
 /*##^##
 Designer {
-    D{i:0;autoSize:true;height:480;width:640}D{i:1}D{i:2}D{i:5}D{i:6}D{i:4}D{i:7}D{i:3}
-D{i:8}D{i:9}D{i:12}D{i:13}D{i:11}D{i:14}D{i:10}D{i:15}D{i:16}D{i:18}D{i:19}D{i:17}
+    D{i:0;autoSize:true;height:480;width:640}D{i:1}D{i:2}D{i:4}D{i:9}D{i:3}D{i:10}D{i:12}
+D{i:15}D{i:11}D{i:16}D{i:17}D{i:19}D{i:20}D{i:18}
 }
 ##^##*/

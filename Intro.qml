@@ -50,7 +50,7 @@ ColumnLayout{
             textbox.text = html
         }
 
-        ScrollBar.vertical.policy: ScrollBar.AlwaysOn
+//        ScrollBar.vertical.policy: ScrollBar.AlwaysOn
         ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
         ScrollBar.horizontal.interactive: false
         ScrollBar.vertical.interactive: true
@@ -58,7 +58,7 @@ ColumnLayout{
         ColumnLayout{
             Text {
                 id: textbox
-                width: scrollableBox.width
+                Layout.preferredWidth: scrollableBox.width
                 font.pointSize: 10
 
                 text: "<b>Описание</b> <i>продукта.</i><b>Описание</b> <i>продукта.</i><b>Описание</b> <i>продукта.</i><b>Описание</b> <i>продукта.</i><b>Описание</b> <i>продукта.</i><b>Описание</b> <i>продукта.</i><b>Описание</b> <i>продукта.</i><b>Описание</b> <i>продукта.</i><b>Описание</b> <i>продукта.</i><b>Описание</b> <i>продукта.</i>"

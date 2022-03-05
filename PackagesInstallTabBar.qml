@@ -85,9 +85,7 @@ ColumnLayout{
             filtred_tabs.push(tab_qtcreator_manual)
         }
         if (filtredPackageIDs.includes("vscode")){
-            filtred_tabs.push(tab_qtcreator)
-            filtred_tabs.push(tab_qtcreator_toolchain)
-            filtred_tabs.push(tab_qtcreator_manual)
+
         }
 
         return filtred_tabs

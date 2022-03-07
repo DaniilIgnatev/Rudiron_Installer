@@ -245,7 +245,6 @@ void InstallerMenuVM::addCombilerVariables_Linux(){
 void InstallerMenuVM::installQTCreator(QString destination, QString uri)
 {
     QString path = Distributive::absoluteComponentPath(destination + "/" + uri);
-    qDebug() << path;
     QDesktopServices::openUrl(QUrl("file:///" + path, QUrl::TolerantMode));
 }
 
@@ -310,6 +309,12 @@ void InstallerMenuVM::addToolchain()
 void InstallerMenuVM::addKit()
 {
     this->qtCreatorOptions->addKit();
+}
+
+void InstallerMenuVM::installVSCode(QString destination, QString uri)
+{
+    QString path = Distributive::absoluteComponentPath(destination + "/" + uri);
+    QDesktopServices::openUrl(QUrl("file:///" + path, QUrl::TolerantMode));
 }
 
 

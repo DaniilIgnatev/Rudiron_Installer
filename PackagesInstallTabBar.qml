@@ -86,7 +86,9 @@ ColumnLayout{
             filtred_tabs.push(tab_qtcreator_manual)
         }
         if (filtredPackageIDs.includes("vscode")){
-
+            filtred_tabs.push(tab_vscodeinstall)
+            filtred_tabs.push(tab_vscodetoolchain)
+            filtred_tabs.push(tab_vscodeguide)
         }
 
         return filtred_tabs
@@ -345,6 +347,115 @@ ColumnLayout{
                     "Правой кнопкой мыши выберите двоичный формат.",
                     "Установка выделенного бита в 1 зажгет светодиод.",
                     ],
+                installFunction: null
+            }]
+    }
+
+
+    PackagesInstallTab{
+        id: tab_vscodeinstall
+        visible: false
+        onCheckedChanged: if (checked) {root.tabChecked(position)}
+        position: 6
+        text: "Visual Studio Code"
+        contentQML: "contentUI/StagesObserverUI.qml"
+        enabled: true
+        model: [{
+                title: text,
+                showAgain: true,
+                imagesURLList: [
+                    "../slides/vscodeinstall/2022-03-06_19-53-07.png",
+                    "../slides/vscodeinstall/2022-03-06_19-53-21.png",
+                    "../slides/vscodeinstall/2022-03-06_19-53-27.png",
+                    "../slides/vscodeinstall/2022-03-06_19-55-44.png",
+                    "../slides/vscodeinstall/2022-03-06_19-56-31.png"
+                ],
+                hintList: [
+                    "Примите условия соглашения. Нажмите \"Далее\".",
+                    "Нажмите \"Далее\".",
+                    "Нажмите \"Установить\".",
+                    "Дождитесь окончания установки.",
+                    "Нажмите \"Завершить\".",
+                ],
+                installFunction: function(){
+                    var qtpackage = PackagesDownloader.getPackage("vscode")
+                    var destination = qtpackage.getDestination()
+                    var uri = qtpackage.getURI();
+                    installerVM.installQTCreator(destination, uri)
+                }
+            }]
+    }
+
+
+    PackagesInstallTab{
+        id: tab_vscodetoolchain
+        visible: false
+        onCheckedChanged: if (checked) {root.tabChecked(position)}
+        position: 6
+        text: "Инструментарий"
+        contentQML: "contentUI/StagesObserverUI.qml"
+        enabled: true
+        model: [{
+                title: text,
+                showAgain: true,
+                imagesURLList: [
+                    "../slides/vscodetoolchain/2022-03-06_19-57-18.png",
+                    "../slides/vscodetoolchain/2022-03-06_19-57-43.png",
+                ],
+                hintList: [
+                    "Установите расширение \"C/C++\".",
+                    "Установите расширение \"Cortex-Debug\".",
+                ],
+                installFunction: null
+            }]
+    }
+
+
+    PackagesInstallTab{
+        id: tab_vscodeguide
+        visible: false
+        onCheckedChanged: if (checked) {root.tabChecked(position)}
+        position: 6
+        text: "Руководство"
+        contentQML: "contentUI/StagesObserverUI.qml"
+        enabled: true
+        model: [{
+                title: text,
+                showAgain: true,
+                imagesURLList: [
+                    "../slides/vscodeguide/2022-03-06_20-23-35.png",
+                    "../slides/vscodeguide/2022-03-06_20-28-22.png",
+                    "../slides/vscodeguide/2022-03-06_20-29-07.png",
+                    "../slides/vscodeguide/2022-03-06_20-44-41.png",
+                    "../slides/vscodeguide/2022-03-06_20-45-34.png",
+                    "../slides/vscodeguide/2022-03-06_20-46-38.png",
+                    "../slides/vscodeguide/2022-03-06_20-54-41.png",
+                    "../slides/vscodeguide/2022-03-06_20-55-06.png",
+                    "../slides/vscodeguide/2022-03-06_21-00-36.png",
+                    "../slides/vscodeguide/2022-03-07_18-32-15.png",
+                    "../slides/vscodeguide/2022-03-07_18-34-06.png",
+                    "../slides/vscodeguide/2022-03-07_18-35-33.png",
+                    "../slides/vscodeguide/2022-03-07_18-36-16.png",
+                    "../slides/vscodeguide/2022-03-07_18-37-13.png",
+                    "../slides/vscodeguide/2022-03-07_18-38-11.png",
+                ],
+                hintList: [
+                    "Запустите VS Code. Во вкладке \"Файл\" выберите \"Открыть папку...\", выберите папку с проектом.",
+                    "Откройте список комплектов.",
+                    "Выберите комплект \"GCC Arm Embedded\".",
+                    "При необходимости укажите полный путь к компилятору.",
+                    "Сохраняйте файл \"CMakeLists.txt\" каждый раз при изменении структуры проекта.",
+                    "Новые папки нужно добавлять в переменную \"SRC_LIST\".",
+                    "Во вкладке \"Терминал\" выберите \"Запуск задачи\".",
+                    "Для сборки проекта нажмите \"Build\" или CTRL+SHIFT+B.",
+                    "В папке \"build\" создадутся bin, elf и hex файлы. В терминале указывается размер сегментов прошивки.",
+                    "Пример запуска отладки через JLink и OpenOCD.",
+                    "Пример просмотра регистров периферии через JLink и OpenOCD.",
+                    "Поддерживается редактирование значений регистров.",
+                    "По нажатию на правую кнопку мыши можно изменить формат представления значения.",
+                    "Выберите двоичный формат представления.",
+                    "Установка 4-го бита в \"1\" включит второй светодиод.",
+                ],
                 installFunction: null
             }]
     }

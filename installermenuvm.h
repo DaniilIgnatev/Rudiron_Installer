@@ -133,6 +133,9 @@ public slots:
 
     void addKit();
 
+
+    void installVSCode(QString destination, QString uri);
+
 };
 
 #endif // INSTALLERMENU_H

@@ -72,5 +72,27 @@
         <file>Licence.qml</file>
         <file>PackagesOptions.qml</file>
         <file>PackagesDownload.qml</file>
+        <file>slides/vscodeinstall/2022-03-06_19-53-07.png</file>
+        <file>slides/vscodeinstall/2022-03-06_19-53-21.png</file>
+        <file>slides/vscodeinstall/2022-03-06_19-53-27.png</file>
+        <file>slides/vscodeinstall/2022-03-06_19-55-44.png</file>
+        <file>slides/vscodeinstall/2022-03-06_19-56-31.png</file>
+        <file>slides/vscodeguide/2022-03-06_20-23-35.png</file>
+        <file>slides/vscodeguide/2022-03-06_20-28-22.png</file>
+        <file>slides/vscodeguide/2022-03-06_20-29-07.png</file>
+        <file>slides/vscodeguide/2022-03-06_20-44-41.png</file>
+        <file>slides/vscodeguide/2022-03-06_20-45-34.png</file>
+        <file>slides/vscodeguide/2022-03-06_20-46-38.png</file>
+        <file>slides/vscodeguide/2022-03-06_20-54-41.png</file>
+        <file>slides/vscodeguide/2022-03-06_20-55-06.png</file>
+        <file>slides/vscodeguide/2022-03-06_21-00-36.png</file>
+        <file>slides/vscodeguide/2022-03-07_18-32-15.png</file>
+        <file>slides/vscodeguide/2022-03-07_18-34-06.png</file>
+        <file>slides/vscodeguide/2022-03-07_18-35-33.png</file>
+        <file>slides/vscodeguide/2022-03-07_18-36-16.png</file>
+        <file>slides/vscodeguide/2022-03-07_18-37-13.png</file>
+        <file>slides/vscodeguide/2022-03-07_18-38-11.png</file>
+        <file>slides/vscodetoolchain/2022-03-06_19-57-18.png</file>
+        <file>slides/vscodetoolchain/2022-03-06_19-57-43.png</file>
     </qresource>
 </RCC>

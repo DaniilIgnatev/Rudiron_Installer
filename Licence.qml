@@ -50,7 +50,7 @@ ColumnLayout{
         textFormat: Text.PlainText
         Layout.fillWidth: true
         Layout.topMargin: 10
-        Layout.leftMargin: 10
+        Layout.leftMargin: 15
         Layout.rightMargin: 10
     }
 
@@ -104,6 +104,7 @@ ColumnLayout{
 
     RowLayout{
         Layout.bottomMargin: 5
+        Layout.leftMargin: 10
         Layout.rightMargin: 15
         Layout.maximumHeight: 100
 

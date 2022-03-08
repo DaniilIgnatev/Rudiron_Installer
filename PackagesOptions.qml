@@ -65,7 +65,6 @@ ColumnLayout{
             Layout.fillWidth: true
             Layout.rightMargin: 15
             Layout.leftMargin: 15
-            Layout.topMargin: 0
 
             ColumnLayout {
                 Layout.fillWidth: true
@@ -75,7 +74,6 @@ ColumnLayout{
                     Layout.fillWidth: true
                     checked: true
                     font.family: "Arial"
-                    Layout.topMargin: 5
                 }
 
                 RadioButton {
@@ -84,7 +82,6 @@ ColumnLayout{
                     Layout.fillWidth: true
                     checked: false
                     font.family: "Arial"
-                    Layout.topMargin: 0
                 }
             }
 
@@ -132,7 +129,6 @@ ColumnLayout{
                     Layout.fillWidth: true
                     checked: true
                     font.family: "Arial"
-                    Layout.topMargin: 0
                 }
 
                 RadioButton {
@@ -141,7 +137,6 @@ ColumnLayout{
                     Layout.fillWidth: true
                     checked: false
                     font.family: "Arial"
-                    Layout.topMargin: 5
                 }
             }
 

@@ -220,6 +220,7 @@ ColumnLayout{
         ButtonStyled{
             id: buttonInstall
             text: installed ?  "Выполнено" : "Установить"
+            font.pointSize: 8
             font.weight: installed ? Font.Bold : Font.Normal
             visible: stagesObserver.installFunction != null && (stagesObserver.position === length() - 1)
             enabled: (stagesObserver.position === length() - 1) && !stagesObserver.installed

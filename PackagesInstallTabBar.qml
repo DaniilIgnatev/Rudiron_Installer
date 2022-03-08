@@ -71,17 +71,15 @@ ColumnLayout{
         var filtred_tabs = []
         var isWindows = (Qt.platform.os === "windows")
 
-        if (filtredPackageIDs.includes("python") && isWindows){
-            filtred_tabs.push(tab_python27)
-        }
         if (filtredPackageIDs.includes("jlink")){
             filtred_tabs.push(tab_jlink)
             if (isWindows){
                 filtred_tabs.push(tab_zadig)
             }
         }
-        else{
-            filtred_tabs.push(tab_programmer)
+
+        if (filtredPackageIDs.includes("python") && isWindows){
+            filtred_tabs.push(tab_python27)
         }
 
         if (filtredPackageIDs.includes("qt")){
@@ -93,6 +91,10 @@ ColumnLayout{
             filtred_tabs.push(tab_vscodeinstall)
             filtred_tabs.push(tab_vscodetoolchain)
             filtred_tabs.push(tab_vscodeguide)
+        }
+
+        if (!filtredPackageIDs.includes("jlink")){
+            filtred_tabs.push(tab_programmer)
         }
 
         return filtred_tabs
@@ -395,7 +397,7 @@ ColumnLayout{
         id: tab_vscodetoolchain
         visible: false
         onCheckedChanged: if (checked) {root.tabChecked(position)}
-        position: 6
+        position: 7
         text: "Инструментарий"
         contentQML: "contentUI/StagesObserverUI.qml"
         enabled: true
@@ -419,7 +421,7 @@ ColumnLayout{
         id: tab_vscodeguide
         visible: false
         onCheckedChanged: if (checked) {root.tabChecked(position)}
-        position: 6
+        position: 8
         text: "Руководство"
         contentQML: "contentUI/StagesObserverUI.qml"
         enabled: true
@@ -469,7 +471,7 @@ ColumnLayout{
         id: tab_programmer
         visible: false
         onCheckedChanged: if (checked) {root.tabChecked(position)}
-        position: 7
+        position: 9
         text: "Программатор"
         contentQML: "contentUI/StagesObserverUI.qml"
         enabled: true

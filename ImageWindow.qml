@@ -1,10 +1,11 @@
 import QtQuick 2.6
 import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
+import QtQuick.Window 2.2
 
 import "contentUI"
 
-ApplicationWindow {
+Window {
     id: imagewindow_root
 
     width: 800; height: 600
@@ -36,7 +37,7 @@ ApplicationWindow {
                 width: flick.width
                 height: flick.height
                 scale: defaultSize / Math.max(image.sourceSize.width, image.sourceSize.height)
-                Behavior on scale { NumberAnimation { duration: 200 } }
+                //                Behavior on scale { NumberAnimation { duration: 200 } }
                 Behavior on x { NumberAnimation { duration: 200 } }
                 Behavior on y { NumberAnimation { duration: 200 } }
                 //                border.color: "black"
@@ -71,14 +72,14 @@ ApplicationWindow {
                     onSmartZoom: {
                         if (pinch.scale > 0) {
                             photoFrame.rotation = 0;
-                            photoFrame.scale = Math.min(imagewindow_root.width, imagewindow_root.height) / Math.max(image.sourceSize.width, image.sourceSize.height) * 0.85
+                            flick.scale = Math.min(imagewindow_root.width, imagewindow_root.height) / Math.max(image.sourceSize.width, image.sourceSize.height) * 0.85
                             photoFrame.x = flick.contentX + (flick.width - photoFrame.width) / 2
                             photoFrame.y = flick.contentY + (flick.height - photoFrame.height) / 2
                             zRestore = photoFrame.z
                             photoFrame.z = ++imagewindow_root.highestZ;
                         } else {
                             photoFrame.rotation = pinch.previousAngle
-                            photoFrame.scale = pinch.previousScale
+                            flick.scale = pinch.previousScale
                             photoFrame.x = pinch.previousCenter.x - photoFrame.width / 2
                             photoFrame.y = pinch.previousCenter.y - photoFrame.height / 2
                             photoFrame.z = zRestore
@@ -108,8 +109,8 @@ ApplicationWindow {
                                          photoFrame.rotation += wheel.angleDelta.x / 120;
                                          if (Math.abs(photoFrame.rotation) < 0.6)
                                          photoFrame.rotation = 0;
-                                         var scaleBefore = photoFrame.scale;
-                                         photoFrame.scale += photoFrame.scale * wheel.angleDelta.y / 120 / 10;
+                                         var scaleBefore = flick.scale;
+                                         flick.scale += flick.scale * wheel.angleDelta.y / 120 / 10;
                                      }
                                  }
                     }
@@ -180,7 +181,6 @@ ApplicationWindow {
 
 /*##^##
 Designer {
-    D{i:0;formeditorZoom:0.75}D{i:4}D{i:6}D{i:5}D{i:3}D{i:2}D{i:7}D{i:9}D{i:10}D{i:12}
-D{i:8}D{i:1}D{i:13}D{i:14}
+    D{i:0;autoSize:true;height:480;width:640}D{i:2}D{i:7}D{i:8}D{i:1}D{i:12}D{i:13}
 }
 ##^##*/

@@ -7,7 +7,7 @@
         <file>contentUI/OverviewUI.qml</file>
         <file>contentUI/LicenceUI.qml</file>
         <file>contentUI/StagesObserverUI.qml</file>
-        <file>contentUI/licence.html</file>
+        <file>contentUI/gpl3.html</file>
         <file>slides/jlink/1.png</file>
         <file>slides/jlink/2.png</file>
         <file>slides/jlink/3.png</file>
@@ -94,5 +94,12 @@
         <file>slides/vscodeguide/2022-03-07_18-38-11.png</file>
         <file>slides/vscodetoolchain/2022-03-06_19-57-18.png</file>
         <file>slides/vscodetoolchain/2022-03-06_19-57-43.png</file>
+        <file>slides/programmer/2022-03-08_12-21-18.png</file>
+        <file>slides/programmer/2022-03-08_12-23-06.png</file>
+        <file>slides/programmer/2022-03-08_12-24-03.png</file>
+        <file>slides/programmer/2022-03-08_12-26-09.png</file>
+        <file>slides/programmer/2022-03-08_12-36-27.png</file>
+        <file>contentUI/freeware.txt</file>
+        <file>contentUI/asis.html</file>
     </qresource>
 </RCC>

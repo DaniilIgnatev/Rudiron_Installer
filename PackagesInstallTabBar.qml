@@ -80,6 +80,10 @@ ColumnLayout{
                 filtred_tabs.push(tab_zadig)
             }
         }
+        else{
+            filtred_tabs.push(tab_programmer)
+        }
+
         if (filtredPackageIDs.includes("qt")){
             filtred_tabs.push(tab_qtcreator)
             filtred_tabs.push(tab_qtcreator_toolchain)
@@ -455,6 +459,36 @@ ColumnLayout{
                     "По нажатию на правую кнопку мыши можно изменить формат представления значения.",
                     "Выберите двоичный формат представления.",
                     "Установка 4-го бита в \"1\" включит второй светодиод.",
+                ],
+                installFunction: null
+            }]
+    }
+
+
+    PackagesInstallTab{
+        id: tab_programmer
+        visible: false
+        onCheckedChanged: if (checked) {root.tabChecked(position)}
+        position: 7
+        text: "Программатор"
+        contentQML: "contentUI/StagesObserverUI.qml"
+        enabled: true
+        model: [{
+                title: text,
+                showAgain: true,
+                imagesURLList: [
+                    "../slides/programmer/2022-03-08_12-21-18.png",
+                    "../slides/programmer/2022-03-08_12-23-06.png",
+                    "../slides/programmer/2022-03-08_12-24-03.png",
+                    "../slides/programmer/2022-03-08_12-26-09.png",
+                    "../slides/programmer/2022-03-08_12-36-27.png",
+                ],
+                hintList: [
+                    "Запустите приложение \"1986WSD\" в папке \"tools/programmer\".",
+                    "Определите COM порт подключенной платы.",
+                    "Внесите номер порта от 0 до 9 и нажмите \"Enter\".",
+                    "Нажмите \"Browse\" и выберите hex файл для прошивки. В целях тестирования можно загрузить \"RudironTemplate.hex\".",
+                    "Нажмите \"Start+Run\".",
                 ],
                 installFunction: null
             }]

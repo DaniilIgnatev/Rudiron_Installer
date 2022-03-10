@@ -30,15 +30,14 @@
         <file>slides/qtcreatortoolchain/7.png</file>
         <file>slides/qtcreatortoolchain/8.png</file>
         <file>contentUI/overview.html</file>
-        <file>slides/qtcreatorinstall/2022-01-09_12-02-57.png</file>
-        <file>slides/qtcreatorinstall/2022-01-09_12-03-46.png</file>
-        <file>slides/qtcreatorinstall/2022-01-09_12-03-54.png</file>
-        <file>slides/qtcreatorinstall/2022-01-09_12-04-32.png</file>
-        <file>slides/qtcreatorinstall/2022-01-09_12-04-55.png</file>
-        <file>slides/qtcreatorinstall/2022-01-09_12-07-32.png</file>
-        <file>slides/qtcreatorinstall/2022-01-09_12-07-42.png</file>
-        <file>slides/qtcreatorinstall/2022-01-09_12-07-55.png</file>
-        <file>slides/qtcreatorinstall/2022-01-09_12-08-10.png</file>
+        <file>slides/qtcreatorinstall/offline.png</file>
+		<file>slides/qtcreatorinstall/2022-03-10_17-44-17.png</file>
+		<file>slides/qtcreatorinstall/2022-03-10_17-44-25.png</file>
+		<file>slides/qtcreatorinstall/2022-03-10_17-44-33.png</file>
+		<file>slides/qtcreatorinstall/2022-03-10_17-44-46.png</file>
+		<file>slides/qtcreatorinstall/2022-03-10_17-45-00.png</file>
+		<file>slides/qtcreatorinstall/2022-03-10_17-45-10.png</file>
+		<file>slides/qtcreatorinstall/2022-03-10_17-45-18.png</file>
         <file>ImageWindow.qml</file>
         <file>slides/white.png</file>
         <file>icon.png</file>
@@ -94,6 +93,9 @@
         <file>slides/qtcreatorguide/2022-03-08_19-46-17.png</file>
         <file>slides/qtcreatorguide/2022-03-08_19-46-49.png</file>
         <file>slides/qtcreatorguide/2022-03-08_19-50-29.png</file>
+		<file>slides/qtcreatorguide/2022-03-10_16-50-14.png</file>
+		<file>slides/qtcreatorguide/2022-03-10_16-51-37.png</file>
+		<file>slides/qtcreatorguide/2022-03-10_16-53-29.png</file>
         <file>slides/qtcreatorguide/2022-03-08_19-51-36.png</file>
         <file>slides/qtcreatorguide/2022-03-08_19-52-17.png</file>
         <file>slides/qtcreatorguide/2022-03-08_19-54-37.png</file>

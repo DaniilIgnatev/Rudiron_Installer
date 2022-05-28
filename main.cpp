@@ -24,7 +24,10 @@ along with DIBotInstaller. If not, see <http://www.gnu.org/licenses/>.
 #include <QSurfaceFormat>
 #include <QQuickStyle>
 
+#ifdef _WIN32
 #include "QCrashHandler"
+#endif
+
 #include <QStandardPaths>
 
 #include "installermenuvm.h"
@@ -41,7 +44,9 @@ int main(int argc, char ** argv)
     QGuiApplication app(argc, argv);
     app.setWindowIcon(QIcon(":/icon.png"));
 
+#ifdef _WIN32
     Breakpad::CrashHandler::instance()->Init(qApp->applicationDirPath());
+#endif
 
     // Register our component type with QML.
     qmlRegisterType<InstallerMenuVM>("com.dibot",1, 0,"InstallerMenuVM");

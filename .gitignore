@@ -4,3 +4,6 @@ installer/
 build*
 qml_qmlcache.qrc
 *.user
+build-RUDironInstallerTests-Qt_5_12_10_msvc2017_64-Debug/Makefile
+build-RUDironInstallerTests-Qt_5_12_10_msvc2017_64-Debug/Makefile.Debug
+build-RUDironInstallerTests-Qt_5_12_10_msvc2017_64-Debug/Makefile.Release

@@ -1,7 +1,24 @@
+/*
+Copyright (C) THEDATE Ignatev Daniil
+This file is part of RudironInstaller <https://github.com/>.
+
+RudironInstaller is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+RudironInstaller is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with RudironInstaller. If not, see <http://www.gnu.org/licenses/>.
+*/
+
 import QtQuick 2.6
 import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
-//import Qt5Compat.GraphicalEffects
 
 import com.dibot 1.0
 import com.FileSystemAPI 1.0
@@ -93,7 +110,7 @@ ColumnLayout{
                 Layout.fillWidth: true
                 Layout.leftMargin: 15
                 Layout.rightMargin: 15
-                Layout.preferredHeight: 50
+                Layout.minimumHeight: 50
 
                 BusyIndicator {
                     id: busyIndicator
@@ -113,9 +130,31 @@ ColumnLayout{
                         }
 
                         Label {
-                            id: label_status
-                            text: dataObject.completed ? qsTr("Загрузка ") : qsTr("Выполняется загрузка ")
+                            id: label_description
+                            text: "'" + dataObject.description + "'"
                             horizontalAlignment: Text.AlignHCenter
+                            font.italic: false
+                            font.pointSize: 10
+                            font.bold: false
+                        }
+
+                        Label {
+                            id: label_error
+                            text: "Ошибка: " + dataObject.errorDescription
+                            horizontalAlignment: Text.AlignHCenter
+                            font.italic: false
+                            font.pointSize: 10
+                            font.bold: false
+                            visible: dataObject.error
+                        }
+
+                        Label {
+                            id: label_status
+                            text: dataObject.completed ? " — загрузка завершена" : " — выполняется загрузка: "
+                            horizontalAlignment: Text.AlignHCenter
+                            font.italic: false
+                            font.pointSize: 10
+                            font.bold: false
                             visible: !dataObject.error
                         }
 
@@ -123,31 +162,18 @@ ColumnLayout{
                             id: label_progress
                             text: "(" + dataObject.percentage.toString() + "%: " + dataObject.bytesReceived.toString() + " МБайт из " + dataObject.bytesTotal.toString() + " МБайт)"
                             horizontalAlignment: Text.AlignHCenter
+                            font.italic: false
+                            font.pointSize: 10
+                            font.bold: false
                             visible: !dataObject.completed && !dataObject.error
                         }
 
-                        Label {
-                            id: label_error
-                            text: qsTr("Ошибка: ") + dataObject.errorDescription
-                            horizontalAlignment: Text.AlignHCenter
-                            visible: dataObject.error
-                        }
-
-                        Label {
-                            id: label_description
-                            text: "'" + dataObject.description + "'"
-                            horizontalAlignment: Text.AlignHCenter
-                            font.italic: true
-                            font.pointSize: 9
-                            font.bold: false
-                        }
-
-                        Label {
-                            id: labelstatus_complete_end
-                            text: qsTr(" завершена")
-                            horizontalAlignment: Text.AlignHCenter
-                            visible: dataObject.completed
-                        }
+//                        Label {
+//                            id: labelstatus_complete_end
+//                            text: qsTr(" ")
+//                            horizontalAlignment: Text.AlignHCenter
+//                            visible: dataObject.completed
+//                        }
 
                         Item{
                             Layout.fillWidth: true
@@ -171,7 +197,7 @@ ColumnLayout{
         id: descriptors_ui
         pixelAligned: false
         boundsBehavior: Flickable.StopAtBounds
-        interactive: false
+        interactive: true
         Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
 
         delegate: packageDelegate
@@ -212,7 +238,6 @@ ColumnLayout{
 
 /*##^##
 Designer {
-    D{i:0;autoSize:true;height:480;width:640}D{i:1}D{i:2}D{i:3}D{i:14}D{i:15}D{i:17}D{i:18}
-D{i:16}
+    D{i:0;autoSize:true;formeditorZoom:0.6600000262260437;height:480;width:640}
 }
 ##^##*/

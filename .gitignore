@@ -2,3 +2,5 @@ debug/
 release/
 installer/
 build*
+qml_qmlcache.qrc
+*.user

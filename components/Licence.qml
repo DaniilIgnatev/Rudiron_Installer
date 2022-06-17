@@ -90,7 +90,7 @@ ColumnLayout{
 
 
             function readTextFile(){
-                var html = file_system_api.getFileContent(":/contentUI/asis.html")
+                var html = file_system_api.getFileContent(":/components/contentUI/asis.html")
                 textbox.text = html
             }
 

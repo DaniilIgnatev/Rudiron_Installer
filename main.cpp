@@ -62,7 +62,7 @@ int main(int argc, char ** argv)
     QObject::connect(&engine, SIGNAL(quit()), QCoreApplication::instance(), SLOT(quit()));
 
     QQmlComponent *component = new QQmlComponent(&engine);
-    component->loadUrl(QUrl("qrc:/InstallerWindow.qml"));
+    component->loadUrl(QUrl("qrc:/components/InstallerWindow.qml"));
 
     if (!component->isReady() ) {
         qWarning("%s", qPrintable(component->errorString()));

@@ -35,7 +35,7 @@ Window {
     property var currentFrame: undefined
     property real surfaceViewportRatio: 1.0
 
-    property string imageSource: "qrc:/slides/jlink/1.png"
+    property string imageSource: "qrc:/components/slides/jlink/1.png"
 
     ColumnLayout{
         anchors.fill: parent
@@ -64,6 +64,7 @@ Window {
                 transformOrigin: Item.Center
                 smooth: true
                 antialiasing: true
+
                 Component.onCompleted: {
                     x = 0
                     y = 0

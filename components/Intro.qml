@@ -64,7 +64,7 @@ ColumnLayout{
         wheelEnabled: true
 
         Component.onCompleted: {
-            var html = file_system_api.getFileContent(":/contentUI/overview.html")
+            var html = file_system_api.getFileContent(":/components/contentUI/overview.html")
             textbox.text = html
         }
 

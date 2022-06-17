@@ -1,13 +1,5 @@
 <RCC>
     <qresource prefix="/">
-        <file>InstallerWindow.qml</file>
-        <file>Installer_Debug.qml</file>
-        <file>PackagesInstallTabBar.qml</file>
-        <file>PackagesInstallTab.qml</file>
-        <file>contentUI/OverviewUI.qml</file>
-        <file>contentUI/LicenceUI.qml</file>
-        <file>contentUI/StagesObserverUI.qml</file>
-        <file>contentUI/gpl3.html</file>
         <file>slides/jlink/1.png</file>
         <file>slides/jlink/2.png</file>
         <file>slides/jlink/3.png</file>
@@ -29,28 +21,19 @@
         <file>slides/qtcreatortoolchain/6.png</file>
         <file>slides/qtcreatortoolchain/7.png</file>
         <file>slides/qtcreatortoolchain/8.png</file>
-        <file>contentUI/overview.html</file>
         <file>slides/qtcreatorinstall/offline.png</file>
-		<file>slides/qtcreatorinstall/2022-03-10_17-44-17.png</file>
-		<file>slides/qtcreatorinstall/2022-03-10_17-44-25.png</file>
-		<file>slides/qtcreatorinstall/2022-03-10_17-44-33.png</file>
-		<file>slides/qtcreatorinstall/2022-03-10_17-44-46.png</file>
-		<file>slides/qtcreatorinstall/2022-03-10_17-45-00.png</file>
-		<file>slides/qtcreatorinstall/2022-03-10_17-45-10.png</file>
-		<file>slides/qtcreatorinstall/2022-03-10_17-45-18.png</file>
-        <file>ImageWindow.qml</file>
+        <file>slides/qtcreatorinstall/2022-03-10_17-44-17.png</file>
+        <file>slides/qtcreatorinstall/2022-03-10_17-44-25.png</file>
+        <file>slides/qtcreatorinstall/2022-03-10_17-44-33.png</file>
+        <file>slides/qtcreatorinstall/2022-03-10_17-44-46.png</file>
+        <file>slides/qtcreatorinstall/2022-03-10_17-45-00.png</file>
+        <file>slides/qtcreatorinstall/2022-03-10_17-45-10.png</file>
+        <file>slides/qtcreatorinstall/2022-03-10_17-45-18.png</file>
         <file>slides/white.png</file>
         <file>icon.png</file>
-        <file>PackagesInstallTabButton.qml</file>
-        <file>contentUI/ButtonStyled.qml</file>
         <file>slides/qtcreatortoolchain/qt_logo_green_rgb_whitespace.png</file>
         <file>slides/zadig/jlink.png</file>
         <file>icon.ico</file>
-        <file>Intro.qml</file>
-        <file>PackagesInstall.qml</file>
-        <file>Licence.qml</file>
-        <file>PackagesOptions.qml</file>
-        <file>PackagesDownload.qml</file>
         <file>slides/vscodeinstall/2022-03-06_19-53-07.png</file>
         <file>slides/vscodeinstall/2022-03-06_19-53-21.png</file>
         <file>slides/vscodeinstall/2022-03-06_19-53-27.png</file>
@@ -78,8 +61,6 @@
         <file>slides/programmer/2022-03-08_12-24-03.png</file>
         <file>slides/programmer/2022-03-08_12-26-09.png</file>
         <file>slides/programmer/2022-03-08_12-36-27.png</file>
-        <file>contentUI/freeware.txt</file>
-        <file>contentUI/asis.html</file>
         <file>slides/qtcreatorguide/2022-01-08_19-26-07.png</file>
         <file>slides/qtcreatorguide/2022-01-09_13-46-53.png</file>
         <file>slides/qtcreatorguide/2022-01-09_13-47-02.png</file>
@@ -93,11 +74,32 @@
         <file>slides/qtcreatorguide/2022-03-08_19-46-17.png</file>
         <file>slides/qtcreatorguide/2022-03-08_19-46-49.png</file>
         <file>slides/qtcreatorguide/2022-03-08_19-50-29.png</file>
-		<file>slides/qtcreatorguide/2022-03-10_16-50-14.png</file>
-		<file>slides/qtcreatorguide/2022-03-10_16-51-37.png</file>
-		<file>slides/qtcreatorguide/2022-03-10_16-53-29.png</file>
+        <file>slides/qtcreatorguide/2022-03-10_16-50-14.png</file>
+        <file>slides/qtcreatorguide/2022-03-10_16-51-37.png</file>
+        <file>slides/qtcreatorguide/2022-03-10_16-53-29.png</file>
         <file>slides/qtcreatorguide/2022-03-08_19-51-36.png</file>
         <file>slides/qtcreatorguide/2022-03-08_19-52-17.png</file>
         <file>slides/qtcreatorguide/2022-03-08_19-54-37.png</file>
+        <file>components/contentUI/asis.html</file>
+        <file>components/contentUI/ButtonStyled.qml</file>
+        <file>components/contentUI/freeware.txt</file>
+        <file>components/contentUI/gpl3.html</file>
+        <file>components/contentUI/LicenceUI.qml</file>
+        <file>components/contentUI/LicenceUI.qml.autosave.dmAOfm</file>
+        <file>components/contentUI/overview.html</file>
+        <file>components/contentUI/OverviewUI.qml</file>
+        <file>components/contentUI/StagesObserverUI.qml</file>
+        <file>components/ImageWindow.qml</file>
+        <file>components/Installer_Debug.qml</file>
+        <file>components/InstallerMenu.qml</file>
+        <file>components/InstallerWindow.qml</file>
+        <file>components/Intro.qml</file>
+        <file>components/Licence.qml</file>
+        <file>components/PackagesDownload.qml</file>
+        <file>components/PackagesInstall.qml</file>
+        <file>components/PackagesInstallTab.qml</file>
+        <file>components/PackagesInstallTabBar.qml</file>
+        <file>components/PackagesInstallTabButton.qml</file>
+        <file>components/PackagesOptions.qml</file>
     </qresource>
 </RCC>

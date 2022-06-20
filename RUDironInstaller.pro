@@ -2,6 +2,7 @@ QT += quick xml
 QT += quickcontrols2
 QT += network
 QT += widgets
+QT += gui
 
 DEFINES += QUAZIP_STATIC
 DEFINES += QTAWS_STATIC

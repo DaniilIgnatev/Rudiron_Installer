@@ -128,7 +128,7 @@ ColumnLayout{
             acceptedButtons: Qt.LeftButton
             onClicked: {
                 if (image.source.toString() !== ("qrc:/slides/white.png")){
-                    var component = Qt.createComponent("qrc:/ImageWindow.qml")
+                    var component = Qt.createComponent("qrc:/components/ImageWindow.qml")
                     if (component !== null){
                         if (component.status === Component.Ready){
                             var window = component.createObject(stagesObserver)

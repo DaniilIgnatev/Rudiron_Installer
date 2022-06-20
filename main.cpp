@@ -35,15 +35,18 @@ along with RudironInstaller. If not, see <http://www.gnu.org/licenses/>.
 #include "packagesdownloader/packagesdownloader.hpp"
 #include "packagesdownloader/packagedescriptor.hpp"
 
-#define QT_AUTO_SCREEN_SCALE_FACTOR 1
-
 // Main wrapper program.
 // Special handling is needed when using Qt Quick Controls for the top window.
 // The code here is based on what qmlscene does.
 
 int main(int argc, char ** argv)
 {
-    QGuiApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+    QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+#endif
+    QCoreApplication::setApplicationName("Rudiron Installer");
+    QCoreApplication::setApplicationVersion("1.1.0");
+
     QGuiApplication app(argc, argv);
     app.setWindowIcon(QIcon(":/icon.png"));
 

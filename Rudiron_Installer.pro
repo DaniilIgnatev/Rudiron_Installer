@@ -23,9 +23,8 @@ win32 {
     include($$PWD/sources/QCrashHandler-master/src/qcrashhandler.pri)
 
     CONFIG(debug, debug|release) {
-        TARGET = RudironInstallerDebug
+
     } else {
-        TARGET = RudironInstaller
         # create debug symbols for release builds
         CONFIG *= force_debug_info
         QMAKE_CXXFLAGS_RELEASE_WITH_DEBUGINFO -= -O2

@@ -8,3 +8,6 @@ qml_qmlcache.qrc
 *.Release
 *.user
 *.stash
+Makefile
+*.Debug
+*.Release

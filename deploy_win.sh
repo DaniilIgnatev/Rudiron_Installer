@@ -31,4 +31,4 @@ mv "release/$target.exe" "release/$target_user.exe"
 cd $compiler_bin
 ./windeployqt.exe "$root_dir/release/$target_user.exe" --qmldir=$root_dir/Components --release
 
-$SHELL
+#$SHELL

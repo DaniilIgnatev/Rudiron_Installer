@@ -25,6 +25,7 @@ win32 {
     CONFIG(debug, debug|release) {
 
     } else {
+
         # create debug symbols for release builds
         CONFIG *= force_debug_info
         QMAKE_CXXFLAGS_RELEASE_WITH_DEBUGINFO -= -O2

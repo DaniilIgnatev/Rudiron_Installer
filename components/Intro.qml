@@ -63,32 +63,25 @@ ColumnLayout{
         clip: true
         wheelEnabled: true
 
-        Component.onCompleted: {
-            var html = file_system_api.getFileContent(":/components/contentUI/overview.html")
-            textbox.text = html
-        }
-
 //        ScrollBar.vertical.policy: ScrollBar.AlwaysOn
         ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
         ScrollBar.horizontal.interactive: false
         ScrollBar.vertical.interactive: true
 
-        ColumnLayout{
             Text {
                 id: textbox
-                Layout.preferredWidth: scrollableBox.width
-                font.pointSize: 10
+                anchors.fill: parent
+                topPadding: 15
+                bottomPadding: 15
+                leftPadding: 15
 
-                text: "<b>Описание</b> <i>продукта.</i><b>Описание</b> <i>продукта.</i><b>Описание</b> <i>продукта.</i><b>Описание</b> <i>продукта.</i><b>Описание</b> <i>продукта.</i><b>Описание</b> <i>продукта.</i><b>Описание</b> <i>продукта.</i><b>Описание</b> <i>продукта.</i><b>Описание</b> <i>продукта.</i><b>Описание</b> <i>продукта.</i>"
+                text: file_system_api.getFileContent(":/components/contentUI/overview.html")
+                font.pointSize: 10
                 font.family: "Arial"
                 wrapMode: Text.WordWrap
-                Layout.bottomMargin: 15
-                Layout.topMargin: 15
-                Layout.leftMargin: 15
                 fontSizeMode: Text.Fit
                 textFormat: Text.RichText
             }
-        }
     }
 
     Item{

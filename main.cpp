@@ -48,7 +48,7 @@ int main(int argc, char ** argv)
     QCoreApplication::setApplicationVersion("1.1.0");
 
     QGuiApplication app(argc, argv);
-    app.setWindowIcon(QIcon(":/icon.png"));
+    app.setWindowIcon(QIcon(":/icon.ico"));
 
 #ifdef _WIN32
     Breakpad::CrashHandler::instance()->Init(qApp->applicationDirPath());

@@ -7,8 +7,12 @@ QT += gui
 DEFINES += QUAZIP_STATIC
 DEFINES += QTAWS_STATIC
 
-RC_ICONS = icon.ico
-CONFIG += c++11
+macx{
+    ICON = icon.icns
+}
+else{
+    RC_ICONS = icon.ico
+}
 
 INCLUDEPATH += "zlib-1.2.11"
 INCLUDEPATH += "quazip-0.7.3"

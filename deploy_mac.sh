@@ -20,8 +20,7 @@ cd $root_dir
 
 rm -r release
 mkdir release
-cp -r "$root_dir/../build-$target-Desktop_Qt_${qt_version}_clang_64bit-Release/$target.app" release/
-mv "release/$target.app" "release/$target_user.app"
+cp -r "$root_dir/../build-$target-Desktop_Qt_${qt_version}_clang_64bit-Release/$target_user.app" release/
 
 cd $compiler_bin
 ./macdeployqt "$root_dir/release/$target_user.app" -qmldir=$root_dir/Components --release -dmg

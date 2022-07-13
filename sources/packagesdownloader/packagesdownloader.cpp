@@ -32,8 +32,8 @@ PackagesDownloader::~PackagesDownloader()
 
 PackagesDownloader *PackagesDownloader::instance()
 {
-    static PackagesDownloader singleton;
-    return &singleton;
+    static PackagesDownloader *singleton = new PackagesDownloader();
+    return singleton;
 }
 
 QObject *PackagesDownloader::qmlInstance(QQmlEngine *engine, QJSEngine *scriptEngine)

@@ -11,3 +11,5 @@ qml_qmlcache.qrc
 Makefile
 *.Debug
 *.Release
+.DS_Store
+sources/.DS_Store

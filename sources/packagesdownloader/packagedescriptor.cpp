@@ -79,6 +79,16 @@ void PackageDescriptor::setID(QString newValue){
     emit IDChanged();
 }
 
+bool PackageDescriptor::getSkipDownload()
+{
+    return _skipDownload;
+}
+
+void PackageDescriptor::setSkipDownload(bool newValue)
+{
+    this->_skipDownload = newValue;
+}
+
 QString PackageDescriptor::getType()
 {
     return this->_type;
@@ -120,6 +130,11 @@ void PackageDescriptor::setPercentage(int newValue)
 QString PackageDescriptor::getURI()
 {
     return this->URL.split("/").last();
+}
+
+QString PackageDescriptor::getInstallerName()
+{
+    return this->Contents.first();
 }
 
 bool PackageDescriptor::getCompleted()

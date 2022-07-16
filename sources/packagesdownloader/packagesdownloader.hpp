@@ -75,6 +75,8 @@ public slots:
 
     QStringList getFiltredPackagesIDs(QStringList excludeID);
 
+    void applySkipDownload(QStringList skipDownloadID);
+
 public slots:
     const QString getSources_platform();
 

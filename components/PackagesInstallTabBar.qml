@@ -241,8 +241,8 @@ ColumnLayout{
                 installFunction: function(){
                     var qtpackage = PackagesDownloader.getPackage("qt")
                     var destination = qtpackage.getDestination()
-                    var uri = qtpackage.getURI();
-                    installerVM.installQTCreator(destination, uri)
+                    var installer = qtpackage.getInstallerName();
+                    installerVM.install(destination, installer)
                 }
             }]
     }
@@ -378,8 +378,8 @@ ColumnLayout{
                 installFunction: function(){
                     var qtpackage = PackagesDownloader.getPackage("vscode")
                     var destination = qtpackage.getDestination()
-                    var uri = qtpackage.getURI();
-                    installerVM.installQTCreator(destination, uri)
+                    var installer = qtpackage.getInstallerName();
+                    installerVM.install(destination, installer)
                 }
             }]
     }

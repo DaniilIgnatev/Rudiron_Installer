@@ -60,7 +60,7 @@ ColumnLayout{
             id: file_system_api
         }
 
-        clip: true
+        clip: false
         wheelEnabled: true
 
 //        ScrollBar.vertical.policy: ScrollBar.AlwaysOn
@@ -76,7 +76,7 @@ ColumnLayout{
                 leftPadding: 15
 
                 text: file_system_api.getFileContent(":/components/contentUI/overview.html")
-                font.pointSize: 10
+                font.pointSize: 14
                 font.family: "Arial"
                 wrapMode: Text.WordWrap
                 fontSizeMode: Text.Fit

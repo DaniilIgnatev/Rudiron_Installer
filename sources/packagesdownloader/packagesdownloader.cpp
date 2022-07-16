@@ -17,6 +17,7 @@ along with RudironInstaller. If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "packagesdownloader.hpp"
+#include "QProcess"
 
 
 PackagesDownloader::PackagesDownloader(QObject *parent)
@@ -69,7 +70,7 @@ void PackagesDownloader::parseSources(QString json_string)
         sourceURL = json_object[sources_platform].toString();
     }
     else if (os_type == "darwin"){
-        sources_platform = "macOS_x64";
+        sources_platform = "mac_x64";
         sourceURL = json_object[sources_platform].toString();
     }
     else{
@@ -182,6 +183,15 @@ QStringList PackagesDownloader::getFiltredPackagesIDs(QStringList excludeID)
     return filtredPackageIDs;
 }
 
+void PackagesDownloader::applySkipDownload(QStringList skipDownloadID)
+{
+    for (int i = 0; i < packages.count();i++){
+        if (skipDownloadID.contains(packages[i]->getID())){
+            packages[i]->setSkipDownload(true);
+        }
+    }
+}
+
 void PackagesDownloader::packageError(PackageDescriptor *descriptor, QString description)
 {
     descriptor->setErrorDescription(description);
@@ -190,7 +200,14 @@ void PackagesDownloader::packageError(PackageDescriptor *descriptor, QString des
 }
 
 void PackagesDownloader::downloadPackage(PackageDescriptor* descriptor)
-{    
+{
+    if (descriptor->getSkipDownload()){
+        descriptor->setCompleted(true);
+        descriptor->setPercentage(100);
+        emit packageDownloadFinished(descriptor);
+        return;
+    }
+
     if (descriptor->getType() == PackageDescriptor::type_script){
         descriptor->setCompleted(true);
         descriptor->setPercentage(100);
@@ -266,9 +283,25 @@ void PackagesDownloader::downloadPackage(PackageDescriptor* descriptor)
                     tempFile->deleteLater();
                     tempFileDescriptor->deleteLater();
 
-                    if (descriptor->getType() == PackageDescriptor::type_archive){
+                    QFileInfo destinationInfo(destination_path);
+
+                    if (descriptor->getType() == PackageDescriptor::type_archive || destinationInfo.suffix() == "zip"){
+#ifdef _WIN32
                         JlCompress::extractDir(destination_path, destination_folder);
+#else
+                        QProcess bash;
+                        bash.start("bash");
+                        bash.write((QString("unzip ") + "'" + destination_path + "'" + QString(" -d ") + "'" + destination_folder + "'").toUtf8());
+                        bash.closeWriteChannel();
+                        bash.waitForFinished();
+#endif
+
                         QFile::remove(destination_path);
+
+                        if (QSysInfo::kernelType() == "darwin"){
+                            QDir macOSDir(destination_folder + "/__MACOSX");
+                            macOSDir.removeRecursively();
+                        }
                     }
 
                     descriptor->setCompleted(true);

@@ -34,7 +34,11 @@ ColumnLayout{
 
     property var excludePackageIDs: ["jlink", "qt"]
 
-    function setExcludePackageIDs(){
+    property alias withJLink: radio2.checked
+
+    property alias withVSCode: radio3.checked
+
+    function updateExcludePackageIDs(){
         excludePackageIDs = []
         if (!withJLink){
             excludePackageIDs.push("jlink")
@@ -47,9 +51,28 @@ ColumnLayout{
         }
     }
 
-    property alias withJLink: radio2.checked
+    property var skipDownloadPackageIDs: []
 
-    property alias withVSCode: radio3.checked
+    property alias downloadToolchain: downloadIDE_CheckBox.checked
+
+    property alias downloadIDE: downloadToolchain_CheckBox.checked
+
+    function updateSkipDownloadPackageIDs(){
+        skipDownloadPackageIDs = []
+
+        if (!downloadToolchain){
+            skipDownloadPackageIDs.push("cmake")
+            skipDownloadPackageIDs.push("openocd")
+            skipDownloadPackageIDs.push("gcc")
+            skipDownloadPackageIDs.push("python")
+            skipDownloadPackageIDs.push("jlink")
+        }
+
+        if (!downloadIDE){
+            skipDownloadPackageIDs.push("qt")
+            skipDownloadPackageIDs.push("vscode")
+        }
+    }
 
     spacing: 0
 
@@ -88,7 +111,7 @@ ColumnLayout{
                 Layout.fillWidth: true
                 RadioButton {
                     id: radio1
-                    text: "Вариант установки без JLink-совместимого программатора"
+                    text: "Вариант установки без JLink-совместимого программатора (для большинства пользователей)"
                     Layout.fillWidth: true
                     checked: true
                     font.family: "Arial"
@@ -108,9 +131,30 @@ ColumnLayout{
             }
         }
 
+        RowLayout {
+            Layout.fillWidth: true
+            Layout.rightMargin: 15
+            Layout.leftMargin: 15
+
+            ColumnLayout {
+                Layout.fillWidth: true
+                CheckBox {
+                    id: downloadToolchain_CheckBox
+                    text: "На компьютере отсутствует данный инструментарий и я хочу загрузить его в папку \"components\""
+                    Layout.fillWidth: true
+                    checked: true
+                    font.family: "Arial"
+                }
+            }
+
+            Item {
+                Layout.fillWidth: true
+            }
+        }
+
         Text {
-            property string jlink_description: "Будет доступна прошивка через интерфейс SWD, отладка в реальном времени, просмотр и редактирование значений регистров процессора и периферии"
-            property string com_description: "Будет доступная прошивка через встроенный UART загрузчик"
+            property string jlink_description: downloadToolchain_CheckBox.checked ? "Будет доступна прошивка и отладка в реальном времени через интерфейс SWD" : "Будет продемонстрирована прошивка и отладка в реальном времени через интерфейс SWD"
+            property string com_description: downloadToolchain_CheckBox.checked ? "Будет доступна прошивка через встроенный UART загрузчик" : "Будет продемонстрирована прошивка через встроенный UART загрузчик"
 
             Layout.leftMargin: 20
             Layout.fillWidth: true
@@ -143,7 +187,7 @@ ColumnLayout{
                 Layout.fillWidth: true
                 RadioButton {
                     id: radio3
-                    text: "Вариант установки с IDE Visual Studio Code"
+                    text: "Вариант установки с Visual Studio Code (для большинства пользователей)"
                     Layout.fillWidth: true
                     checked: true
                     font.family: "Arial"
@@ -163,9 +207,30 @@ ColumnLayout{
             }
         }
 
+        RowLayout {
+            Layout.fillWidth: true
+            Layout.rightMargin: 15
+            Layout.leftMargin: 15
+
+            ColumnLayout {
+                Layout.fillWidth: true
+                CheckBox {
+                    id: downloadIDE_CheckBox
+                    text: "На компьютере отсутствует данная программа и я хочу загрузить её в папку \"components\""
+                    Layout.fillWidth: true
+                    checked: true
+                    font.family: "Arial"
+                }
+            }
+
+            Item {
+                Layout.fillWidth: true
+            }
+        }
+
         Text {
-            property string vscode_description: "Будет установлен универсальный редактор исходного кода от Microsoft"
-            property string qtcreator_description: "Будет установлена свободная IDE для разработки на С, C++, JavaScript и QML"
+            property string vscode_description: downloadIDE_CheckBox.checked ? "Будет загружен универсальный редактор исходного кода от Microsoft" : "Будет продемонстрирована работа в универсальном редакторе исходного кода от Microsoft"
+            property string qtcreator_description: downloadIDE_CheckBox.checked ? "Будет загружена свободная IDE для разработки на С, C++, JavaScript и QML" : "Будет продемонстрирована работа в свободной IDE для разработки на С, C++, JavaScript и QML"
 
             Layout.leftMargin: 20
             Layout.fillWidth: true
@@ -203,7 +268,8 @@ ColumnLayout{
             text: "Далее"
             enabled: true
             onPressed: {
-                setExcludePackageIDs()
+                updateExcludePackageIDs()
+                updateSkipDownloadPackageIDs()
                 root.buttonNext()
             }
         }

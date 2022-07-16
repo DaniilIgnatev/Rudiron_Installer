@@ -53,7 +53,6 @@ int main(int argc, char ** argv)
 #ifdef _WIN32
     Breakpad::CrashHandler::instance()->Init(qApp->applicationDirPath());
 #endif
-
     // Register our component type with QML.
     qmlRegisterType<InstallerMenuVM>("com.dibot",1, 0,"InstallerMenuVM");
     qmlRegisterType<FileSystemAPI>("com.FileSystemAPI",1, 0,"FileSystemAPI");

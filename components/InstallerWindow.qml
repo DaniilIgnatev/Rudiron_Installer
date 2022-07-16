@@ -74,6 +74,7 @@ Window {
             app.currentIndex = 4
         }
         excludePackageIDs: packagesOptions.excludePackageIDs
+        skipDownloadPackageIDs: packagesOptions.skipDownloadPackageIDs
     }
 
     PackagesInstall {

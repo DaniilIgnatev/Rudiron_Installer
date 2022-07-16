@@ -116,10 +116,7 @@ public slots:
     void addCombilerVariables_Windows();
 
 
-    void addCombilerVariables_Linux();
-
-
-    void installQTCreator(QString destination, QString uri);
+    void addCompilerVariables_Linux();
 
 
     void installJlink();
@@ -152,7 +149,7 @@ public slots:
     void addKit();
 
 
-    void installVSCode(QString destination, QString uri);
+    void install(QString destination, QString uri);
 
 };
 

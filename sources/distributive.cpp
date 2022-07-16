@@ -27,7 +27,13 @@ Distributive::Distributive(QObject *parent) : QObject(parent)
 
 QString Distributive::absoluteComponentPath(QDir componentDir)
 {
+    QString os_type = QSysInfo::kernelType();
     QString dironPath = Distributive::dibotDir().path();
+
+    if (os_type == "darwin"){
+        dironPath = dironPath.remove("/Rudiron Installer.app/Contents/MacOS", Qt::CaseInsensitive);
+    }
+
     dironPath = dironPath.remove("installer", Qt::CaseInsensitive);
 
     QString componentPath = componentDir.path();
@@ -40,7 +46,13 @@ QString Distributive::absoluteComponentPath(QDir componentDir)
 
 QString Distributive::absoluteComponentPath(QString componentPath)
 {
+    QString os_type = QSysInfo::kernelType();
     QString dironPath = Distributive::dibotDir().path();
+
+    if (os_type == "darwin"){
+        dironPath = dironPath.remove("/Rudiron Installer.app/Contents/MacOS", Qt::CaseInsensitive);
+    }
+
     dironPath = dironPath.remove("installer", Qt::CaseInsensitive);
 
     QString fixedComponentPath = componentPath.remove("../");

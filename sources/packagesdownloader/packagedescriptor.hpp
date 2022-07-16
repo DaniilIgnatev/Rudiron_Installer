@@ -57,6 +57,15 @@ public:
     void setID(QString newValue);
 
 private:
+    bool _skipDownload = false;
+
+public:
+    ///тип пакета: приложение, установщик, архив, shell скрипт
+    Q_PROPERTY(bool type READ getSkipDownload WRITE setSkipDownload NOTIFY skipDownloadChanged)
+    bool getSkipDownload();
+    void setSkipDownload(bool newValue);
+
+private:
     QString _type;
 
 public:
@@ -99,6 +108,7 @@ public:
 
 public slots:
     QString getURI();
+    QString getInstallerName();
 
 private:
     bool _completed;
@@ -145,6 +155,8 @@ public:
 
 signals:
     void IDChanged();
+
+    void skipDownloadChanged();
 
     void typeChanged();
 

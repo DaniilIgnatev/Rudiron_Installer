@@ -32,6 +32,8 @@ ColumnLayout{
 
     property var excludePackageIDs: []
 
+    property var skipDownloadPackageIDs: []
+
     property var filtredPackageIDs: []
 
     onVisibleChanged: {
@@ -55,6 +57,8 @@ ColumnLayout{
         }
         onPackagesFetched: {
             console.log("Exclude packages: ", root.excludePackageIDs)
+            console.log("Skip download packages: ", root.skipDownloadPackageIDs)
+            PackagesDownloader.applySkipDownload(root.skipDownloadPackageIDs)
             root.filtredPackageIDs = PackagesDownloader.getFiltredPackagesIDs(root.excludePackageIDs)
             console.log("Filtred packages: ", root.filtredPackageIDs)
             var descriptors = PackagesDownloader.getPackages(root.excludePackageIDs)

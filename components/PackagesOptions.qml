@@ -53,9 +53,9 @@ ColumnLayout{
 
     property var skipDownloadPackageIDs: []
 
-    property alias downloadToolchain: downloadIDE_CheckBox.checked
+    property alias downloadToolchain: downloadToolchain_CheckBox.checked
 
-    property alias downloadIDE: downloadToolchain_CheckBox.checked
+    property alias downloadIDE: downloadIDE_CheckBox.checked
 
     function updateSkipDownloadPackageIDs(){
         skipDownloadPackageIDs = []

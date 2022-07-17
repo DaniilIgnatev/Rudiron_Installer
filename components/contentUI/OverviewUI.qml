@@ -76,10 +76,10 @@ ColumnLayout{
         Text {
             id: textbox
             width: scrollableBox.width
-            font.pointSize: 12
             padding: 10
             text: "<b>Описание</b> <i>продукта.</i><b>Описание</b> <i>продукта.</i><b>Описание</b> <i>продукта.</i><b>Описание</b> <i>продукта.</i><b>Описание</b> <i>продукта.</i><b>Описание</b> <i>продукта.</i><b>Описание</b> <i>продукта.</i><b>Описание</b> <i>продукта.</i><b>Описание</b> <i>продукта.</i><b>Описание</b> <i>продукта.</i>"
             font.family: "Arial"
+            font.pointSize: 10
             wrapMode: Text.Wrap
             fontSizeMode: Text.Fit
             textFormat: Text.RichText

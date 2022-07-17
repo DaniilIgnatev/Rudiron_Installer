@@ -31,6 +31,23 @@ PackagesDownloader::~PackagesDownloader()
 
 }
 
+QString PackagesDownloader::trimDestination(QString destination)
+{
+    QString destinationTrimmed = destination;
+    QList<int> slashIndexes;
+
+    for (int i = 0;i < destination.count(); i++){
+        if (destination[i] == "\\" || destination == "/"){
+            slashIndexes.append(i);
+        }
+    }
+
+    const int removeCount = slashIndexes[slashIndexes.count() - 1] - 10 - slashIndexes[2];
+    destinationTrimmed = destinationTrimmed.remove(slashIndexes[2] + 1, removeCount);
+    destinationTrimmed = destinationTrimmed.insert(slashIndexes[2] + 1, "...");
+    return destinationTrimmed;
+}
+
 PackagesDownloader *PackagesDownloader::instance()
 {
     static PackagesDownloader *singleton = new PackagesDownloader();
@@ -234,7 +251,8 @@ void PackagesDownloader::downloadPackage(PackageDescriptor* descriptor)
 
         bool folder_exists = QFile::exists(destination_folder);
         if (!folder_exists){
-            packageError(descriptor, "Директория '" + destination_folder + "' не существует");
+            QString destination_folder_short = trimDestination(destination_folder);
+            packageError(descriptor, "Директория '" + destination_folder_short + "' не существует");
         }
         else{
             bool contents_exist = true;

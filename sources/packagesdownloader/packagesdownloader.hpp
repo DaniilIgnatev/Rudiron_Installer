@@ -54,6 +54,9 @@ private:
     YandexDiskAPI *yandexapi;
 
 private:
+    QString trimDestination(QString destination);
+
+private:
     QString sources_platform;
     QString sources_url;
 

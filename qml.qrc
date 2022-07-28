@@ -100,5 +100,10 @@
         <file>components/PackagesInstallTabBar.qml</file>
         <file>components/PackagesInstallTabButton.qml</file>
         <file>components/PackagesOptions.qml</file>
+        <file>slides/cp2102x/1.png</file>
+        <file>slides/cp2102x/2.png</file>
+        <file>slides/cp2102x/3.png</file>
+        <file>slides/programmer2/1.png</file>
+        <file>slides/programmer2/2.png</file>
     </qresource>
 </RCC>

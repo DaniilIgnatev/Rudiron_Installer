@@ -84,6 +84,13 @@ QDir Distributive::softDir()
 
 
 #ifdef _WIN32
+const QString Distributive::cp210xBinPath = componentsDirPath + "/CP210x_Classic/CP210xVCPInstaller_x64.exe";
+#else
+const QString Distributive::cp2102BinPath = componentsDirPath + "/CP210x_Classic/VCPInstaller_x64.deb";
+#endif
+
+
+#ifdef _WIN32
 const QString Distributive::jlinkBinPath = componentsDirPath + "/JLink.exe";
 #else
 const QString Distributive::jlinkBinPath = componentsDirPath + "/JLink.deb";

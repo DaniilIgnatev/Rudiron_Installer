@@ -61,6 +61,7 @@ ColumnLayout{
         skipDownloadPackageIDs = []
 
         if (!downloadToolchain){
+            skipDownloadPackageIDs.push("cp210x")
             skipDownloadPackageIDs.push("cmake")
             skipDownloadPackageIDs.push("openocd")
             skipDownloadPackageIDs.push("gcc")

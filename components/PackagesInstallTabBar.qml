@@ -69,6 +69,10 @@ ColumnLayout{
         var filtred_tabs = []
         var isWindows = (Qt.platform.os === "windows")
 
+        if (isWindows){
+            filtred_tabs.push(tab_cp2102)
+        }
+
         if (filtredPackageIDs.includes("jlink")){
             filtred_tabs.push(tab_jlink)
             if (isWindows){
@@ -91,8 +95,8 @@ ColumnLayout{
             filtred_tabs.push(tab_vscodeguide)
         }
 
-        if (!filtredPackageIDs.includes("jlink")){
-            filtred_tabs.push(tab_programmer)
+        if (filtredPackageIDs.includes("jlink")){
+            filtred_tabs.push(tab_programmer2)
         }
 
         return filtred_tabs
@@ -100,16 +104,16 @@ ColumnLayout{
 
     function updateTabsVisibility(){
         root.tabs.forEach(e => {
-            e.visible = true
-        })
+                              e.visible = true
+                          })
     }
 
     function updateTabsPosition(){
         var i = 0
         root.tabs.forEach(e => {
-            e.position = i
-            i++
-        })
+                              e.position = i
+                              i++
+                          })
     }
 
 
@@ -172,6 +176,34 @@ ColumnLayout{
                 ],
                 installFunction: function(){
                     installerVM.runZadig()
+                }
+            }]
+    }
+
+
+    PackagesInstallTab{
+        id: tab_cp2102
+        visible: false
+        onCheckedChanged: if (checked) {root.tabChecked(position)}
+        position: 2
+        text: "Драйвер\nCOM-порта"
+        contentQML: "contentUI/StagesObserverUI.qml"
+        enabled: true
+        model: [{
+                title: text,
+                showAgain: true,
+                imagesURLList: [
+                    "qrc:/slides/cp2102x/1.png",
+                    "qrc:/slides/cp2102x/2.png",
+                    "qrc:/slides/cp2102x/3.png"
+                ],
+                hintList: [
+                    "Нажмите \"Далее\".",
+                    "Нажмите \"Далее\".",
+                    "Нажмите \"Готово\"."
+                ],
+                installFunction: function(){
+                    installerVM.installCp210x()
                 }
             }]
     }
@@ -299,7 +331,7 @@ ColumnLayout{
         visible: false
         onCheckedChanged: if (checked) {root.tabChecked(position)}
         position: 5
-        text: "Руководство"
+        text: "Программирование"
         contentQML: "contentUI/StagesObserverUI.qml"
         enabled: true
         model: [{
@@ -344,7 +376,7 @@ ColumnLayout{
                     "В окне \"Регистры периферии\" правой кнопкой мыши выберите группу регистров PORTA.",
                     "Правой кнопкой мыши выберите двоичный формат.",
                     "Установка 4-го бита в \"1\" включит второй светодиод.",
-                    ],
+                ],
                 installFunction: null
             }]
     }
@@ -414,7 +446,7 @@ ColumnLayout{
         visible: false
         onCheckedChanged: if (checked) {root.tabChecked(position)}
         position: 8
-        text: "Руководство"
+        text: "Программирование"
         contentQML: "contentUI/StagesObserverUI.qml"
         enabled: true
         model: [{
@@ -430,6 +462,8 @@ ColumnLayout{
                     "qrc:/slides/vscodeguide/2022-03-06_20-54-41.png",
                     "qrc:/slides/vscodeguide/2022-03-06_20-55-06.png",
                     "qrc:/slides/vscodeguide/2022-03-06_21-00-36.png",
+                    "qrc:/slides/vscodeguide/2022-07-28_18-14-00.png",
+                    "qrc:/slides/vscodeguide/2022-07-28_18-32-06.png",
                     "qrc:/slides/vscodeguide/2022-03-07_18-32-15.png",
                     "qrc:/slides/vscodeguide/2022-03-07_18-34-06.png",
                     "qrc:/slides/vscodeguide/2022-03-07_18-35-33.png",
@@ -445,8 +479,10 @@ ColumnLayout{
                     "Новые папки нужно добавлять в переменную \"SRC_LIST\".",
                     "Сохраняйте файл \"CMakeLists.txt\" каждый раз при изменении структуры проекта.",
                     "Во вкладке \"Терминал\" выберите \"Запуск задачи\".",
-                    "Для сборки проекта нажмите \"Build\" или CTRL+SHIFT+B.",
+                    "Для сборки проекта нажмите \"Выпуск: Собрать\" или CTRL+SHIFT+B.",
                     "В папке \"build\" создадутся bin, elf и hex файлы. В терминале указывается размер сегментов прошивки.",
+                    "Для прошивки контроллера запустите задачу \"Загрузить в флеш-память\".",
+                    "Пример процесса прошивки.",
                     "Пример запуска отладки через JLink и OpenOCD.",
                     "Пример просмотра регистров периферии через JLink и OpenOCD.",
                     "Поддерживается редактирование значений регистров.",
@@ -459,35 +495,58 @@ ColumnLayout{
     }
 
 
+    //    PackagesInstallTab{
+    //        id: tab_programmer
+    //        visible: false
+    //        onCheckedChanged: if (checked) {root.tabChecked(position)}
+    //        position: 9
+    //        text: "Встроенный\nпрограмматор"
+    //        contentQML: "contentUI/StagesObserverUI.qml"
+    //        enabled: true
+    //        model: [{
+    //                title: text,
+    //                showAgain: true,
+    //                imagesURLList: [
+    //                    "qrc:/slides/programmer/2022-03-08_12-21-18.png",
+    //                    "qrc:/slides/programmer/2022-03-08_12-23-06.png",
+    //                    "qrc:/slides/programmer/2022-03-08_12-24-03.png",
+    //                    "qrc:/slides/programmer/2022-03-08_12-26-09.png",
+    //                    "qrc:/slides/programmer/2022-03-08_12-36-27.png",
+    //                ],
+    //                hintList: [
+    //                    "Запустите приложение \"1986WSD\" в папке \"tools/programmer\".",
+    //                    "Определите COM порт подключенной платы.",
+    //                    "Внесите номер порта от 0 до 9 и нажмите \"Enter\".",
+    //                    "Нажмите \"Browse\" и выберите hex файл для прошивки. В целях тестирования можно загрузить \"RudironTemplate.hex\".",
+    //                    "Нажмите \"Start+Run\".",
+    //                ],
+    //                installFunction: null
+    //            }]
+    //    }
+
+
     PackagesInstallTab{
-        id: tab_programmer
+        id: tab_programmer2
         visible: false
         onCheckedChanged: if (checked) {root.tabChecked(position)}
         position: 9
-        text: "Встроенный\nпрограмматор"
+        text: "Программатор"
         contentQML: "contentUI/StagesObserverUI.qml"
         enabled: true
         model: [{
                 title: text,
                 showAgain: true,
                 imagesURLList: [
-                    "qrc:/slides/programmer/2022-03-08_12-21-18.png",
-                    "qrc:/slides/programmer/2022-03-08_12-23-06.png",
-                    "qrc:/slides/programmer/2022-03-08_12-24-03.png",
-                    "qrc:/slides/programmer/2022-03-08_12-26-09.png",
-                    "qrc:/slides/programmer/2022-03-08_12-36-27.png",
+                    "qrc:/slides/programmer2/1.png",
+                    "qrc:/slides/programmer2/2.png",
                 ],
                 hintList: [
-                    "Запустите приложение \"1986WSD\" в папке \"tools/programmer\".",
-                    "Определите COM порт подключенной платы.",
-                    "Внесите номер порта от 0 до 9 и нажмите \"Enter\".",
-                    "Нажмите \"Browse\" и выберите hex файл для прошивки. В целях тестирования можно загрузить \"RudironTemplate.hex\".",
-                    "Нажмите \"Start+Run\".",
+                    "Пример вывода справки утилиты программирования.",
+                    "Пример прошивки с очисткой памяти и верификацией."
                 ],
                 installFunction: null
             }]
     }
-
 
     property int selectedPos: 0
 

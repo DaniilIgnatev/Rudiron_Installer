@@ -69,6 +69,9 @@ public:
 
     //DRIVER
 
+    static const QString cp210xBinPath;
+
+
     static const QString jlinkBinPath;
 
 

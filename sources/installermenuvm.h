@@ -119,6 +119,9 @@ public slots:
     void addCompilerVariables_Linux();
 
 
+    void installCp210x();
+
+
     void installJlink();
 
 

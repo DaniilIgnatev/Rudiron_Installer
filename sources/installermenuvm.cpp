@@ -240,6 +240,13 @@ void InstallerMenuVM::addCompilerVariables_Linux(){
 }
 
 
+void InstallerMenuVM::installCp210x()
+{
+    QString path = Distributive::absoluteComponentPath(Distributive::cp210xBinPath);
+    QDesktopServices::openUrl(QUrl("file:///" + path, QUrl::TolerantMode));
+}
+
+
 void InstallerMenuVM::installJlink()
 {
     QString path = Distributive::absoluteComponentPath(Distributive::jlinkBinPath);

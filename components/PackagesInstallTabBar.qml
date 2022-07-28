@@ -99,6 +99,8 @@ ColumnLayout{
             filtred_tabs.push(tab_programmer2)
         }
 
+        filtred_tabs.push(tab_terminal)
+
         return filtred_tabs
     }
 
@@ -479,7 +481,7 @@ ColumnLayout{
                     "Новые папки нужно добавлять в переменную \"SRC_LIST\".",
                     "Сохраняйте файл \"CMakeLists.txt\" каждый раз при изменении структуры проекта.",
                     "Во вкладке \"Терминал\" выберите \"Запуск задачи\".",
-                    "Для сборки проекта нажмите \"Выпуск: Собрать\" или CTRL+SHIFT+B.",
+                    "Для сборки проекта нажмите \"Выпуск: собрать\" или CTRL+SHIFT+B.",
                     "В папке \"build\" создадутся bin, elf и hex файлы. В терминале указывается размер сегментов прошивки.",
                     "Для прошивки контроллера запустите задачу \"Загрузить в флеш-память\".",
                     "Пример процесса прошивки.",
@@ -547,6 +549,34 @@ ColumnLayout{
                 installFunction: null
             }]
     }
+
+
+    PackagesInstallTab{
+        id: tab_terminal
+        visible: false
+        onCheckedChanged: if (checked) {root.tabChecked(position)}
+        position: 9
+        text: "Терминал"
+        contentQML: "contentUI/StagesObserverUI.qml"
+        enabled: true
+        model: [{
+                title: text,
+                showAgain: true,
+                imagesURLList: [
+                    "qrc:/slides/terminal/1.png",
+                    "qrc:/slides/terminal/2.png",
+                    "qrc:/slides/terminal/3.png",
+                ],
+                hintList: [
+                    "В комплекте с дистрибутивом поставляется терминал для обмена информацией с контроллером по UART.",
+                    "Для начала работы выберите порт во вкладке передатчик.",
+                    "После применения настроек порта можно отправлять / принимать сообщения.",
+                ],
+                installFunction: null
+            }]
+    }
+
+
 
     property int selectedPos: 0
 

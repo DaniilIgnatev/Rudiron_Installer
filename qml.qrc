@@ -105,5 +105,10 @@
         <file>slides/cp2102x/3.png</file>
         <file>slides/programmer2/1.png</file>
         <file>slides/programmer2/2.png</file>
+        <file>slides/terminal/1.png</file>
+        <file>slides/terminal/2.png</file>
+        <file>slides/terminal/3.png</file>
+        <file>slides/vscodeguide/2022-07-28_18-32-06.png</file>
+        <file>slides/vscodeguide/2022-07-28_18-14-00.png</file>
     </qresource>
 </RCC>

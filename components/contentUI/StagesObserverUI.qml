@@ -117,6 +117,7 @@ ColumnLayout{
 
         ToolTip.visible: mouseArea.isHovered
         ToolTip.text: qsTr("Открыть в новом окне")
+        ToolTip.toolTip.y: -35
 
         MouseArea {
             id: mouseArea

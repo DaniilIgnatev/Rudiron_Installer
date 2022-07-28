@@ -119,10 +119,37 @@ ColumnLayout{
     }
 
 
-    Rectangle {
+    Item {
         Layout.fillHeight: true
         Layout.fillWidth: true
-        color: "black"
+    }
+
+
+    PackagesInstallTab{
+        id: tab_cp2102
+        visible: false
+        onCheckedChanged: if (checked) {root.tabChecked(position)}
+        position: 2
+        text: "Драйвер\nCOM-порта"
+        contentQML: "contentUI/StagesObserverUI.qml"
+        enabled: true
+        model: [{
+                title: text,
+                showAgain: true,
+                imagesURLList: [
+                    "qrc:/slides/cp2102x/1.png",
+                    "qrc:/slides/cp2102x/2.png",
+                    "qrc:/slides/cp2102x/3.png"
+                ],
+                hintList: [
+                    "Нажмите \"Далее\".",
+                    "Нажмите \"Далее\".",
+                    "Нажмите \"Готово\"."
+                ],
+                installFunction: function(){
+                    installerVM.installCp210x()
+                }
+            }]
     }
 
 
@@ -185,34 +212,6 @@ ColumnLayout{
                 ],
                 installFunction: function(){
                     installerVM.runZadig()
-                }
-            }]
-    }
-
-
-    PackagesInstallTab{
-        id: tab_cp2102
-        visible: false
-        onCheckedChanged: if (checked) {root.tabChecked(position)}
-        position: 2
-        text: "Драйвер\nCOM-порта"
-        contentQML: "contentUI/StagesObserverUI.qml"
-        enabled: true
-        model: [{
-                title: text,
-                showAgain: true,
-                imagesURLList: [
-                    "qrc:/slides/cp2102x/1.png",
-                    "qrc:/slides/cp2102x/2.png",
-                    "qrc:/slides/cp2102x/3.png"
-                ],
-                hintList: [
-                    "Нажмите \"Далее\".",
-                    "Нажмите \"Далее\".",
-                    "Нажмите \"Готово\"."
-                ],
-                installFunction: function(){
-                    installerVM.installCp210x()
                 }
             }]
     }
@@ -584,10 +583,9 @@ ColumnLayout{
     }
 
 
-    Rectangle {
+    Item {
         Layout.fillHeight: true
         Layout.fillWidth: true
-        color: "black"
     }
 
 

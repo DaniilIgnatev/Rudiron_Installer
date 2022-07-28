@@ -17,6 +17,7 @@ along with RudironInstaller. If not, see <http://www.gnu.org/licenses/>.
 */
 
 import QtQuick 2.12
+import QtQuick.Controls 2.12
 import QtQml 2.12
 import QtQuick.Layouts 1.12
 
@@ -30,29 +31,48 @@ RowLayout  {
     spacing: 20
     anchors.fill: parent
 
+
     InstallerMenuVM{
         id: installerVM
     }
 
+
     property var excludePackageIDs: []
 
+
     property var filtredPackageIDs: []
+
 
     onVisibleChanged: {
         if (root.visible){
             installerVM.addPATH()
             installerVM.addCompilerVariables()
+            installerui_content.getContent().updateContent()
         }
     }
 
-    PackagesInstallTabBar {
-        id: installerui_tabbar
-        filtredPackageIDs: root.filtredPackageIDs
-        Layout.fillHeight: true
+
+    ScrollView{
         Layout.fillWidth: false
-        width: 120
+        Layout.fillHeight: true
         Layout.leftMargin: 10
+        Layout.preferredWidth: contentWidth + 20
+
+        clip: true
+        wheelEnabled: true
+
+//        ScrollBar.vertical.policy: ScrollBar.AlwaysOn
+        ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
+        ScrollBar.horizontal.interactive: false
+        ScrollBar.vertical.interactive: true
+
+        PackagesInstallTabBar {
+            id: installerui_tabbar
+            filtredPackageIDs: root.filtredPackageIDs
+            height: root.height
+        }
     }
+
 
     Item{
         id: installerui_content
@@ -79,7 +99,7 @@ RowLayout  {
                     switch (qmlStr){
                     case "contentUI/StagesObserverUI.qml":
                         component.createObject(this, {
-                                                   width: this.width,
+                                                   width: root.width - installerui_tabbar.width - 60,
                                                    height: this.height,
                                                    title: stagesModel.title,
                                                    imagesURLList: stagesModel.imagesURLList,
@@ -110,3 +130,9 @@ RowLayout  {
         }
     }
 }
+
+/*##^##
+Designer {
+    D{i:0;autoSize:true;height:480;width:640}
+}
+##^##*/

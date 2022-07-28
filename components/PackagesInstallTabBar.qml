@@ -119,6 +119,13 @@ ColumnLayout{
     }
 
 
+    Rectangle {
+        Layout.fillHeight: true
+        Layout.fillWidth: true
+        color: "black"
+    }
+
+
     PackagesInstallTab{
         id: tab_jlink
         visible: false
@@ -577,6 +584,12 @@ ColumnLayout{
     }
 
 
+    Rectangle {
+        Layout.fillHeight: true
+        Layout.fillWidth: true
+        color: "black"
+    }
+
 
     property int selectedPos: 0
 
@@ -584,7 +597,6 @@ ColumnLayout{
     onSelectedPosChanged: {
         updateContent()
     }
-
 
     function updateContent(){
         var qmlStr = root.tabs[selectedPos].contentQML
@@ -603,7 +615,6 @@ ColumnLayout{
 
 /*##^##
 Designer {
-    D{i:0;autoSize:true;formeditorZoom:0.75;height:620;width:130}D{i:1}D{i:2}D{i:3}D{i:4}
-D{i:5}D{i:6}D{i:7}D{i:8}D{i:9}
+    D{i:0;autoSize:true;formeditorZoom:0.75;height:620;width:130}
 }
 ##^##*/

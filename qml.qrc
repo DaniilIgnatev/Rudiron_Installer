@@ -61,10 +61,6 @@
         <file>slides/programmer/2022-03-08_12-26-09.png</file>
         <file>slides/programmer/2022-03-08_12-36-27.png</file>
         <file>slides/qtcreatorguide/2022-01-08_19-26-07.png</file>
-        <file>slides/qtcreatorguide/2022-01-09_13-46-53.png</file>
-        <file>slides/qtcreatorguide/2022-01-09_13-47-02.png</file>
-        <file>slides/qtcreatorguide/2022-01-09_13-47-38.png</file>
-        <file>slides/qtcreatorguide/2022-01-09_13-47-51.png</file>
         <file>slides/qtcreatorguide/2022-01-09_13-52-50.png</file>
         <file>slides/qtcreatorguide/2022-01-09_21-03-42.png</file>
         <file>slides/qtcreatorguide/2022-01-09_21-04-23.png</file>
@@ -110,5 +106,9 @@
         <file>slides/terminal/3.png</file>
         <file>slides/vscodeguide/2022-07-28_18-32-06.png</file>
         <file>slides/vscodeguide/2022-07-28_18-14-00.png</file>
+        <file>slides/jlink/2022-01-09_13-46-53.png</file>
+        <file>slides/jlink/2022-01-09_13-47-02.png</file>
+        <file>slides/jlink/2022-01-09_13-47-38.png</file>
+        <file>slides/jlink/2022-01-09_13-47-51.png</file>
     </qresource>
 </RCC>

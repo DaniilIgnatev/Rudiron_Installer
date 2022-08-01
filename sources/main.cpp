@@ -45,7 +45,7 @@ int main(int argc, char ** argv)
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 #endif
     QCoreApplication::setApplicationName("Rudiron Installer");
-    QCoreApplication::setApplicationVersion("1.1.0");
+    QCoreApplication::setApplicationVersion("1.1.1");
 
     QGuiApplication app(argc, argv);
     app.setWindowIcon(QIcon(":/icon.ico"));

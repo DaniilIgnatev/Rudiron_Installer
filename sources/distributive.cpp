@@ -66,9 +66,9 @@ QDir Distributive::componentsDir()
 
 
 #ifdef _WIN32
-const QString Distributive::cp210xBinPath = componentsDirPath + "/CP210x_Classic/VCPInstaller_x64.exe";
+const QString Distributive::cp210xBinPath = componentsDirPath + "/CP210x_Classic/CP210xVCPInstaller_x64.exe";
 #else
-const QString Distributive::cp210xBinPath = componentsDirPath + "/CP210x_Classic/VCPInstaller_x64.deb";
+const QString Distributive::cp210xBinPath = componentsDirPath + "/CP210x_Classic/CP210xVCPInstaller_x64.deb";
 #endif
 
 

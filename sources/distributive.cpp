@@ -17,6 +17,7 @@ along with RudironInstaller. If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "distributive.h"
+#include <QGuiApplication>
 
 
 Distributive::Distributive(QObject *parent) : QObject(parent)
@@ -25,29 +26,10 @@ Distributive::Distributive(QObject *parent) : QObject(parent)
 }
 
 
-QString Distributive::absoluteComponentPath(QDir componentDir)
-{
-    QString os_type = QSysInfo::kernelType();
-    QString dironPath = Distributive::dibotDir().path();
-
-    if (os_type == "darwin"){
-        dironPath = dironPath.remove("/Rudiron Installer.app/Contents/MacOS", Qt::CaseInsensitive);
-    }
-
-    dironPath = dironPath.remove("installer", Qt::CaseInsensitive);
-
-    QString componentPath = componentDir.path();
-    QString fixedComponentPath = componentPath.remove("../");
-
-    QString fullPath = QDir::toNativeSeparators(dironPath + "/" + fixedComponentPath);
-    return fullPath;
-}
-
-
 QString Distributive::absoluteComponentPath(QString componentPath)
 {
     QString os_type = QSysInfo::kernelType();
-    QString dironPath = Distributive::dibotDir().path();
+    QString dironPath = Distributive::appDirAbsolutePath();
 
     if (os_type == "darwin"){
         dironPath = dironPath.remove("/Rudiron Installer.app/Contents/MacOS", Qt::CaseInsensitive);
@@ -65,9 +47,9 @@ QString Distributive::absoluteComponentPath(QString componentPath)
 const QString Distributive::debugPath =  "debug";
 
 
-QDir Distributive::dibotDir()
+QString Distributive::appDirAbsolutePath()
 {
-    return QDir::current();
+    return QGuiApplication::applicationDirPath();
 }
 
 

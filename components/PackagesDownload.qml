@@ -130,7 +130,7 @@ ColumnLayout{
 
                 Label {
                     id: label_fetchngPackages
-                    text: "Устанавливается соединение с сервером..."
+                    text: "Ожидание ответа от сервера..."
                     horizontalAlignment: Text.AlignHCenter
                     topPadding: 10
                     font.italic: false

@@ -79,14 +79,15 @@ void InstallerMenuVM::setPythonInstalled(bool value)
     emit pythonInstalledChanged();
 }
 
-
-QString InstallerMenuVM::printPathes()
+QStringList InstallerMenuVM::get_PATH_elements()
 {
-    QString qtprojectDir = this->qtCreatorOptions->qtprojectDir.path();
-    QString qtcreatorDir = this->qtCreatorOptions->qtcreatorDir.path();
+    QString gccFullPath = Distributive::absoluteComponentPath(Distributive::gccBinDirPath);
+    QString openocdFullPath = Distributive::absoluteComponentPath(Distributive::openocd_binDirPath);
+    QString cmakeFullPath = Distributive::absoluteComponentPath(Distributive::cmake_binDirPath);
+    QString programmerFullPath = Distributive::absoluteComponentPath(Distributive::programmerDirPath);
+    QString terminalFullPath = Distributive::absoluteComponentPath(Distributive::terminalDirPath);
 
-    QString pathes = qtprojectDir.append("\n").append(qtcreatorDir);
-    return pathes;
+    return { Distributive::appDirAbsolutePath(), gccFullPath, openocdFullPath, cmakeFullPath, programmerFullPath, terminalFullPath};
 }
 
 
@@ -111,35 +112,12 @@ void InstallerMenuVM::addPATH_Windows(){
 
     QString appendPath = "";
 
-    QString gccFullPath = Distributive::absoluteComponentPath(Distributive::gccBinDirPath);
-    if (!path_current.contains(gccFullPath)){
-        appendPath.append(";");
-        appendPath.append(gccFullPath);
-    }
-
-    QString openocdFullPath = Distributive::absoluteComponentPath(Distributive::openocd_binDirPath);
-    if (!path_current.contains(openocdFullPath)){
-        appendPath.append(";");
-        appendPath.append(openocdFullPath);
-
-    }
-
-    QString cmakeFullPath = Distributive::absoluteComponentPath(Distributive::cmake_binDirPath);
-    if (!path_current.contains(cmakeFullPath)){
-        appendPath.append(";");
-        appendPath.append(cmakeFullPath);
-    }
-
-    QString programmerFullPath = Distributive::absoluteComponentPath(Distributive::programmerDirPath);
-    if (!path_current.contains(programmerFullPath)){
-        appendPath.append(";");
-        appendPath.append(programmerFullPath);
-    }
-
-    QString terminalFullPath = Distributive::absoluteComponentPath(Distributive::terminalDirPath);
-    if (!path_current.contains(terminalFullPath)){
-        appendPath.append(";");
-        appendPath.append(terminalFullPath);
+    QStringList pathes = get_PATH_elements();
+    foreach (auto path, pathes) {
+        if (!path_current.contains(path)){
+            appendPath.append(";");
+            appendPath.append(path);
+        }
     }
 
     qDebug() << "\nAppend Path: " << appendPath;
@@ -167,35 +145,12 @@ void InstallerMenuVM::addPATH_Unix(QString rcFileName){
 
     QString appendPath = "";
 
-    QString gccFullPath = Distributive::absoluteComponentPath(Distributive::gccBinDirPath);
-    if (!currect_bashrc.contains(gccFullPath)){
-        appendPath.append(":");
-        appendPath.append(gccFullPath);
-    }
-
-    QString openocdFullPath = Distributive::absoluteComponentPath(Distributive::openocd_binDirPath);
-    if (!currect_bashrc.contains(openocdFullPath)){
-        appendPath.append(":");
-        appendPath.append(openocdFullPath);
-
-    }
-
-    QString cmakeFullPath = Distributive::absoluteComponentPath(Distributive::cmake_binDirPath);
-    if (!currect_bashrc.contains(cmakeFullPath)){
-        appendPath.append(":");
-        appendPath.append(cmakeFullPath);
-    }
-
-    QString programmerFullPath = Distributive::absoluteComponentPath(Distributive::programmerDirPath);
-    if (!currect_bashrc.contains(programmerFullPath)){
-        appendPath.append(":");
-        appendPath.append(programmerFullPath);
-    }
-
-    QString terminalFullPath = Distributive::absoluteComponentPath(Distributive::terminalDirPath);
-    if (!currect_bashrc.contains(terminalFullPath)){
-        appendPath.append(":");
-        appendPath.append(terminalFullPath);
+    QStringList pathes = get_PATH_elements();
+    foreach (auto path, pathes) {
+        if (!currect_bashrc.contains(path)){
+            appendPath.append(":");
+            appendPath.append(path);
+        }
     }
 
     qDebug() << "\nAppend Path: " << appendPath;
@@ -225,8 +180,8 @@ void InstallerMenuVM::addCompilerVariables()
     QtConcurrent::run(QThreadPool::globalInstance(), [=](){
 #ifdef _WIN32
         addCombilerVariables_Windows();
-#elif __linux__
-        addCombilerVariables_Linux();
+#else
+        addCompilerVariables_Unix();
 #endif
     });
 }
@@ -261,7 +216,7 @@ void InstallerMenuVM::addCombilerVariables_Windows(){
 }
 
 
-void InstallerMenuVM::addCompilerVariables_Linux(){
+void InstallerMenuVM::addCompilerVariables_Unix(){
 
 }
 
@@ -335,10 +290,21 @@ void InstallerMenuVM::addKit()
     this->qtCreatorOptions->addKit();
 }
 
+
 void InstallerMenuVM::install(QString destination, QString uri)
 {
     QString path = Distributive::absoluteComponentPath(destination + "/" + uri);
     QDesktopServices::openUrl(QUrl("file:///" + path, QUrl::TolerantMode));
+}
+
+
+bool InstallerMenuVM::isDebug()
+{
+#ifdef QT_DEBUG
+    return true;
+#else
+    return false;
+#endif
 }
 
 

@@ -36,14 +36,11 @@ public:
 
     //DIBOT
 
-
-    static QString absoluteComponentPath(QDir componentDir);
-
-
     static QString absoluteComponentPath(QString componentPath);
 
 
-    static QDir dibotDir();
+    ///Путь до папки с исполняемым файлом установщика
+    static QString appDirAbsolutePath();
 
 
 

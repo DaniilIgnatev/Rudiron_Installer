@@ -110,5 +110,7 @@
         <file>slides/jlink/2022-01-09_13-47-02.png</file>
         <file>slides/jlink/2022-01-09_13-47-38.png</file>
         <file>slides/jlink/2022-01-09_13-47-51.png</file>
+        <file>components/DebugInfo.qml</file>
+        <file>slides/programmer2/0.png</file>
     </qresource>
 </RCC>

@@ -63,25 +63,41 @@ ColumnLayout{
         clip: true
         wheelEnabled: true
 
-//        ScrollBar.vertical.policy: ScrollBar.AlwaysOn
+//      ScrollBar.vertical.policy: ScrollBar.AlwaysOn
         ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
         ScrollBar.horizontal.interactive: false
         ScrollBar.vertical.interactive: true
 
+        ColumnLayout{
+            anchors.fill: parent
+
             Text {
                 id: textbox
-                anchors.fill: parent
+
+                Layout.fillHeight: true
+                Layout.fillWidth: true
+
                 topPadding: 15
                 bottomPadding: 15
                 leftPadding: 15
 
                 text: file_system_api.getFileContent(":/components/contentUI/overview.html")
-                font.pointSize: 10
+                font.pointSize: 12
                 font.family: "Arial"
                 wrapMode: Text.WordWrap
                 fontSizeMode: Text.Fit
                 textFormat: Text.RichText
             }
+
+            DebugInfo{
+                id: debugInfo
+                Layout.leftMargin: 15
+
+                Layout.fillHeight: true
+                Layout.fillWidth: true
+                Layout.minimumHeight: 50
+            }
+        }
     }
 
     Item{

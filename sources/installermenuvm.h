@@ -98,7 +98,7 @@ signals:
 public slots:
 
 
-    QString printPathes();
+    QStringList get_PATH_elements();
 
 
     void addPATH();
@@ -116,7 +116,7 @@ public slots:
     void addCombilerVariables_Windows();
 
 
-    void addCompilerVariables_Linux();
+    void addCompilerVariables_Unix();
 
 
     void installCp210x();
@@ -153,6 +153,9 @@ public slots:
 
 
     void install(QString destination, QString uri);
+
+
+    bool isDebug();
 
 };
 

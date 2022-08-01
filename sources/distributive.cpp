@@ -65,13 +65,19 @@ QDir Distributive::componentsDir()
 }
 
 
+#ifdef _WIN32
+const QString Distributive::cp210xBinPath = componentsDirPath + "/CP210x_Classic/VCPInstaller_x64.exe";
+#else
 const QString Distributive::cp210xBinPath = componentsDirPath + "/CP210x_Classic/VCPInstaller_x64.deb";
+#endif
 
 
 #ifdef _WIN32
 const QString Distributive::jlinkBinPath = componentsDirPath + "/JLink.exe";
-#else
+#elif __linux__
 const QString Distributive::jlinkBinPath = componentsDirPath + "/JLink.deb";
+#elif __APPLE__
+const QString Distributive::jlinkBinPath = componentsDirPath + "/JLink.pkg";
 #endif
 
 

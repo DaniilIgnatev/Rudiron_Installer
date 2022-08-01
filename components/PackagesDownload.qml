@@ -44,6 +44,11 @@ ColumnLayout{
 
     property int packagesToDownload: -1
 
+    onPackagesToDownloadChanged: {
+        console.log("onPackagesToDownloadChanged")
+        console.log(packagesToDownload)
+    }
+
     Connections{
         target: PackagesDownloader
         onSourceFetched: {
@@ -62,7 +67,11 @@ ColumnLayout{
             root.filtredPackageIDs = PackagesDownloader.getFiltredPackagesIDs(root.excludePackageIDs)
             console.log("Filtred packages: ", root.filtredPackageIDs)
             var descriptors = PackagesDownloader.getPackages(root.excludePackageIDs)
-            packagesToDownload = descriptors.count()
+
+            if (descriptors.count() !== 0){
+                packagesToDownload = descriptors.count()
+            }
+
             descriptors_ui.model = descriptors
         }
     }
@@ -85,6 +94,60 @@ ColumnLayout{
         wrapMode: Text.Wrap
         fontSizeMode: Text.Fit
         textFormat: Text.RichText
+    }
+
+    RowLayout {
+        id: rowLayout
+        visible: packagesToDownload === -1
+
+        Layout.fillWidth: true
+        Layout.fillHeight: true
+
+        Layout.leftMargin: 15
+        Layout.rightMargin: 15
+
+        Item{
+            Layout.fillWidth: true
+        }
+
+
+        ColumnLayout{
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+
+            Item{
+                Layout.fillHeight: true
+            }
+
+            RowLayout {
+                BusyIndicator {
+                    id: busyIndicator
+                    Layout.fillHeight: false
+                    Layout.preferredWidth: 50
+                    Layout.topMargin: 13
+                    running: true
+                }
+
+                Label {
+                    id: label_fetchngPackages
+                    text: "Устанавливается соединение с сервером..."
+                    horizontalAlignment: Text.AlignHCenter
+                    topPadding: 10
+                    font.italic: false
+                    font.pointSize: 16
+                    font.bold: false
+                }
+            }
+
+            Item{
+                Layout.fillHeight: true
+            }
+        }
+
+
+        Item{
+            Layout.fillWidth: true
+        }
     }
 
     Component {
@@ -239,9 +302,8 @@ ColumnLayout{
     }
 }
 
-
 /*##^##
 Designer {
-    D{i:0;autoSize:true;formeditorZoom:0.6600000262260437;height:480;width:640}
+    D{i:0;autoSize:true;formeditorZoom:0.75;height:480;width:2000}
 }
 ##^##*/

@@ -77,17 +77,13 @@ const QString Distributive::componentsDirPath = "../components";
 const QString Distributive::svdFilePath = componentsDirPath + "/MDR32F9Q1.svd";
 
 
-QDir Distributive::softDir()
+QDir Distributive::componentsDir()
 {
     return QDir(componentsDirPath);
 }
 
 
-#ifdef _WIN32
-const QString Distributive::cp210xBinPath = componentsDirPath + "/CP210x_Classic/CP210xVCPInstaller_x64.exe";
-#else
-const QString Distributive::cp2102BinPath = componentsDirPath + "/CP210x_Classic/VCPInstaller_x64.deb";
-#endif
+const QString Distributive::cp210xBinPath = componentsDirPath + "/CP210x_Classic/VCPInstaller_x64.deb";
 
 
 #ifdef _WIN32
@@ -225,4 +221,26 @@ const QString Distributive::gccBinPath = gccBinDirPath + "/arm-none-eabi-gcc";
 const QString Distributive::gppBinPath = gccBinDirPath + "/arm-none-eabi-g++.exe";
 #else
 const QString Distributive::gppBinPath = gccBinDirPath + "/arm-none-eabi-g++";
+#endif
+
+
+const QString Distributive::toolsDirPath = "../tools";
+
+
+QDir Distributive::toolsDir(){
+    return QDir(Distributive::toolsDirPath);;
+}
+
+
+#if __APPLE__
+const QString Distributive::programmerDirPath = toolsDirPath + "/Rudiron Programmer.app/Contents/MacOS";
+#else
+const QString Distributive::programmerDirPath = toolsDirPath + "/Rudiron Programmer";
+#endif
+
+
+#if __APPLE__
+const QString Distributive::terminalDirPath = toolsDirPath + "/Rudiron Terminal.app/Contents/MacOS";
+#else
+const QString Distributive::terminalDirPath = toolsDirPath + "/Rudiron Terminal";
 #endif

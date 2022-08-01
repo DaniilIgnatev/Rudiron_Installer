@@ -59,12 +59,12 @@ public:
 
 
 
-    //SOFT
+    //COMPONENTS
 
     static const QString componentsDirPath;
 
 
-    static QDir softDir();
+    static QDir componentsDir();
 
 
     //DRIVER
@@ -176,6 +176,20 @@ public:
 
 
     static const QString gppBinPath;
+
+
+    //TOOLS
+
+    static const QString toolsDirPath;
+
+
+    static QDir toolsDir();
+
+
+    static const QString programmerDirPath;
+
+
+    static const QString terminalDirPath;
 
 };
 

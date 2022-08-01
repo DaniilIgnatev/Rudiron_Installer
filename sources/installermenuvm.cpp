@@ -96,7 +96,9 @@ void InstallerMenuVM::addPATH()
 #ifdef _WIN32
         addPATH_Windows();
 #elif __linux__
-        addPATH_Linux();
+        addPATH_Linux("/.bashrc");
+#elif __APPLE__
+        addPATH_Unix("/.zshrc");
 #endif
     });
 }
@@ -128,6 +130,18 @@ void InstallerMenuVM::addPATH_Windows(){
         appendPath.append(cmakeFullPath);
     }
 
+    QString programmerFullPath = Distributive::absoluteComponentPath(Distributive::programmerDirPath);
+    if (!path_current.contains(programmerFullPath)){
+        appendPath.append(";");
+        appendPath.append(programmerFullPath);
+    }
+
+    QString terminalFullPath = Distributive::absoluteComponentPath(Distributive::terminalDirPath);
+    if (!path_current.contains(terminalFullPath)){
+        appendPath.append(";");
+        appendPath.append(terminalFullPath);
+    }
+
     qDebug() << "\nAppend Path: " << appendPath;
 
     if (!appendPath.isEmpty()){
@@ -143,8 +157,8 @@ void InstallerMenuVM::addPATH_Windows(){
 }
 
 
-void InstallerMenuVM::addPATH_Linux(){
-    QString bashrc_path = QDir::toNativeSeparators(QDir::homePath() + "/.bashrc");
+void InstallerMenuVM::addPATH_Unix(QString rcFileName){
+    QString bashrc_path = QDir::toNativeSeparators(QDir::homePath() + rcFileName);
     QFile *bashrc_file = new QFile(bashrc_path);
     bashrc_file->open(QIODevice::ReadOnly);
     QString currect_bashrc = bashrc_file->readAll();
@@ -170,6 +184,18 @@ void InstallerMenuVM::addPATH_Linux(){
     if (!currect_bashrc.contains(cmakeFullPath)){
         appendPath.append(":");
         appendPath.append(cmakeFullPath);
+    }
+
+    QString programmerFullPath = Distributive::absoluteComponentPath(Distributive::programmerDirPath);
+    if (!currect_bashrc.contains(programmerFullPath)){
+        appendPath.append(":");
+        appendPath.append(programmerFullPath);
+    }
+
+    QString terminalFullPath = Distributive::absoluteComponentPath(Distributive::terminalDirPath);
+    if (!currect_bashrc.contains(terminalFullPath)){
+        appendPath.append(":");
+        appendPath.append(terminalFullPath);
     }
 
     qDebug() << "\nAppend Path: " << appendPath;

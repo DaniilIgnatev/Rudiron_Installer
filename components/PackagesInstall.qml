@@ -47,7 +47,6 @@ RowLayout  {
         if (root.visible){
             installerVM.addPATH()
             installerVM.addCompilerVariables()
-            installerui_content.getContent().updateContent()
         }
     }
 

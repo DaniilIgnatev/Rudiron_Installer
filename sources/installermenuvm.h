@@ -107,7 +107,7 @@ public slots:
     void addPATH_Windows();
 
 
-    void addPATH_Linux();
+    void addPATH_Unix(QString rcFileName);
 
 
     void addCompilerVariables();

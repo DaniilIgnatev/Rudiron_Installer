@@ -87,7 +87,7 @@ QStringList InstallerMenuVM::get_PATH_elements()
     QString programmerFullPath = Distributive::absoluteComponentPath(Distributive::programmerDirPath);
     QString terminalFullPath = Distributive::absoluteComponentPath(Distributive::terminalDirPath);
 
-    return { Distributive::appDirAbsolutePath(), gccFullPath, openocdFullPath, cmakeFullPath, programmerFullPath, terminalFullPath};
+    return { gccFullPath, openocdFullPath, cmakeFullPath, programmerFullPath, terminalFullPath};
 }
 
 
@@ -107,30 +107,55 @@ void InstallerMenuVM::addPATH()
 
 void InstallerMenuVM::addPATH_Windows(){
     QSettings registry("HKEY_CURRENT_USER\\Environment", QSettings::NativeFormat);
-    QString path_current = registry.value("Path", "").toString();
-    qDebug() << "\nCurrent Path: " << path_current;
+    QString RD_current = registry.value("RudironDistributive", "").toString();
+    qDebug() << "\nCurrent RudironDistributive: " << RD_current;
 
-    QString appendPath = "";
+    QString appendRD = "";
 
     QStringList pathes = get_PATH_elements();
     foreach (auto path, pathes) {
-        if (!path_current.contains(path)){
-            appendPath.append(";");
-            appendPath.append(path);
+        if (appendRD != ""){
+            appendRD.append(";");
+        }
+
+        if (path != "" && path != ";"){
+            appendRD.append(path);
         }
     }
 
-    qDebug() << "\nAppend Path: " << appendPath;
+    qDebug() << "\nAppend RudironDistributive: " << appendRD;
 
-    if (!appendPath.isEmpty()){
-        QString newPath = path_current + appendPath;
-        qDebug() << "\nNew Path: " << newPath;
+    if (!appendRD.isEmpty()){
+        QString newRD = appendRD;
+        qDebug() << "\nNew RudironDistributive: " << newRD;
 
-        QProcess *process = new QProcess;
         QString prog = "setx";
-        QStringList args{"PATH", newPath};
-        process->start(prog, args);
-        process->waitForFinished();
+        QProcess *process_RD = new QProcess;
+        QStringList args{"RudironDistributive", newRD};
+        process_RD->start(prog, args);
+        process_RD->waitForFinished();
+        process_RD->deleteLater();
+
+
+        QSettings registry("HKEY_CURRENT_USER\\Environment", QSettings::NativeFormat);
+        QString path_value = registry.value("Path", "").toString();
+        qDebug() << "\nCurrent Path: " << path_value;
+
+        if (!path_value.contains("%RudironDistributive%")){
+            if (path_value != ""){
+                path_value.append(";%RudironDistributive%");
+            }
+            else{
+                path_value.append("%RudironDistributive%");
+            }
+        }
+
+        qDebug() << "\nNew Path value: " << path_value;
+        QProcess *process_path = new QProcess;
+        QStringList args_path{"Path", path_value };
+        process_path->start(prog, args_path);
+        process_path->waitForFinished();
+        process_path->deleteLater();
     }
 }
 

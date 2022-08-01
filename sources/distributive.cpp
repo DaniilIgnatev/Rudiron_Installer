@@ -49,7 +49,12 @@ const QString Distributive::debugPath =  "debug";
 
 QString Distributive::appDirAbsolutePath()
 {
-    return QGuiApplication::applicationDirPath();
+    QString path = QGuiApplication::applicationDirPath();
+    if (path.endsWith('/') || path.endsWith('\\')){
+        path = path.remove(path.count() - 1);
+    }
+
+    return path;
 }
 
 

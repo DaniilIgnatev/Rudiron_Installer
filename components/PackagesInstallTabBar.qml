@@ -439,10 +439,16 @@ ColumnLayout{
                 imagesURLList: [
                     "qrc:/slides/vscodetoolchain/2022-03-06_19-57-18.png",
                     "qrc:/slides/vscodetoolchain/2022-03-06_19-57-43.png",
+                    "qrc:/slides/vscodetoolchain/2022-08-18 в 16.49.54.png",
+                    "qrc:/slides/vscodetoolchain/2022-08-18 в 16.50.07.png",
+                    "qrc:/slides/vscodetoolchain/2022-08-18 в 16.51.25.png",
                 ],
                 hintList: [
                     "Установите расширение \"C/C++\".",
                     "Установите расширение \"Cortex-Debug\".",
+                    "Установите расширение \"CMake\".",
+                    "Установите расширение \"CMake-Tools\".",
+                    "Установите расширение \"CMake Language Support\".",
                 ],
                 installFunction: null
             }]

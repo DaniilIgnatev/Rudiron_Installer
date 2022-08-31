@@ -20,6 +20,7 @@ import QtQuick 2.12
 import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
 import QtQuick.Window 2.2
+import QtQml 2.12
 
 import "contentUI"
 
@@ -69,6 +70,13 @@ Window {
                     x = 0
                     y = 0
                     rotation = 0
+                }
+
+                focus: true
+
+                Keys.enabled: true
+                Keys.onEscapePressed: {
+                    imagewindow_root.close()
                 }
 
                 Image {

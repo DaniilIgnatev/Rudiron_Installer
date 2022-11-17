@@ -101,6 +101,9 @@ public slots:
     QStringList get_PATH_elements();
 
 
+    QString get_ArduinoLibrary_Path();
+
+
     void addPATH();
 
 

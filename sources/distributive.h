@@ -188,6 +188,14 @@ public:
 
     static const QString terminalDirPath;
 
+
+    //ARDUINO_CORE_RUDIRON
+
+    static const QString arduino_core_rudiron_DirPath;
+
+
+    static QDir Arduino_Core_Rudiron_Dir();
+
 };
 
 #endif // DISTRIBUTIVE_H

@@ -63,7 +63,7 @@ ColumnLayout{
         clip: true
         wheelEnabled: true
 
-//      ScrollBar.vertical.policy: ScrollBar.AlwaysOn
+        //      ScrollBar.vertical.policy: ScrollBar.AlwaysOn
         ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
         ScrollBar.horizontal.interactive: false
         ScrollBar.vertical.interactive: true
@@ -113,6 +113,24 @@ ColumnLayout{
         Layout.leftMargin: 0
         Layout.rightMargin: 15
 
+        ColumnLayout{
+            Layout.fillHeight: true
+
+            Item{
+                Layout.fillHeight: true
+            }
+
+            Text {
+                text: qsTr("Версия " + Qt.application.version)
+                font.pixelSize: 8
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignBottom
+                leftPadding: 15
+            }
+        }
+
+
+
         Item{
             Layout.fillWidth: true
         }
@@ -124,13 +142,13 @@ ColumnLayout{
                 intro_root.buttonNext()
             }
         }
+
     }
 }
 
 
 /*##^##
 Designer {
-    D{i:0;autoSize:true;height:480;width:640}D{i:1}D{i:3}D{i:5}D{i:4}D{i:2}D{i:6}D{i:8}
-D{i:9}D{i:7}
+    D{i:0;autoSize:true;height:480;width:640}
 }
 ##^##*/

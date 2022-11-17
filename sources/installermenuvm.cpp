@@ -90,6 +90,12 @@ QStringList InstallerMenuVM::get_PATH_elements()
     return { gccFullPath, openocdFullPath, cmakeFullPath, programmerFullPath, terminalFullPath};
 }
 
+QString InstallerMenuVM::get_ArduinoLibrary_Path()
+{
+    QString rudironLibPath = Distributive::absoluteComponentPath(Distributive::arduino_core_rudiron_DirPath);
+    return rudironLibPath;
+}
+
 
 void InstallerMenuVM::addPATH()
 {
@@ -97,7 +103,7 @@ void InstallerMenuVM::addPATH()
 #ifdef _WIN32
         addPATH_Windows();
 #elif __linux__
-        addPATH_Linux("/.bashrc");
+        addPATH_Unix("/.bashrc");
 #elif __APPLE__
         addPATH_Unix("/.zshrc");
 #endif
@@ -136,7 +142,6 @@ void InstallerMenuVM::addPATH_Windows(){
         process_RD->waitForFinished();
         process_RD->deleteLater();
 
-
         QSettings registry("HKEY_CURRENT_USER\\Environment", QSettings::NativeFormat);
         QString path_value = registry.value("Path", "").toString();
         qDebug() << "\nCurrent Path: " << path_value;
@@ -157,6 +162,18 @@ void InstallerMenuVM::addPATH_Windows(){
         process_path->waitForFinished();
         process_path->deleteLater();
     }
+
+    QString libraryPath = get_ArduinoLibrary_Path();
+    QString LP_current = registry.value("Arduino_Core_Rudiron_Path", "").toString();
+    qDebug() << "\nCurrent rudiron library path: " << LP_current;
+    QString LP_new = libraryPath;
+    qDebug() << "\nNew rudiron library path: " << LP_new;
+    QString prog = "setx";
+    QProcess *process_RD = new QProcess;
+    QStringList args{"Arduino_Core_Rudiron_Path", LP_new};
+    process_RD->start(prog, args);
+    process_RD->waitForFinished();
+    process_RD->deleteLater();
 }
 
 

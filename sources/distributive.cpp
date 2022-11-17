@@ -221,7 +221,7 @@ const QString Distributive::toolsDirPath = "../tools";
 
 
 QDir Distributive::toolsDir(){
-    return QDir(Distributive::toolsDirPath);;
+    return QDir(Distributive::toolsDirPath);
 }
 
 
@@ -237,3 +237,13 @@ const QString Distributive::terminalDirPath = toolsDirPath + "/Rudiron Terminal.
 #else
 const QString Distributive::terminalDirPath = toolsDirPath + "/Rudiron Terminal";
 #endif
+
+
+//ARDUINO_CORE_RUDIRON
+
+const QString Distributive::arduino_core_rudiron_DirPath = "../Arduino_Core_Rudiron";
+
+
+QDir Distributive::Arduino_Core_Rudiron_Dir(){
+    return QDir(Distributive::arduino_core_rudiron_DirPath);
+}

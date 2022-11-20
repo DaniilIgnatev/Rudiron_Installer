@@ -5,7 +5,6 @@ QT += widgets
 QT += gui
 
 DEFINES += QUAZIP_STATIC
-DEFINES += QTAWS_STATIC
 
 macx{
     ICON = icon.icns
@@ -18,14 +17,13 @@ INCLUDEPATH += "sources"
 INCLUDEPATH += "sources/zlib-1.2.11"
 INCLUDEPATH += "sources/quazip-0.7.3"
 
-# windows
+# crash handler
 win32 {
+    DEFINES += WIN_CRASH_HANDLER
     include($$PWD/sources/QCrashHandler-master/src/qcrashhandler.pri)
 
     CONFIG(debug, debug|release) {
-
     } else {
-
         # create debug symbols for release builds
         CONFIG *= force_debug_info
         QMAKE_CXXFLAGS_RELEASE_WITH_DEBUGINFO -= -O2

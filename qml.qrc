@@ -38,21 +38,6 @@
         <file>slides/vscodeinstall/2022-03-06_19-53-27.png</file>
         <file>slides/vscodeinstall/2022-03-06_19-55-44.png</file>
         <file>slides/vscodeinstall/2022-03-06_19-56-31.png</file>
-        <file>slides/vscodeguide/2022-03-06_20-23-35.png</file>
-        <file>slides/vscodeguide/2022-03-06_20-28-22.png</file>
-        <file>slides/vscodeguide/2022-03-06_20-29-07.png</file>
-        <file>slides/vscodeguide/2022-03-06_20-44-41.png</file>
-        <file>slides/vscodeguide/2022-03-06_20-45-34.png</file>
-        <file>slides/vscodeguide/2022-03-06_20-46-38.png</file>
-        <file>slides/vscodeguide/2022-03-06_20-54-41.png</file>
-        <file>slides/vscodeguide/2022-03-06_20-55-06.png</file>
-        <file>slides/vscodeguide/2022-03-06_21-00-36.png</file>
-        <file>slides/vscodeguide/2022-03-07_18-32-15.png</file>
-        <file>slides/vscodeguide/2022-03-07_18-34-06.png</file>
-        <file>slides/vscodeguide/2022-03-07_18-35-33.png</file>
-        <file>slides/vscodeguide/2022-03-07_18-36-16.png</file>
-        <file>slides/vscodeguide/2022-03-07_18-37-13.png</file>
-        <file>slides/vscodeguide/2022-03-07_18-38-11.png</file>
         <file>slides/programmer/2022-03-08_12-21-18.png</file>
         <file>slides/programmer/2022-03-08_12-23-06.png</file>
         <file>slides/programmer/2022-03-08_12-24-03.png</file>
@@ -102,8 +87,6 @@
         <file>slides/terminal/1.png</file>
         <file>slides/terminal/2.png</file>
         <file>slides/terminal/3.png</file>
-        <file>slides/vscodeguide/2022-07-28_18-32-06.png</file>
-        <file>slides/vscodeguide/2022-07-28_18-14-00.png</file>
         <file>slides/jlink/2022-01-09_13-46-53.png</file>
         <file>slides/jlink/2022-01-09_13-47-02.png</file>
         <file>slides/jlink/2022-01-09_13-47-38.png</file>
@@ -112,5 +95,20 @@
         <file>slides/programmer2/0.png</file>
         <file>slides/vscodetoolchain/2022-08-27 at 22.02.44.png</file>
         <file>slides/vscodetoolchain/2022-08-27 at 22.09.01.png</file>
+        <file>slides/vscodeguide/build.png</file>
+        <file>slides/vscodeguide/debug.png</file>
+        <file>slides/vscodeguide/flash.png</file>
+        <file>slides/vscodeguide/flash_output.png</file>
+        <file>slides/vscodeguide/lists.png</file>
+        <file>slides/vscodeguide/open.png</file>
+        <file>slides/vscodeguide/output.png</file>
+        <file>slides/vscodeguide/registers.png</file>
+        <file>slides/vscodeguide/registers_binary.png</file>
+        <file>slides/vscodeguide/registers_bit.png</file>
+        <file>slides/vscodeguide/registers_edit.png</file>
+        <file>slides/vscodeguide/registers_rmb.png</file>
+        <file>slides/vscodeguide/terminal.png</file>
+        <file>slides/vscodeguide/toolkit.png</file>
+        <file>slides/vscodeguide/toolkit2.png</file>
     </qresource>
 </RCC>

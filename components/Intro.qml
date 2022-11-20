@@ -31,6 +31,12 @@ ColumnLayout{
 
     signal buttonNext
 
+    function isDistributivePathLatin(){
+        console.log(DistributivePath)
+        console.log(/^[a-zA-Z\s., -_]+$/.test(DistributivePath))
+        return /^[a-zA-Z\s., -_]+$/.test(DistributivePath)
+    }
+
     Text {
         color: "#e35b00"
         Layout.fillWidth: true
@@ -121,7 +127,7 @@ ColumnLayout{
             }
 
             Text {
-                text: qsTr("Версия " + Qt.application.version)
+                text: qsTr("Версия ") + Qt.application.version
                 font.pixelSize: 8
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignBottom
@@ -129,7 +135,17 @@ ColumnLayout{
             }
         }
 
+        Item{
+            Layout.fillWidth: true
+        }
 
+        Text {
+            text: intro_root.isDistributivePathLatin() ? "" : qsTr("Путь к дистрибутиву должен содержать только латинские символы!")
+            font.pixelSize: 14
+            color: "red"
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
+        }
 
         Item{
             Layout.fillWidth: true
@@ -137,12 +153,11 @@ ColumnLayout{
 
         ButtonStyled{
             text: "Далее"
-            enabled: true
+            enabled: intro_root.isDistributivePathLatin()
             onPressed: {
                 intro_root.buttonNext()
             }
         }
-
     }
 }
 

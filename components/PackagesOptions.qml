@@ -188,19 +188,20 @@ ColumnLayout{
                 Layout.fillWidth: true
                 RadioButton {
                     id: radio3
-                    text: "Вариант установки с Visual Studio Code (для большинства пользователей)"
+                    text: "Вариант установки с Visual Studio Code"
+                    //text: "Вариант установки с Visual Studio Code (для большинства пользователей)"
                     Layout.fillWidth: true
                     checked: true
                     font.family: "Arial"
                 }
 
-                RadioButton {
-                    id: radio4
-                    text: "Вариант установки с IDE QtCreator (для продвинутых пользователей)"
-                    Layout.fillWidth: true
-                    checked: false
-                    font.family: "Arial"
-                }
+//                RadioButton {
+//                    id: radio4
+//                    text: "Вариант установки с IDE QtCreator (для продвинутых пользователей)"
+//                    Layout.fillWidth: true
+//                    checked: false
+//                    font.family: "Arial"
+//                }
             }
 
             Item {

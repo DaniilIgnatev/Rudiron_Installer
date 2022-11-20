@@ -23,8 +23,9 @@ along with RudironInstaller. If not, see <http://www.gnu.org/licenses/>.
 #include <QQuickWindow>
 #include <QSurfaceFormat>
 #include <QQuickStyle>
+#include <QQmlContext>
 
-#ifdef _WIN32
+#if defined(WIN_CRASH_HANDLER)
 #include "QCrashHandler"
 #endif
 
@@ -45,12 +46,12 @@ int main(int argc, char ** argv)
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 #endif
     QCoreApplication::setApplicationName("Rudiron Installer");
-    QCoreApplication::setApplicationVersion("1.1.2");
+    QCoreApplication::setApplicationVersion("1.1.3");
 
     QGuiApplication app(argc, argv);
     app.setWindowIcon(QIcon(":/icon.ico"));
 
-#ifdef _WIN32
+#if defined(WIN_CRASH_HANDLER)
     Breakpad::CrashHandler::instance()->Init(qApp->applicationDirPath());
 #endif
     // Register our component type with QML.
@@ -64,6 +65,7 @@ int main(int argc, char ** argv)
     qRegisterMetaType<QList<PackageDescriptor*>>("QList<PackageDescriptor*>");
 
     QQmlApplicationEngine engine;
+    engine.rootContext()->setContextProperty("DistributivePath", Distributive::appDirAbsolutePath());
     QObject::connect(&engine, SIGNAL(quit()), QCoreApplication::instance(), SLOT(quit()));
 
     QQmlComponent *component = new QQmlComponent(&engine);

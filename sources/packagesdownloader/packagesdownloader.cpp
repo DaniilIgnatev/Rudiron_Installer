@@ -64,7 +64,7 @@ QObject *PackagesDownloader::qmlInstance(QQmlEngine *engine, QJSEngine *scriptEn
 
 void PackagesDownloader::fetchSource()
 {
-    QNetworkReply* reply = WebAPI::instance()->request(QUrl("http://95.104.194.120:25564/sources.json"));
+    QNetworkReply* reply = WebAPI::instance()->request(QUrl("http://советскийинженер.рф/rudiron/distr/components/sources.json"));
     connect(reply, &QNetworkReply::finished, this, [=]{
         QString json_string = reply->readAll();
         parseSources(json_string);
